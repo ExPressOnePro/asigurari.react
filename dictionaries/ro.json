@@ -1,0 +1,35 @@
+{
+  "navigation": {
+    "home": "Acasă",
+    "rca": "Asigurare RCA",
+    "greencard": "Card Verde",
+    "medical": "Asigurare Medicală"
+  },
+  "page": {
+    "home": {
+      "title": "Protejează-ți vehiculul cu asigurarea noastră de încredere!",
+      "description": "Compania noastră oferă cele mai bune condiții pentru asigurarea mașinii tale. Prețuri accesibile, procesare rapidă și acoperire maximă.",
+      "button": "Obține asigurare"
+    },
+    "cards": {
+      "rca": {
+        "picture": "/rca.jpg",
+        "title": "Asigurare RCA",
+        "description": "Obține-ți polița de Asigurare RCA direct pe site-ul nostru. Oferim prețuri accesibile și servicii convenabile.",
+        "button": "Mergi la Asigurarea RCA"
+      },
+      "greencard": {
+        "picture": "/green.jpg",
+        "title": "Card Verde",
+        "description": "Obține Cardul Verde pentru călătoriile în străinătate. Oferim procesare simplă și rapidă.",
+        "button": "Mergi la Cardul Verde"
+      },
+      "medical": {
+        "picture": "/medical.jpg",
+        "title": "Asigurare Medicală",
+        "description": "Investește în sănătatea ta cu o acoperire completă.",
+        "button": "Mergi la Asigurarea Medicală"
+      }
+    }
+  }
+}

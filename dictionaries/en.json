@@ -1,0 +1,35 @@
+{
+  "navigation": {
+    "home": "Home",
+    "rca": "RCA Insurance",
+    "greencard": "Green Card",
+    "medical": "Medical Insurance"
+  },
+  "page": {
+    "home": {
+      "title": "Protect your vehicle with our reliable insurance!",
+      "description": "Our company offers the best conditions for insuring your car. Affordable prices, fast processing, and maximum coverage.",
+      "button": "Get Insurance"
+    },
+    "cards": {
+      "rca": {
+        "picture": "/rca.jpg",
+        "title": "RCA Insurance",
+        "description": "Get your RCA Insurance policy directly on our website. We offer affordable prices and convenient service.",
+        "button": "Go to RCA Insurance"
+      },
+      "greencard": {
+        "picture": "/green.jpg",
+        "title": "Green Card",
+        "description": "Get your Green Card for travel abroad. We offer simple and fast processing.",
+        "button": "Go to Green Card"
+      },
+      "medical": {
+        "picture": "/medical.jpg",
+        "title": "Medical Insurance",
+        "description": "Invest in your health with comprehensive coverage.",
+        "button": "Go to Medical Insurance"
+      }
+    }
+  }
+}

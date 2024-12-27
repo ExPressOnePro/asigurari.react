@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*:root {*/
+/*  --background: #ffffff;*/
+/*  --foreground: #171717;*/
+/*}*/
+
+/*@media (prefers-color-scheme: dark) {*/
+/*  :root {*/
+/*    --background: #0a0a0a;*/
+/*    --foreground: #ededed;*/
+/*  }*/
+/*}*/
+
+/*body {*/
+/*  color: var(--foreground);*/
+/*  background: var(--background);*/
+/*  font-family: Arial, Helvetica, sans-serif;*/
+/*}*/
+
+#oval {
+    position: absolute;
+    top: -20vh; /* Смещение сверху относительно высоты окна просмотра */
+    left: -20vw; /* Смещение слева относительно ширины окна просмотра */
+    background-color: rgba(89, 89, 89, 0.05); /* Цвет овала с полупрозрачностью */
+    border-radius: 50%; /* Для создания овала */
+    animation: rotateOval 10s linear infinite; /* Анимация вращения */
+    z-index: -999; /* Чтобы фигура была позади контента */
+    overflow: hidden; /* Препятствует созданию прокрутки */
+}
+
+@keyframes rotateOval {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Для маленьких экранов */
+@media (max-width: 768px) {
+    #oval {
+        top: -15vh;
+        left: -15vw;
+        width: 70vw;  /* 80% от ширины экрана */
+        height: 40vh; /* 60% от высоты экрана */
+    }
+}
+
+/* Для средних экранов (например, планшеты) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    #oval {
+        top: -15vh;
+        left: -15vw;
+        width: 70vw;  /* 70% от ширины экрана */
+        height: 55vh; /* 55% от высоты экрана */
+    }
+}
+
+/* Для больших экранов (например, десктопы) */
+@media (min-width: 1024px) {
+    #oval {
+        top: -20vh;
+        left: -20vw;
+        width: 55vw;  /* 60% от ширины экрана */
+        height: 90vh; /* 50% от высоты экрана */
+    }
+}
