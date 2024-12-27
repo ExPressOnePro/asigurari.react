@@ -1,11 +1,10 @@
-import './globals.css'
-import type { Metadata } from 'next'
-import { Locale, i18n } from '@/i18n.config'
-import Header from './components/header'
-
-import { Inter } from 'next/font/google'
+import './globals.css';
+import type { Metadata } from 'next';
+import { Locale, i18n } from '@/i18n.config';
+import { Inter } from 'next/font/google';
 import Footer from "@/app/[lang]/components/Footer";
 import BubbleBackground from "@/app/[lang]/components/BubbleBackground";
+import Header from "@/app/[lang]/components/Header";
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
