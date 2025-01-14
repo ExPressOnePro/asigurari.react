@@ -16,17 +16,21 @@ export default async function Header({ lang }: { lang: Locale }) {
                 href={`/${lang}`}
                 className="text-xl font-bold text-blue-700"
             >
-              Logo
+              <img
+                  src={'/Logo.jpg'}
+                  alt="Logo"
+                  className="inline-block h-auto w-auto max-h-12 max-w-full mr-2"
+              />
             </Link>
             {/* Передаем управление мобильным меню в клиентский компонент */}
-            <MobileMenuToggle lang={lang} navigation={navigation} />
+            <MobileMenuToggle lang={lang} navigation={navigation}/>
           </div>
           <div className="hidden md:flex items-center space-x-8">
             <ul className="flex gap-x-8">
               <li>
                 <Link
                     href={`/${lang}`}
-                    className="text-gray-700 hover:text-blue-700"
+                    className="text-gray-700 hover:text-orange-700"
                 >
                   {navigation.home}
                 </Link>
@@ -34,7 +38,7 @@ export default async function Header({ lang }: { lang: Locale }) {
               <li>
                 <Link
                     href={`/${lang}/rca`}
-                    className="text-gray-700 hover:text-blue-700"
+                    className="text-gray-700 hover:text-orange-700"
                 >
                   {navigation.rca}
                 </Link>
@@ -42,7 +46,7 @@ export default async function Header({ lang }: { lang: Locale }) {
               <li>
                 <Link
                     href={`/${lang}/greencard`}
-                    className="text-gray-700 hover:text-blue-700"
+                    className="text-gray-700 hover:text-orange-700"
                 >
                   {navigation.greencard}
                 </Link>
@@ -50,7 +54,7 @@ export default async function Header({ lang }: { lang: Locale }) {
               <li>
                 <Link
                     href={`/${lang}/medical`}
-                    className="text-gray-700 hover:text-blue-700"
+                    className="text-gray-700 hover:text-orange-700"
                 >
                   {navigation.medical}
                 </Link>

@@ -1,6 +1,5 @@
 import { Locale } from '@/i18n.config'
 import { getDictionary } from '@/lib/dictionary'
-import BubbleBackground from "@/app/[lang]/components/BubbleBackground";
 import Card from "@/app/[lang]/components/Card";
 
 export default async function Home({

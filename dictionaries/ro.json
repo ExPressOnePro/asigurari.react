@@ -31,5 +31,29 @@
         "button": "Mergi la Asigurarea Medicală"
       }
     }
+  },
+  "osago": {
+    "RCAForm": {
+      "Title": "Calcul RCA (Asigurare Auto)",
+      "tehpass": "Numărul certificatului tehnic al vehiculului",
+      "acceptance": "Sunt de acord cu termenii de utilizare și îmi exprim consimțământul pentru prelucrarea datelor personale",
+      "ButtonCalculate": "Calculează"
+    },
+    "InsurerCard": {
+      "ButtonChoise": "Alege"
+    },
+    "OwnershipCard": {
+      "AddInfo": "Informații suplimentare",
+      "type": {
+        "Property": "Proprietate",
+        "Rent": "Închiriere",
+        "Leasing": "Leasing",
+        "Attorney": "Împuternicire"
+      },
+      "Period": "Perioada de valabilitate",
+      "Phone": "Număr de telefon",
+      "Email": "Adresă de e-mail"
+    }
   }
+
 }

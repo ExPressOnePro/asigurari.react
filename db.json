@@ -1,0 +1,25 @@
+{
+  "response": {
+    "InsurersPrime": {
+      "InsurerPrimeRCAI": [
+        {
+          "Name": "string",
+          "IDNO": "stringstrings",
+          "PrimeSum": "-879.3",
+          "PrimeSumMDL": "177271",
+          "is_active": true,
+          "logo": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fdataset.gov.md%2Fru%2Forganization%2F1015601000134&psig=AOvVaw0lWpKM2jNr6jxpf6d44FTo&ust=1736284024523000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCMDPkZyA4ooDFQAAAAAdAAAAABAE"
+        }
+      ]
+    },
+    "BonusMalusClass": 0,
+    "IsSuccess": true,
+    "ErrorMessage": "string",
+    "Territory": "string",
+    "PersonFirstName": "string",
+    "PersonLastName": "string",
+    "VehicleMark": "string",
+    "VehicleModel": "string",
+    "VehicleRegistrationNumber": "string"
+  }
+}

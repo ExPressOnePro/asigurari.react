@@ -9,9 +9,35 @@ export default function GreenCardForm() {
     const [carNumber, setCarNumber] = useState<string>("");
     const [showHint, setShowHint] = useState<boolean>(false); // Управление подсказкой
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log({ zone, term, idnp, carNumber });
+
+        // Форматирование данных перед отправкой
+        const data = {
+            GreenCardZone: zone,
+            TermInsurance: term,
+            IDNX: idnp,
+            VehicleRegistrationCertificateNumber: carNumber,
+        };
+
+        // Отправка данных на сервер (пример с использованием fetch)
+        try {
+            const response = await fetch("/api/green-card", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (response.ok) {
+                console.log("Зеленая карта успешно оформлена!");
+            } else {
+                console.error("Ошибка при оформлении Зеленой Карты");
+            }
+        } catch (error) {
+            console.error("Ошибка сервера:", error);
+        }
     };
 
     return (

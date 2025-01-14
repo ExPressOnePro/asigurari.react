@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google';
 import Footer from "@/app/[lang]/components/Footer";
 import BubbleBackground from "@/app/[lang]/components/BubbleBackground";
 import Header from "@/app/[lang]/components/Header";
+import {LocalizationProvider} from "@/lib/LocalizationProvider";
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -26,10 +27,12 @@ export default function RootLayout({
   return (
     <html lang={params.lang}>
       <body className={inter.className}>
+      <LocalizationProvider initialLocale={params.lang}>
         <Header lang={params.lang} />
         <BubbleBackground />
         <main>{children}</main>
         <Footer />
+      </LocalizationProvider>
       </body>
     </html>
   )

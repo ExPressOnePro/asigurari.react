@@ -1,6 +1,6 @@
 export default function Footer() {
     return (
-        <footer className="bg-gradient-to-r from-gray-200 to-indigo-300 py-12">
+        <footer className="bg-gradient-to-r from-gray-200 to-orange-300 py-12">
             <div className="container mx-auto px-6 md:px-12">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-left">
                     {/* Logo and Company Info */}

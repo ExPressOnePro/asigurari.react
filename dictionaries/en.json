@@ -31,5 +31,29 @@
         "button": "Go to Medical Insurance"
       }
     }
+  },
+  "osago": {
+    "RCAForm": {
+      "Title": "RCA Calculation (Auto Insurance)",
+      "tehpass": "Vehicle registration certificate number",
+      "acceptance": "I agree to the terms of use and consent to the processing of personal data",
+      "ButtonCalculate": "Calculate"
+    },
+    "InsurerCard": {
+      "ButtonChoise": "Choose"
+    },
+    "OwnershipCard": {
+      "AddInfo": "Additional Information",
+      "type": {
+        "Property": "Ownership",
+        "Rent": "Rent",
+        "Leasing": "Leasing",
+        "Attorney": "Power of Attorney"
+      },
+      "Period": "Validity period",
+      "Phone": "Phone number",
+      "Email": "Email address"
+    }
   }
+
 }
