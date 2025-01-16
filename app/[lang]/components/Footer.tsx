@@ -65,7 +65,7 @@ export default function Footer() {
                 </div>
 
                 <div
-                    className="border-t border-indigo-400 mt-8 pt-6 text-sm flex flex-col md:flex-row justify-between items-center text-center">
+                    className="border-t border-black mt-8 pt-6 text-sm flex flex-col md:flex-row justify-between items-center text-center">
                     <div className="flex space-x-4">
                         <a href="/terms" className="hover:underline">Условия и положения</a>
                         <a href="/privacy" className="hover:underline">Политика безопасности</a>
