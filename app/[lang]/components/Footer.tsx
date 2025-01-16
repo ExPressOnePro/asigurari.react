@@ -7,15 +7,15 @@ export default function Footer() {
                     <div>
                         <img
                             className="filter grayscale w-32 mx-auto md:mx-0 mb-4"
-                            src="https://api-mda.viapp.tech/myStorageDisk/aed11edd-83fe-4bab-919e-6b16d6f678ee_mainlogo.svg"
+                            src="/Logo.jpg"
                             alt="Logo"
                         />
                         <p className="text-sm leading-6">
-                            BAR Global Broker SRL<br />
-                            ул. Дечебал 34, Бельцы,<br />
-                            Республика Молдова<br />
-                            IDNO: 1010600008839<br />
-                            Лицензия: CNPF 000907
+                            BROKER DE ASIGURARE-REASIGURARE TOPASIG S.R.L.<br/>
+                            mun. Chişinău, sec. Buiucani,<br/>
+                            str. Neaga Ştefan, 67<br/>
+                            Republica Moldova<br/>
+                            IDNO: 1015600028283
                         </p>
                     </div>
 
@@ -23,17 +23,17 @@ export default function Footer() {
                     <div>
                         <h3 className="text-lg font-bold mb-3">Поддержка</h3>
                         <p className="text-sm leading-6 mb-4">
-                            <a href="mailto:info@asig.md" className="hover:underline">info@asig.md</a><br />
-                            <a href="tel:+37361000179" className="hover:underline">+373 61 000 179</a>1
+                            <a href="mailto:info@topasig.md" className="hover:underline">info@topasig.md</a><br/>
+                            <a href="tel:+37379441105" className="hover:underline">+373 79 441 105</a>1
                         </p>
                         <div className="flex justify-center md:justify-start space-x-3">
-                            <a href="https://wa.me/37361000179" className="hover:opacity-80">
+                            <a href="https://wa.me/37379441105" className="hover:opacity-80">
                                 {/*<img src="images/content/WhatsApp.svg" alt="WhatsApp" className="w-8 h-8" />*/}
                             </a>
-                            <a href="viber://chat?number=%2B37361000179" className="hover:opacity-80">
+                            <a href="viber://chat?number=%2B37379441105" className="hover:opacity-80">
                                 {/*<img src="images/content/Viber.svg" alt="Viber" className="w-8 h-8" />*/}
                             </a>
-                            <a href="https://t.me/asigmd" className="hover:opacity-80">
+                            <a href="https://t.me/topasigmd" className="hover:opacity-80">
                                 {/*<img src="images/content/Telegram.svg" alt="Telegram" className="w-8 h-8" />*/}
                             </a>
                         </div>
@@ -64,7 +64,8 @@ export default function Footer() {
                     </div>
                 </div>
 
-                <div className="border-t border-indigo-400 mt-8 pt-6 text-sm flex flex-col md:flex-row justify-between items-center text-center">
+                <div
+                    className="border-t border-indigo-400 mt-8 pt-6 text-sm flex flex-col md:flex-row justify-between items-center text-center">
                     <div className="flex space-x-4">
                         <a href="/terms" className="hover:underline">Условия и положения</a>
                         <a href="/privacy" className="hover:underline">Политика безопасности</a>
