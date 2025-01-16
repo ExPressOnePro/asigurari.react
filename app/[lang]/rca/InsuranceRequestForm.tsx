@@ -1,196 +1,85 @@
-import React, { useState } from "react";
-import axios from "axios";
-import axiosInstance from "@/lib/axiosInstance";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React from "react";
 
-interface FormData {
-    Company: {
-        IDNO: string;
-    };
-    InsuredPhysicalPerson: {
-        IdentificationCode: string;
-        BirthDate: string;
-        IsFromTransnistria: boolean;
-        PersonIsExternal: boolean;
-    };
-    InsuredJuridicalPerson: {
-        IdentificationCode: string;
-    },
-    InsuredVehicle: {
-        ProductionYear: number;
-        RegistrationCertificateNumber: string;
-        CilinderVolume: number;
-        TotalWeight: number;
-        EnginePower: number;
-        Seats: number;
-    };
-    StartDate: string;
-    PaymentDate: string;
-    PossessionBase: string;
-    DocumentPossessionBaseDate: string;
-    OperatingMode: string;
-    qrCode: string;
-}
-
-const InsuranceRequestForm = () => {
-
-    const [formData, setFormData] = useState<FormData>({
-        Company: { IDNO: "1002600007813" },
-        InsuredPhysicalPerson: {
-            IdentificationCode: "2006002027403",
-            BirthDate: "2025-01-14",
-            IsFromTransnistria: false,
-            PersonIsExternal: false,
-        },
-        InsuredJuridicalPerson: {
-            IdentificationCode: "2006002027403"
-        },
-        InsuredVehicle: {
-            ProductionYear: 2018,
-            RegistrationCertificateNumber: "218000136",
-            CilinderVolume: 1499,
-            TotalWeight: 1955,
-            EnginePower: 120,
-            Seats: 5,
-        },
-        StartDate: "2025-01-14",
-        PaymentDate: "2025-01-14",
-        PossessionBase: "Property",
-        DocumentPossessionBaseDate: "2023-08-24",
-        OperatingMode: "Usual",
-        qrCode: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    });
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        // @ts-ignore
-        const { name, value, type, checked } = e.target;
-        const keys = name.split(".");
-        let newFormData = { ...formData };
-
-        if (keys.length === 2) {
-            // Nested fields (e.g., Company.IDNO)
-            // @ts-ignore
-            newFormData[keys[0]][keys[1]] = type === "checkbox" ? checked : value;
-        } else if (keys.length === 3) {
-            // Deeper nested fields (e.g., InsuredPhysicalPerson.IdentificationCode)
-            // @ts-ignore
-            newFormData[keys[0]][keys[1]][keys[2]] = type === "checkbox" ? checked : value;
-        } else {
-            // Root-level fields
-            // @ts-ignore
-            newFormData[name] = type === "checkbox" ? checked : value;
-        }
-        setFormData(newFormData);
-    };
-
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        try {
-            const response = await axiosInstance.post("rca/save-rca",
-                formData);
-            console.log("Response:", response.data);
-            toast.success("Запрос успешно отправлен!");
-        } catch (error) {
-            console.error("Ошибка отправки запроса:", error);
-            toast.error("Ошибка отправки запроса.");
-        }
-    };
-
-    return (
-        <form className="space-y-4 p-6 bg-gray-50 rounded-lg shadow-md" onSubmit={handleSubmit}>
-            <h2 className="text-xl font-bold text-gray-800 mb-4">Форма страхового запроса</h2>
-
-            {/* Company IDNO */}
-            <div>
-                <label className="block text-gray-700">IDNO Компании</label>
-                <input
-                    type="text"
-                    name="Company.IDNO"
-                    value={formData.Company.IDNO}
-                    onChange={handleChange}
-                    className="w-full border rounded-md p-2"
-                />
+const InsuranceRequestForm = ({
+                                  IDNX,
+                                  setIDNX,
+                                  VehicleRegistrationCertificateNumber,
+                                  setVehicleRegistrationCertificateNumber,
+                                  isConsentGiven,
+                                  setIsConsentGiven,
+                                  handleSubmit,
+                                  error
+                              }: any) => (
+    <div className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-3xl">
+            <div className="bg-white shadow-lg rounded-lg p-8">
+                <h1 className="text-3xl sm:text-4xl font-extrabold text-center text-gray-400 mb-4">
+                    Рассчитайте стоимость ОСАГО
+                </h1>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                    <div>
+                        <label htmlFor="idnx" className="block text-sm font-bold text-gray-700">
+                            IDNP/IDNO
+                        </label>
+                        <input
+                            type="text"
+                            id="IDNX"
+                            value={IDNX}
+                            onChange={(e) => setIDNX(e.target.value)}
+                            className="mt-2 block w-full px-6 py-3 text-sm border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="Введите IDNP/IDNO"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="vehicleRegCertificateNumber" className="block text-sm font-bold text-gray-700">
+                            Номер техпаспорта
+                        </label>
+                        <input
+                            type="text"
+                            id="VehicleRegistrationCertificateNumber"
+                            value={VehicleRegistrationCertificateNumber}
+                            onChange={(e) => setVehicleRegistrationCertificateNumber(e.target.value)}
+                            className="mt-2 block w-full px-6 py-3 text-sm border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="Введите номер техпаспорта"
+                            required
+                        />
+                    </div>
+                    <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-3">
+                        <div
+                            className={`${isConsentGiven ? "bg-green-500" : "bg-gray-400"} relative inline-block w-16 h-8 rounded-full cursor-pointer`}
+                            onClick={() => setIsConsentGiven(!isConsentGiven)}
+                        >
+                            <span
+                                className={`${isConsentGiven ? "translate-x-8" : "translate-x-0"} inline-block w-8 h-8 bg-white rounded-full shadow-md transition-transform duration-300`}
+                            />
+                        </div>
+                        <div className="flex flex-col sm:flex-row items-center space-x-2">
+                            <label htmlFor="consent" className="text-sm text-gray-700 flex-grow">
+                                Согласие на обработку данных
+                            </label>
+                            <input
+                                type="checkbox"
+                                id="consent"
+                                checked={isConsentGiven}
+                                onChange={() => setIsConsentGiven(!isConsentGiven)}
+                                className="sr-only"
+                            />
+                        </div>
+                    </div>
+                    <div>
+                        <button
+                            type="submit"
+                            disabled={!isConsentGiven}
+                            className={`w-full ${isConsentGiven ? "bg-blue-600 hover:bg-blue-700" : "bg-blue-300 cursor-not-allowed"} text-white font-semibold py-2 px-4 rounded-lg shadow-md`}
+                        >
+                            Рассчитать
+                        </button>
+                    </div>
+                </form>
             </div>
-
-            {/* Insured Physical Person */}
-            <div>
-                <label className="block text-gray-700">Код идентификации физ. лица</label>
-                <input
-                    type="text"
-                    name="InsuredPhysicalPerson.IdentificationCode"
-                    value={formData.InsuredPhysicalPerson.IdentificationCode}
-                    onChange={handleChange}
-                    className="w-full border rounded-md p-2"
-                />
-            </div>
-            <div>
-                <label className="block text-gray-700">Дата рождения</label>
-                <input
-                    type="date"
-                    name="InsuredPhysicalPerson.BirthDate"
-                    value={formData.InsuredPhysicalPerson.BirthDate}
-                    onChange={handleChange}
-                    className="w-full border rounded-md p-2"
-                />
-            </div>
-            <div>
-                <label className="block text-gray-700">
-                    <input
-                        type="checkbox"
-                        name="InsuredPhysicalPerson.IsFromTransnistria"
-                        checked={formData.InsuredPhysicalPerson.IsFromTransnistria}
-                        onChange={handleChange}
-                        className="mr-2"
-                    />
-                    Из Приднестровья
-                </label>
-            </div>
-
-            {/* Insured Vehicle */}
-            <div>
-                <label className="block text-gray-700">Год производства автомобиля</label>
-                <input
-                    type="number"
-                    name="InsuredVehicle.ProductionYear"
-                    value={formData.InsuredVehicle.ProductionYear}
-                    onChange={handleChange}
-                    className="w-full border rounded-md p-2"
-                />
-            </div>
-
-            {/* Start Date */}
-            <div>
-                <label className="block text-gray-700">Дата начала</label>
-                <input
-                    type="date"
-                    name="StartDate"
-                    value={formData.StartDate}
-                    onChange={handleChange}
-                    className="w-full border rounded-md p-2"
-                />
-            </div>
-
-            {/* QR Code */}
-            <div>
-                <label className="block text-gray-700">QR-код</label>
-                <input
-                    type="text"
-                    name="qrCode"
-                    value={formData.qrCode}
-                    onChange={handleChange}
-                    className="w-full border rounded-md p-2"
-                />
-            </div>
-
-            <button
-                type="submit"
-                className="w-full bg-blue-500 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-600"
-            >
-                Отправить запрос
-            </button>
-        </form>
-    );
-};
+        </div>
+    </div>
+);
 
 export default InsuranceRequestForm;

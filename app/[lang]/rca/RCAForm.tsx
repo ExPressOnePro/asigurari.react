@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axiosInstance from "@/lib/axiosInstance";
-import InsurerCard from "@/app/[lang]/rca/InsurerCard";
+import InsurerList from "@/app/[lang]/rca/InsurerList";
 
 interface RCAFormProps {
     onCalculationSuccess: (data: {
