@@ -1,13 +1,13 @@
-import { Locale } from '@/i18n.config'
-import { getDictionary } from '@/lib/dictionary'
+import {Locale} from '@/i18n.config'
+import {getDictionary} from '@/lib/dictionary'
 import Card from "@/app/[lang]/components/Card";
 
 export default async function Home({
-                                       params: { lang }
+                                       params: {lang}
                                    }: {
     params: { lang: Locale }
 }) {
-    const { page } = await getDictionary(lang)
+    const {page} = await getDictionary(lang)
 
     return (
         <div className="min-h-screen">

@@ -1,8 +1,8 @@
 "use client";
 
-import { Locale } from "@/i18n.config";
-import React, { useEffect, useState } from "react";
-import { getDictionary } from "@/lib/dictionary";
+import {Locale} from "@/i18n.config";
+import React, {useEffect, useState} from "react";
+import {getDictionary} from "@/lib/dictionary";
 import axiosInstance from "@/lib/axiosInstance";
 import InsuranceRequestForm from "@/app/[lang]/rca/InsuranceRequestForm";
 import InfoRCA from "@/app/[lang]/rca/InfoRCA";
@@ -10,7 +10,7 @@ import FAQAccordion from "@/app/[lang]/rca/FAQAccordion";
 import InsurerList from "@/app/[lang]/rca/InsurerList";
 import AdditionalDataForm from "@/app/[lang]/rca/AdditionalDataForm";
 
-export default function Page({ params }: { params: { lang: Locale } }) {
+export default function Page({params}: { params: { lang: Locale } }) {
     const [dictionary, setDictionary] = useState<any>(null);
 
     useEffect(() => {
@@ -48,7 +48,7 @@ export default function Page({ params }: { params: { lang: Locale } }) {
             return;
         }
 
-        const requestData = { IDNX, VehicleRegistrationCertificateNumber, OperatingModes, PersonIsJuridical };
+        const requestData = {IDNX, VehicleRegistrationCertificateNumber, OperatingModes, PersonIsJuridical};
         try {
             const response = await axiosInstance.post("/rca/calculate-rca/", requestData);
             const result = response.data;
@@ -73,7 +73,7 @@ export default function Page({ params }: { params: { lang: Locale } }) {
 
     return (
         <div className="min-h-screen">
-            <InfoRCA />
+            <InfoRCA/>
             {!formSubmitted && (
                 <InsuranceRequestForm
                     IDNX={IDNX}
