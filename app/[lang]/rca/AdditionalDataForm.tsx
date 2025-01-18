@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect, useState} from "react";
+import axiosInstance from "@/lib/axiosInstance.ts";
 
 const AdditionalDataForm = () => {
     const [isFromTransnistria, setIsFromTransnistria] = useState<boolean>(false);
@@ -7,6 +8,14 @@ const AdditionalDataForm = () => {
     const [insuranceStartDate, setInsuranceStartDate] = useState<string>(new Date().toISOString().split("T")[0]);
     const [insuranceEndDate, setInsuranceEndDate] = useState<string>("");
     const [possessionBase, setPossessionBase] = useState<string>('');
+    const [vehicleRegistrationCertificateNumber, setVehicleRegistrationCertificateNumber] = useState<string>("218000136");
+
+    // Car-related state variables
+    const [productionYear, setProductionYear] = useState<number>(2025);
+    const [cylinderVolume, setCylinderVolume] = useState<number>(2000);
+    const [totalWeight, setTotalWeight] = useState<number>(2000);
+    const [enginePower, setEnginePower] = useState<number>(200);
+    const [seats, setSeats] = useState<number>(5);
 
     // Handle switching logic, ensuring only one can be active at a time
     const handleIsFromTransnistriaChange = () => {
@@ -40,10 +49,42 @@ const AdditionalDataForm = () => {
         }
     }, [insuranceStartDate]);
 
+    // Handle form submission
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+
+
+        // Prepare form data
+        const formData = {
+            Company: {
+                IDNO: "1010620005807",
+            },
+            InsuredPhysicalPerson: {
+                IdentificationCode: "2005021106830",
+                IsFromTransnistria: isFromTransnistria,
+                IsExternal: personIsExternal,
+                BirthDate: isFromTransnistria || personIsExternal ? birthDate : null
+            },
+            StartDate: insuranceStartDate,
+            PossessionBase: possessionBase,
+            OperatingMode: "Usual",
+            InsuredVehicle: {
+                ProductionYear: isFromTransnistria || personIsExternal ? productionYear : null,
+                RegistrationCertificateNumber: vehicleRegistrationCertificateNumber,
+                CilinderVolume: isFromTransnistria || personIsExternal ?cylinderVolume : null,
+                TotalWeight: isFromTransnistria || personIsExternal ? totalWeight : null,
+                EnginePower: isFromTransnistria || personIsExternal ? enginePower : null,
+                Seats: isFromTransnistria || personIsExternal ? seats : null
+            }
+        };
+
+        const response = axiosInstance.post("/rca/save-rca/", formData);
+    };
+
     return (
         <div className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
             <div className="w-full max-w-3xl">
-                <div className="bg-white shadow-lg rounded-lg p-8">
+                <form onSubmit={handleSubmit} className="bg-white shadow-lg rounded-lg p-8">
                     <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">Дополнительные данные</h2>
 
                     {!isFromTransnistria && !personIsExternal && (
@@ -125,12 +166,11 @@ const AdditionalDataForm = () => {
                             className="mt-2 block w-full px-4 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                         >
                             <option value="">Выберите тип владения</option>
-                            <option value="property">Имущество</option>
-                            <option value="lease">Аренда</option>
-                            <option value="leasing">Лизинг</option>
-                            <option value="power_of_attorney">Доверенность</option>
+                            <option value="Property">Имущество</option>
+                            <option value="Lease">Аренда</option>
+                            <option value="Leasing">Лизинг</option>
+                            <option value="PowerOfAttorney">Доверенность</option>
                         </select>
-
                     </div>
 
                     {/* Date of birth field */}
@@ -147,6 +187,94 @@ const AdditionalDataForm = () => {
                                 className="mt-2 block w-full px-4 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                                 required
                             />
+                        </div>
+                    )}
+
+                    {/* Car Data Section */}
+                    {(isFromTransnistria || personIsExternal) && (
+                        <div className="bg-gray-100 p-4 rounded-lg mb-6">
+                            <h3 className="text-lg font-medium text-gray-700 mb-4">Данные автомобиля</h3>
+
+                            {/* Production Year */}
+                            <div className="mb-4">
+                                <label htmlFor="productionYear" className="block text-sm font-medium text-gray-700">
+                                    Год производства
+                                </label>
+                                <input
+                                    type="number"
+                                    id="productionYear"
+                                    value={productionYear}
+                                    onChange={(e) => setProductionYear(Number(e.target.value))}
+                                    className="mt-2 block w-full px-4 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                    min="1900"
+                                    max={new Date().getFullYear() + 10} // Assuming future 10 years
+                                    required
+                                />
+                            </div>
+
+                            {/* Cylinder Volume */}
+                            <div className="mb-4">
+                                <label htmlFor="cylinderVolume" className="block text-sm font-medium text-gray-700">
+                                    Объем цилиндров (см³)
+                                </label>
+                                <input
+                                    type="number"
+                                    id="cylinderVolume"
+                                    value={cylinderVolume}
+                                    onChange={(e) => setCylinderVolume(Number(e.target.value))}
+                                    className="mt-2 block w-full px-4 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                    min="0"
+                                    required
+                                />
+                            </div>
+
+                            {/* Total Weight */}
+                            <div className="mb-4">
+                                <label htmlFor="totalWeight" className="block text-sm font-medium text-gray-700">
+                                    Общий вес (кг)
+                                </label>
+                                <input
+                                    type="number"
+                                    id="totalWeight"
+                                    value={totalWeight}
+                                    onChange={(e) => setTotalWeight(Number(e.target.value))}
+                                    className="mt-2 block w-full px-4 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                    min="0"
+                                    required
+                                />
+                            </div>
+
+                            {/* Engine Power */}
+                            <div className="mb-4">
+                                <label htmlFor="enginePower" className="block text-sm font-medium text-gray-700">
+                                    Мощность двигателя (л.с.)
+                                </label>
+                                <input
+                                    type="number"
+                                    id="enginePower"
+                                    value={enginePower}
+                                    onChange={(e) => setEnginePower(Number(e.target.value))}
+                                    className="mt-2 block w-full px-4 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                    min="0"
+                                    required
+                                />
+                            </div>
+
+                            {/* Seats */}
+                            <div className="mb-4">
+                                <label htmlFor="seats" className="block text-sm font-medium text-gray-700">
+                                    Количество мест
+                                </label>
+                                <input
+                                    type="number"
+                                    id="seats"
+                                    value={seats}
+                                    onChange={(e) => setSeats(Number(e.target.value))}
+                                    className="mt-2 block w-full px-4 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                    min="1"
+                                    required
+                                />
+                            </div>
                         </div>
                     )}
 
@@ -191,7 +319,7 @@ const AdditionalDataForm = () => {
                             Подтвердить
                         </button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     );
