@@ -1,3 +1,7 @@
+export const getStaticUrl = (file_name: string) => {
+    return process.env.NEXT_PUBLIC_STATIC_FILES_URL + file_name;
+}
+
 export default function Footer() {
     return (
         <footer className="bg-gradient-to-r from-gray-200 to-orange-300 py-12">
@@ -7,7 +11,7 @@ export default function Footer() {
                     <div>
                         <img
                             className="filter grayscale w-32 mx-auto md:mx-0 mb-4"
-                            src="/Logo.jpg"
+                            src={getStaticUrl('public/Logo.jpg')}
                             alt="Logo"
                         />
                         <p className="text-sm leading-6">
@@ -28,13 +32,13 @@ export default function Footer() {
                         </p>
                         <div className="flex justify-center md:justify-start space-x-3">
                             <a href="https://wa.me/37379441105" className="hover:opacity-80">
-                                {/*<img src="images/content/WhatsApp.svg" alt="WhatsApp" className="w-8 h-8" />*/}
+                                <img src={getStaticUrl('public/whatsapp.svg')} alt="WhatsApp" className="w-8 h-8"/>
                             </a>
                             <a href="viber://chat?number=%2B37379441105" className="hover:opacity-80">
-                                {/*<img src="images/content/Viber.svg" alt="Viber" className="w-8 h-8" />*/}
+                                <img src={getStaticUrl('public/viber.svg')} alt="Viber" className="w-8 h-8"/>
                             </a>
                             <a href="https://t.me/topasigmd" className="hover:opacity-80">
-                                {/*<img src="images/content/Telegram.svg" alt="Telegram" className="w-8 h-8" />*/}
+                                <img src={getStaticUrl('public/telegram.svg')} alt="Telegram" className="w-8 h-8"/>
                             </a>
                         </div>
                     </div>

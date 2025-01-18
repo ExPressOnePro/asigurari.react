@@ -3,6 +3,7 @@ import {getDictionary} from "@/lib/dictionary";
 import Link from "next/link";
 import LocaleSwitcher from "@/app/[lang]/components/locale-switcher";
 import MobileMenuToggle from "@/app/[lang]/components/MobileMenuToggle";
+import {getStaticUrl} from "@/app/[lang]/components/Footer.tsx";
 
 
 export default async function Header({ lang }: { lang: Locale }) {
@@ -17,7 +18,7 @@ export default async function Header({ lang }: { lang: Locale }) {
                 className="text-xl font-bold text-blue-700"
             >
               <img
-                  src={'/Logo.jpg'}
+                  src={getStaticUrl('public/Logo.jpg')}
                   alt="Logo"
                   className="inline-block h-auto w-auto max-h-12 max-w-full mr-2"
               />

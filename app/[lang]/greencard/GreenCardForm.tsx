@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import {getStaticUrl} from "@/app/[lang]/components/Footer.tsx";
 
 export default function GreenCardForm() {
     const [zone, setZone] = useState<string>("");
@@ -142,7 +143,7 @@ export default function GreenCardForm() {
                     {showHint && (
                         <div className="absolute mt-2 w-64 bg-white border border-gray-300 rounded-lg shadow-lg p-4 z-10">
                             <img
-                                src="/techpass.png"
+                                src={getStaticUrl('public/techpass.png')}
                                 alt="Подсказка для ввода номера техпаспорта"
                                 className="w-full h-auto rounded-md"
                             />

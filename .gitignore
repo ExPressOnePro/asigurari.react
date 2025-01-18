@@ -36,3 +36,5 @@ next-env.d.ts
 
 .idea/ruff.xml
 .idea/inspectionProfiles/Project_Default.xml
+
+.env
