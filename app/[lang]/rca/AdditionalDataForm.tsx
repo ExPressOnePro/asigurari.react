@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from "react";
 
-const AdditionalDataForm = () => {
+interface AdditionalDataFormProps {
+    onSubmit: (data: { possessionBase: { value: string; label: string } | null; insuranceStartDate: string }) => void;
+}
+
+
+const AdditionalDataForm: React.FC<AdditionalDataFormProps> = ({ onSubmit }) => {
     const [isFromTransnistria, setIsFromTransnistria] = useState<boolean>(false);
     const [personIsExternal, setPersonIsExternal] = useState<boolean>(false);
     const [birthDate, setBirthDate] = useState<string>("");
     const [insuranceStartDate, setInsuranceStartDate] = useState<string>(new Date().toISOString().split("T")[0]);
     const [insuranceEndDate, setInsuranceEndDate] = useState<string>("");
-    const [possessionBase, setPossessionBase] = useState<string>('');
+    const [error, setError] = useState<string | null>(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [possessionBase, setPossessionBase] = useState<{ value: string; label: string } | null>(null);
 
     // Handle switching logic, ensuring only one can be active at a time
     const handleIsFromTransnistriaChange = () => {
@@ -40,8 +47,24 @@ const AdditionalDataForm = () => {
         }
     }, [insuranceStartDate]);
 
+    const validateForm = () => {
+        if (!possessionBase) {
+            setError("Выберите тип владения");
+            return false;
+        }
+        return true;
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!validateForm()) return;
+        setIsSubmitting(true);
+        await onSubmit({ possessionBase, insuranceStartDate });
+        setIsSubmitting(false);
+    };
+
     return (
-        <div className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <form onSubmit={handleSubmit} className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
             <div className="w-full max-w-3xl">
                 <div className="bg-white shadow-lg rounded-lg p-8">
                     <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">Дополнительные данные</h2>
@@ -120,18 +143,25 @@ const AdditionalDataForm = () => {
                         </label>
                         <select
                             id="possessionBase"
-                            value={possessionBase}
-                            onChange={(e) => setPossessionBase(e.target.value)}
+                            value={possessionBase?.value || ""}
+                            onChange={(e) => {
+                                const selectedOption = e.target.options[e.target.selectedIndex];
+                                setPossessionBase({
+                                    value: selectedOption.value,
+                                    label: selectedOption.text,
+                                });
+                            }}
                             className="mt-2 block w-full px-4 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                         >
                             <option value="">Выберите тип владения</option>
-                            <option value="property">Имущество</option>
-                            <option value="lease">Аренда</option>
-                            <option value="leasing">Лизинг</option>
-                            <option value="power_of_attorney">Доверенность</option>
+                            <option value="Property">Собственность</option>
+                            <option value="Lease">Аренда</option>
+                            <option value="Leasing">Лизинг</option>
+                            <option value="PowerOfAttorney">Доверенность</option>
                         </select>
 
                     </div>
+                    {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
 
                     {/* Date of birth field */}
                     {(isFromTransnistria || personIsExternal) && (
@@ -186,15 +216,17 @@ const AdditionalDataForm = () => {
                     <div className="mt-6">
                         <button
                             type="submit"
-                            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md"
+                            disabled={isSubmitting}
+                            className={`w-full ${isSubmitting ? "bg-gray-500" : "bg-blue-600 hover:bg-blue-700"} text-white font-semibold py-2 px-4 rounded-lg shadow-md`}
                         >
-                            Подтвердить
+                            {isSubmitting ? "Загрузка..." : "Подтвердить"}
                         </button>
                     </div>
                 </div>
             </div>
-        </div>
-    );
+        </form>
+)
+    ;
 };
 
 export default AdditionalDataForm;

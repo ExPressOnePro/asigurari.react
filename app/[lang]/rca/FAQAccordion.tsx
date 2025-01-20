@@ -68,13 +68,13 @@ const FAQAccordion: React.FC = () => {
     ];
 
     return (
-        <div className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-12 bg-gray-50">
+        <div className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-12">
             <div className="w-full max-w-6xl">
-                <div className="bg-white shadow-lg rounded-lg p-8">
+                <div className=" rounded-lg p-8">
                 <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Часто задаваемые вопросы</h2>
                 <div className="space-y-4">
                     {faqData.map((item, index) => (
-                        <div key={index} className="border-b last:border-none">
+                        <div key={index} className="border-b last:border-none shadow rounded-3">
                             <div
                                 className="cursor-pointer flex justify-between items-center py-4 text-lg font-semibold text-gray-800 hover:bg-gray-100 px-2 rounded-lg"
                                 onClick={() => toggleAnswer(index)}
@@ -87,7 +87,7 @@ const FAQAccordion: React.FC = () => {
                 </span>
                             </div>
                             {activeIndex === index && (
-                                <div className="py-4 px-6 text-gray-600">
+                                <div className="py-4 px-6 text-gray-600 shadow rounded-3">
                                     <p>{item.answer}</p>
                                 </div>
                             )}

@@ -36,9 +36,23 @@ export default function Page({params}: { params: { lang: Locale } }) {
         bonusMalusClass: number;
         personFirstName: string;
         personLastName: string;
+        possessionBase?: string;
+        insuranceStartDate?: string;
     } | null>(null);
     const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
     const [selectedInsurer, setSelectedInsurer] = useState<any | null>(null);
+    const [selectedAdditional, setSelectedAdditional] = useState<{
+        possessionBase: { value: string; label: string } | null;
+        insuranceStartDate: string;
+    } | null>(null);
+
+    const [isAdditionalDataSubmitted, setIsAdditionalDataSubmitted] = useState<boolean>(false);
+
+    const handleAdditionalSubmit = (data: { possessionBase: { value: string; label: string } | null; insuranceStartDate: string }) => {
+        setSelectedAdditional(data);
+        setIsAdditionalDataSubmitted(true); // Форма была отправлена
+    };
+
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -60,6 +74,8 @@ export default function Page({params}: { params: { lang: Locale } }) {
                 bonusMalusClass: result.BonusMalusClass,
                 personFirstName: result.PersonFirstName,
                 personLastName: result.PersonLastName,
+                possessionBase: "",
+                insuranceStartDate: "",
             });
 
             setInsurers(result.InsurersPrime?.InsurerPrimeRCAI || []);
@@ -71,6 +87,35 @@ export default function Page({params}: { params: { lang: Locale } }) {
         }
     };
 
+    const handleApiRequest = async (selectedAdditional: any) => {
+        if (selectedAdditional) {
+            const requestData = {
+                extension: {
+                    amount: {
+                        sum: selectedInsurer.PrimeSumMDL,
+                        currency: "MDL"
+                    }
+                }
+            };
+
+            try {
+                const response = await axiosInstance.post('/qr/', requestData);
+                console.log('Ответ от API:', response.data);
+                setQrCodeUrl(response.data.qrAsImage);
+            } catch (error) {
+                console.error('Ошибка при запросе API:', error);
+            }
+        }
+    };
+
+    useEffect(() => {
+        if (selectedAdditional) {
+            handleApiRequest(selectedAdditional);
+        }
+    }, [selectedAdditional]);
+    const [qrCodeUrl, setQrCodeUrl] = useState<string | null>(null);
+
+    // @ts-ignore
     return (
         <div className="min-h-screen">
             <InfoRCA/>
@@ -88,37 +133,74 @@ export default function Page({params}: { params: { lang: Locale } }) {
             )}
 
             {success && (
-                <div className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
+                <div className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
                     <div className="w-full max-w-3xl">
                         <div className="bg-white shadow-lg rounded-lg p-8">
                             <h2 className="text-xl font-bold text-gray-800">Выбранные параметры:</h2>
                             <p className="mt-2 text-sm text-gray-700">
-                                <strong>Автомобиль: </strong> {calculatedData?.vehicleMark} {calculatedData?.vehicleModel} ({calculatedData?.vehicleRegistrationNumber})
+                                Автомобиль: <strong> {calculatedData?.vehicleMark} {calculatedData?.vehicleModel} ({calculatedData?.vehicleRegistrationNumber})</strong>
                             </p>
-                            <p className="mt-2 text-sm text-gray-700"><strong>Класс
-                                бонус-малус:</strong> {calculatedData?.bonusMalusClass}</p>
-                            <p className="mt-2 text-sm text-gray-700">
-                                <strong>Клиент:</strong> {calculatedData?.personFirstName} {calculatedData?.personLastName}
+                            <p className="mt-2 text-sm text-gray-700">Класс
+                                бонус-малус:<strong> {calculatedData?.bonusMalusClass}</strong>
+                            </p>
+                            <p className="mt-2 text-sm text-gray-700">Клиент:
+                                <strong>{calculatedData?.personFirstName} {calculatedData?.personLastName}</strong>
                             </p>
                             {selectedInsurer && (
                                 <div>
-                                    <p className="mt-2 text-sm text-gray-700">
-                                        <strong>Страховщик:</strong> {selectedInsurer.Name}</p>
-                                    <p className="mt-2 text-sm text-gray-700"><strong>Стоимость
-                                        полиса:</strong> {selectedInsurer.PrimeSumMDL} MDL </p>
+                                    <p className="mt-2 text-sm text-gray-700">Страховщик
+                                        <strong> {selectedInsurer.Name}</strong>
+                                    </p>
+                                    <p className="mt-2 text-sm text-gray-700">Стоимость
+                                        полиса: <strong>{selectedInsurer.PrimeSumMDL} MDL</strong>
+                                    </p>
                                 </div>
+                            )}
+                            {selectedAdditional?.possessionBase ? (
+                                <div>
+                                <p className="mt-2 text-sm text-gray-700">Тип владения:
+                                    <strong>{selectedAdditional.possessionBase.label}</strong>
+                                </p>
+                                <p className="mt-2 text-sm text-gray-700">Дата начала страховки:
+                                    <strong>{selectedAdditional.insuranceStartDate}</strong>
+                                </p>
+                                </div>
+                            ) : (
+                                <p className="mt-2 text-sm text-gray-700"></p>
                             )}
                         </div>
                     </div>
                 </div>
             )}
 
+
             {selectedInsurer ? (
-                <AdditionalDataForm/>
+                isAdditionalDataSubmitted ? (
+                    qrCodeUrl && (
+                        <div
+                            className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+                            <div className="w-full max-w-3xl">
+                                <div className="rounded-lg p-8 flex justify-center">
+                                    <img
+                                        src={`data:image/png;base64,${qrCodeUrl}`}
+                                        alt="QR код"
+                                        className="w-96 h-96 border border-gray-300" // Увеличенные размеры для QR
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                    )
+                ) : (
+                    <AdditionalDataForm onSubmit={handleAdditionalSubmit}/>
+                )
             ) : (
                 <InsurerList insurers={insurers} handleInsurerSelect={setSelectedInsurer}/>
             )}
+
+
             <FAQAccordion/>
         </div>
     );
 }
+
