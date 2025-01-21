@@ -11,16 +11,23 @@ import InsurerList from "@/app/[lang]/rca/InsurerList";
 import AdditionalDataForm from "@/app/[lang]/rca/AdditionalDataForm";
 import SelectedParameters from "@/app/[lang]/rca/SelectedParameters.tsx";
 
-export default function Page({ params }: { params: { lang: Locale } }) {
-    const [dictionary, setDictionary] = useState<any>(null);
 
-    useEffect(() => {
-        const loadDictionary = async () => {
-            const dict = await getDictionary(params.lang);
-            setDictionary(dict);
-        };
-        loadDictionary();
-    }, [params.lang]);
+export default function Page({ params }: { params: { lang: Locale } }) {
+    // const [dictionary, setDictionary] = useState<any>(null);
+    //
+    // // Использование React.use() для работы с params
+    // const lang = React.use(params.lang);
+    //
+    // useEffect(() => {
+    //     const loadDictionary = async () => {
+    //         if (lang) {
+    //             const dict = await getDictionary(lang);
+    //             setDictionary(dict);
+    //         }
+    //     };
+    //     loadDictionary();
+    // }, [lang]);
+
 
     const [IDNX, setIDNX] = useState<string>("2005021106830");
     const [VehicleRegistrationCertificateNumber, setVehicleRegistrationCertificateNumber] = useState<string>("218000136");
@@ -94,6 +101,7 @@ export default function Page({ params }: { params: { lang: Locale } }) {
     };
 
     const [qrHeaderUUID, setQrHeaderUUID] = useState<string | null>(null);
+    const [QrAsImage, setQrAsImage] = useState<string | null>(null);
 
     const handleApiRequest = async () => {
         if (selectedAdditional && selectedInsurer) {
@@ -108,9 +116,10 @@ export default function Page({ params }: { params: { lang: Locale } }) {
 
             try {
                 const response = await axiosInstance.post('/qr/', requestData);
-                const { url, uuid} = response.data;
+                const { url, uuid, qr_as_image} = response.data;
                 setQrCodeUrl(url);
                 setQrHeaderUUID(uuid);
+                setQrAsImage(qr_as_image);
             } catch (error) {
                 console.error('Ошибка при запросе API:', error);
             }
@@ -203,6 +212,14 @@ export default function Page({ params }: { params: { lang: Locale } }) {
 
     return (
         <div className="min-h-screen">
+            <div className="flex-grow flex justify-center py-12 px-4 sm:px-6 lg:px-8">
+                <div className="w-full max-w-3xl">
+                    <h1 className="text-3xl sm:text-4xl font-extrabold text-ce text-gray-600 mb-6">
+                        Оформление страховки ОСАГО
+                    </h1>
+                </div>
+            </div>
+
             {!formSubmitted && (
                 <InsuranceRequestForm
                     IDNX={IDNX}
@@ -238,20 +255,11 @@ export default function Page({ params }: { params: { lang: Locale } }) {
                                             rel="noopener noreferrer"
                                             className="inline-flex items-center text-blue-500 underline text-sm sm:text-base lg:text-lg hover:text-blue-600 transition duration-300"
                                         >
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                className="w-5 h-5 mr-2"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                viewBox="0 0 24 24"
-                                                strokeWidth="2"
-                                            >
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    d="M15 12h3m0 0l-3-3m3 3l-3 3m-7-3H6m0 0l3-3m-3 3l3 3"
-                                                />
-                                            </svg>
+                                            <img
+                                                src={`data:image/png;base64,${{QrAsImage}}`}
+                                                alt="QR код"
+                                                className="w-96 h-96 border border-gray-300" // Увеличенные размеры для QR
+                                            />
                                             Перейти к QR-коду
                                         </a>
                                         {paymentStatus ? (
@@ -275,7 +283,7 @@ export default function Page({ params }: { params: { lang: Locale } }) {
                 <InsurerList insurers={insurers} handleInsurerSelect={setSelectedInsurer}/>
             )}
 
-            <InfoRCA />
+            <InfoRCA/>
             <FAQAccordion/>
         </div>
     );

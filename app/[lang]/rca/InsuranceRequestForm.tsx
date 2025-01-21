@@ -3,7 +3,6 @@ import { getStaticUrl } from "@/app/[lang]/components/Footer.tsx";
 import TextInputWithTooltip from "@/app/[lang]/rca/rca_components/TextInputWithTooltip.tsx";
 import ConsentToggle from "@/app/[lang]/rca/rca_components/ConsentToggle.tsx";
 import SubmitButton from "@/app/[lang]/rca/rca_components/SubmitButton.tsx";
-
 const InsuranceRequestForm = ({
                                   IDNX,
                                   setIDNX,
@@ -13,20 +12,52 @@ const InsuranceRequestForm = ({
                                   setIsConsentGiven,
                                   handleSubmit,
                               }: any) => {
-    // Состояние для отслеживания загрузки
+    // Состояние для отслеживания загрузки и ошибок
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null); // Добавлено состояние для ошибки
+
+    // Валидация формы
+    const validateForm = () => {
+        // Проверка, что IDNX состоит из 13 цифр
+        const idnxRegex = /^[0-9]{13}$/;
+        if (!idnxRegex.test(IDNX)) {
+            setError("Поле IDNP/IDNO должно содержать 13 цифр.");
+            return false;
+        }
+
+        // Проверка, что номер техпаспорта состоит из 9 цифр
+        const vehicleRegNumRegex = /^[0-9]{9}$/;
+        if (!vehicleRegNumRegex.test(VehicleRegistrationCertificateNumber)) {
+            setError("Номер техпаспорта должен содержать 9 цифр.");
+            return false;
+        }
+
+        if (!isConsentGiven) {
+            setError("Необходимо согласие на обработку данных.");
+            return false;
+        }
+
+        return true;
+    };
 
     // Обработчик отправки формы
     const handleFormSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setIsLoading(true); // Показываем индикатор загрузки
+
+        // Проверка формы перед отправкой
+        if (!validateForm()) {
+            return;
+        }
+
+        setIsLoading(true);
+        setError(null); // Сбрасываем предыдущие ошибки
 
         try {
-            await handleSubmit(e); // Обработчик отправки
+            await handleSubmit(e); // Ожидаем отправку формы
         } catch (error) {
-            console.error("Ошибка при отправке формы:", error);
+            setError("Произошла ошибка при отправке формы.");
         } finally {
-            setIsLoading(false); // Скрываем индикатор загрузки после завершения
+            setIsLoading(false);
         }
     };
 
@@ -76,6 +107,12 @@ const InsuranceRequestForm = ({
                     {isLoading && (
                         <div className="flex justify-center mt-4">
                             <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-blue-500 border-solid"></div>
+                        </div>
+                    )}
+
+                    {error && (
+                        <div className="mt-4 text-red-500 text-sm text-center">
+                            {error}
                         </div>
                     )}
                 </div>
