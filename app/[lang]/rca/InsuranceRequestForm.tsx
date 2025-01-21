@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import {getStaticUrl} from "@/app/[lang]/components/Footer.tsx";
 
 const InsuranceRequestForm = ({
                                   IDNX,
@@ -43,7 +44,7 @@ const InsuranceRequestForm = ({
                                 <div
                                     className="absolute hidden group-hover:block bg-white border border-gray-300 shadow-lg rounded-md mt-2 px-4 py-3 text-sm text-gray-700 w-64">
                                     <img
-                                        src="/exemplu-certificat-inmatriculare.webp"
+                                        src={getStaticUrl('public/exemplu-certificat-inmatriculare.webp')}
                                         alt="Пример IDNP/IDNO"
                                         className="w-full h-auto mb-2 rounded-md"
                                     />
@@ -79,7 +80,7 @@ const InsuranceRequestForm = ({
                                 <div
                                     className="absolute hidden group-hover:block bg-white border border-gray-300 shadow-lg rounded-md mt-2 px-4 py-3 text-sm text-gray-700 w-64">
                                     <img
-                                        src="/idnp.webp"
+                                        src={getStaticUrl('public/idnp.webp')}
                                         alt="Пример IDNP/IDNO"
                                         className="w-full h-auto mb-2 rounded-md"
                                     />
@@ -88,42 +89,42 @@ const InsuranceRequestForm = ({
                         </div>
                     </div>
                     <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-3">
-                            <div
-                                className={`${isConsentGiven ? "bg-green-500" : "bg-gray-400"} relative inline-block w-16 h-8 rounded-full cursor-pointer`}
-                                onClick={() => setIsConsentGiven(!isConsentGiven)}
-                            >
+                        <div
+                            className={`${isConsentGiven ? "bg-green-500" : "bg-gray-400"} relative inline-block w-16 h-8 rounded-full cursor-pointer`}
+                            onClick={() => setIsConsentGiven(!isConsentGiven)}
+                        >
                             <span
                                 className={`${isConsentGiven ? "translate-x-8" : "translate-x-0"} inline-block w-8 h-8 bg-white rounded-full shadow-md transition-transform duration-300`}
                             />
-                            </div>
-                            <div className="flex flex-col sm:flex-row items-center space-x-2">
-                                <label htmlFor="consent" className="text-sm text-gray-700 flex-grow">
-                                    Согласие на обработку данных
-                                </label>
-                                <Link
-                                    href={`/Privacy`}
-                                    className="text-blue-700"
-                                >
-                                    Политика конфиденциальности
-                                </Link>
-                                <input
-                                    type="checkbox"
-                                    id="consent"
-                                    checked={isConsentGiven}
-                                    onChange={() => setIsConsentGiven(!isConsentGiven)}
-                                    className="sr-only"
-                                />
-                            </div>
                         </div>
-                        <div>
-                            <button
-                                type="submit"
-                                disabled={!isConsentGiven}
-                                className={`w-full ${isConsentGiven ? "bg-blue-600 hover:bg-blue-700" : "bg-blue-300 cursor-not-allowed"} text-white font-semibold py-2 px-4 rounded-lg shadow-md`}
+                        <div className="flex flex-col sm:flex-row items-center space-x-2">
+                            <label htmlFor="consent" className="text-sm text-gray-700 flex-grow">
+                                Согласие на обработку данных
+                            </label>
+                            <Link
+                                href={`/Privacy`}
+                                className="text-blue-700"
                             >
-                                Рассчитать
-                            </button>
+                                Политика конфиденциальности
+                            </Link>
+                            <input
+                                type="checkbox"
+                                id="consent"
+                                checked={isConsentGiven}
+                                onChange={() => setIsConsentGiven(!isConsentGiven)}
+                                className="sr-only"
+                            />
                         </div>
+                    </div>
+                    <div>
+                        <button
+                            type="submit"
+                            disabled={!isConsentGiven}
+                            className={`w-full ${isConsentGiven ? "bg-blue-600 hover:bg-blue-700" : "bg-blue-300 cursor-not-allowed"} text-white font-semibold py-2 px-4 rounded-lg shadow-md`}
+                        >
+                            Рассчитать
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

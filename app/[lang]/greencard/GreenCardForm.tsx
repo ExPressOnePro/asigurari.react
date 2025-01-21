@@ -1,170 +1,201 @@
 "use client";
 
-import React, { useState } from "react";
+import React, {useState} from "react";
+import axiosInstance from "@/lib/axiosInstance";
+import {GreenCardZoneOptions, GreenCardZones, TermInsurance, TermInsuranceOptions,} from "./Enums";
+import {GreenCardCalculationResponse} from "./types";
 
-export default function GreenCardForm() {
-    const [zone, setZone] = useState<string>("");
-    const [term, setTerm] = useState<string>("");
-    const [idnp, setIdnp] = useState<string>("");
-    const [carNumber, setCarNumber] = useState<string>("");
-    const [showHint, setShowHint] = useState<boolean>(false); // Управление подсказкой
+interface GreenCardFormProps {
+    onCalculationSuccess: (data: GreenCardCalculationResponse) => void;
+}
+
+const GreenCardForm: React.FC<GreenCardFormProps> = ({onCalculationSuccess}) => {
+    const [greenCardZone, setGreenCardZone] = useState<GreenCardZones>(GreenCardZones.Z3);
+    const [termInsurance, setTermInsurance] = useState<TermInsurance>(TermInsurance.D15);
+    const [IDNX, setIDNX] = useState<string>("");
+    const [vehicleRegistrationCertificateNumber, setVehicleRegistrationCertificateNumber] = useState<string>("");
+    const [error, setError] = useState<string | null>(null);
+    const [isConsentGiven, setIsConsentGiven] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        // Форматирование данных перед отправкой
-        const data = {
-            GreenCardZone: zone,
-            TermInsurance: term,
-            IDNX: idnp,
-            VehicleRegistrationCertificateNumber: carNumber,
+        if (!isConsentGiven) {
+            setError("Вы должны дать согласие на обработку персональных данных.");
+            return;
+        }
+
+        const requestData = {
+            GreenCardZone: greenCardZone,
+            TermInsurance: termInsurance,
+            IDNX: IDNX || null,
+            VehicleRegistrationCertificateNumber: vehicleRegistrationCertificateNumber || null,
         };
 
-        // Отправка данных на сервер (пример с использованием fetch)
-        try {
-            const response = await fetch("/api/green-card", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
-            });
+        setIsLoading(true);
+        setError(null);
 
-            if (response.ok) {
-                console.log("Зеленая карта успешно оформлена!");
+        try {
+            const response = await axiosInstance.post<GreenCardCalculationResponse>(
+                "rca/calculate-green-card/",
+                requestData
+            );
+            const result = response.data;
+
+            if (result.IsSuccess) {
+                onCalculationSuccess(result);
             } else {
-                console.error("Ошибка при оформлении Зеленой Карты");
+                setError(result.ErrorMessage || "Произошла ошибка при расчетах.");
             }
-        } catch (error) {
-            console.error("Ошибка сервера:", error);
+        } catch (error: any) {
+            console.error("Ошибка при запросе к API:", error);
+
+            if (error.response?.status === 500) {
+                setError("Ошибка сервера. Пожалуйста, попробуйте позже.");
+            } else if (error.response?.data?.detail) {
+                setError(error.response.data.detail);
+            } else if (error.response?.data) {
+                const errorMessages = Object.values(error.response.data)
+                    .flat()
+                    .join(", ");
+                setError(errorMessages || "Произошла ошибка при расчетах.");
+            } else {
+                setError("Произошла ошибка при расчетах.");
+            }
+        } finally {
+            setIsLoading(false);
         }
     };
 
     return (
-        <div className="bg-white p-6 rounded-lg">
-            <h2 className="text-2xl font-extrabold text-gray-800 mb-6 text-center">
-                Оформление Зеленой Карты
-            </h2>
+        <div className="bg-white shadow-lg rounded-lg p-8">
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-center text-gray-800 mb-4">
+                Рассчитайте стоимость Зеленой Карты
+            </h1>
             <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Coverage Zone Field */}
+                {/* Green Card Zone Selection */}
                 <div>
-                    <label htmlFor="zone" className="block text-sm font-medium text-gray-700">
-                        Зона покрытия
+                    <label htmlFor="greenCardZone" className="block text-sm font-bold text-gray-700">
+                        Зона Зеленой Карты
                     </label>
                     <select
-                        id="zone"
-                        value={zone}
-                        onChange={(e) => setZone(e.target.value)}
+                        id="greenCardZone"
+                        value={greenCardZone}
+                        onChange={(e) => setGreenCardZone(e.target.value as GreenCardZones)}
                         className="mt-2 block w-full px-4 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                         required
                     >
-                        <option value="">Выберите зону покрытия</option>
-                        <option value="Europe">Европа</option>
-                        <option value="Asia">Азия</option>
-                        <option value="Africa">Африка</option>
+                        {GreenCardZoneOptions.map((zone) => (
+                            <option key={zone.value} value={zone.value}>
+                                {zone.label}
+                            </option>
+                        ))}
                     </select>
                 </div>
 
-                {/* Term of Validity Field */}
+                {/* Term Insurance Selection */}
                 <div>
-                    <label htmlFor="term" className="block text-sm font-medium text-gray-700">
-                        Срок действия
+                    <label htmlFor="termInsurance" className="block text-sm font-bold text-gray-700">
+                        Срок страхования
                     </label>
                     <select
-                        id="term"
-                        value={term}
-                        onChange={(e) => setTerm(e.target.value)}
+                        id="termInsurance"
+                        value={termInsurance}
+                        onChange={(e) => setTermInsurance(e.target.value as TermInsurance)}
                         className="mt-2 block w-full px-4 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                         required
                     >
-                        <option value="">Выберите срок действия</option>
-                        <option value="1 year">1 год</option>
-                        <option value="3 years">3 года</option>
-                        <option value="5 years">5 лет</option>
+                        {TermInsuranceOptions.map((term) => (
+                            <option key={term.value} value={term.value}>
+                                {term.label}
+                            </option>
+                        ))}
                     </select>
                 </div>
 
-                {/* IDNP/IDNO Field */}
+                {/* IDNX Input */}
                 <div>
-                    <label htmlFor="idnp" className="block text-sm font-medium text-gray-700">
-                        DNP/IDNO
+                    <label htmlFor="idnx" className="block text-sm font-bold text-gray-700">
+                        IDNP/IDNO
                     </label>
                     <input
                         type="text"
-                        id="idnp"
-                        value={idnp}
-                        onChange={(e) => setIdnp(e.target.value)}
+                        id="idnx"
+                        value={IDNX}
+                        onChange={(e) => setIDNX(e.target.value)}
                         className="mt-2 block w-full px-4 py-2 text-sm border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500"
-                        placeholder="Введите DNP/IDNO"
+                        placeholder="Введите IDNP/IDNO"
+                        maxLength={13}
+                        minLength={13}
                         required
                     />
                 </div>
 
-                {/* Car Passport Number Field */}
-                <div className="relative">
-                    <label htmlFor="carNumber" className="block text-sm font-medium text-gray-700">
-                        Номер техпаспорта авто
+                {/* Vehicle Registration Certificate Number Input */}
+                <div>
+                    <label htmlFor="vehicleRegCertificateNumber" className="block text-sm font-bold text-gray-700">
+                        Номер техпаспорта
                     </label>
-                    <div className="flex items-center mt-2">
-                        <input
-                            type="text"
-                            id="carNumber"
-                            value={carNumber}
-                            onChange={(e) => setCarNumber(e.target.value)}
-                            className="flex-1 px-4 py-2 text-sm border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500"
-                            placeholder="Введите номер техпаспорта"
-                            required
+                    <input
+                        type="text"
+                        id="vehicleRegCertificateNumber"
+                        value={vehicleRegistrationCertificateNumber}
+                        onChange={(e) => setVehicleRegistrationCertificateNumber(e.target.value)}
+                        className="mt-2 block w-full px-4 py-2 text-sm border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Введите номер техпаспорта"
+                        maxLength={9}
+                        minLength={9}
+                        required
+                    />
+                </div>
+
+                {/* Consent Toggle */}
+                <div className="flex items-center">
+                    <div
+                        className={`${
+                            isConsentGiven ? "bg-green-500" : "bg-gray-400"
+                        } relative inline-block w-16 h-8 rounded-full cursor-pointer transition-colors duration-300`}
+                        onClick={() => setIsConsentGiven(!isConsentGiven)}
+                    >
+                        <span
+                            className={`${
+                                isConsentGiven ? "translate-x-8" : "translate-x-0"
+                            } inline-block w-8 h-8 bg-white rounded-full shadow-md transition-transform duration-300`}
                         />
-                        {/* Info Icon */}
-                        <button
-                            type="button"
-                            onMouseEnter={() => setShowHint(true)} // Показываем подсказку при наведении
-                            onMouseLeave={() => setShowHint(false)} // Скрываем подсказку при уходе мыши
-                            className="ml-2 text-gray-500 hover:text-gray-700 focus:outline-none"
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-5 w-5"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                strokeWidth={2}
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M13 16h-1v-4h-1m1-4h.01M12 18.5C7.30558 18.5 3.5 14.6944 3.5 10S7.30558 1.5 12 1.5 20.5 5.30558 20.5 10 16.6944 18.5 12 18.5z"
-                                />
-                            </svg>
-                        </button>
                     </div>
-                    {/* Hint Popup */}
-                    {showHint && (
-                        <div className="absolute mt-2 w-64 bg-white border border-gray-300 rounded-lg shadow-lg p-4 z-10">
-                            <img
-                                src="/techpass.png"
-                                alt="Подсказка для ввода номера техпаспорта"
-                                className="w-full h-auto rounded-md"
-                            />
-                        </div>
-                    )}
+                    <label htmlFor="consent" className="ml-4 text-sm text-gray-700">
+                        Согласие на обработку данных
+                    </label>
+                    <input
+                        type="checkbox"
+                        id="consent"
+                        checked={isConsentGiven}
+                        onChange={() => setIsConsentGiven(!isConsentGiven)}
+                        className="sr-only"
+                    />
                 </div>
 
                 {/* Submit Button */}
                 <div>
                     <button
                         type="submit"
-                        className="w-full bg-green-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                        disabled={!isConsentGiven || isLoading}
+                        className={`w-full ${
+                            isConsentGiven && !isLoading
+                                ? "bg-blue-600 hover:bg-blue-700"
+                                : "bg-blue-300 cursor-not-allowed"
+                        } text-white font-semibold py-2 px-4 rounded-lg shadow-md`}
                     >
-                        Оформить
+                        {isLoading ? "Рассчитывается..." : "Рассчитать"}
                     </button>
                 </div>
             </form>
 
-            {/* Additional Info */}
-            <p className="text-sm text-gray-500 mt-6 text-center">
-                Введите корректные данные для оформления Зеленой Карты. Обработка данных защищена.
-            </p>
+            {/* Success and Error Messages */}
+            {error && <p className="text-sm text-red-500 mt-4">{error}</p>}
         </div>
     );
 }
+
+export default GreenCardForm;

@@ -1,6 +1,7 @@
 import {Locale} from '@/i18n.config'
 import {getDictionary} from '@/lib/dictionary'
 import Card from "@/app/[lang]/components/Card";
+import {getStaticUrl} from "@/app/[lang]/components/Footer.tsx";
 
 export default async function Home({
                                        params: {lang}
@@ -17,7 +18,7 @@ export default async function Home({
                         {/* Image Section */}
                         <div className="w-full lg:w-1/2">
                             <img
-                                src={'/porsche.png'}
+                                src={getStaticUrl('public/porsche.png')}
                                 alt="Страхование транспортных средств"
                                 className="w-full h-auto rounded-lg"
                             />
