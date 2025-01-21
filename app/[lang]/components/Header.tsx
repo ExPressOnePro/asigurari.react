@@ -18,7 +18,7 @@ export default async function Header({ lang }: { lang: Locale }) {
                 className="text-xl font-bold text-blue-700"
             >
               <img
-                  src={getStaticUrl('public/Logo.jpg')}
+                  src={getStaticUrl('public/Logo.png')}
                   alt="Logo"
                   className="inline-block h-auto w-auto max-h-12 max-w-full mr-2"
               />

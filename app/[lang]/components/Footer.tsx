@@ -11,7 +11,7 @@ export default function Footer() {
                     <div>
                         <img
                             className="filter grayscale w-32 mx-auto md:mx-0 mb-4"
-                            src={getStaticUrl('public/Logo.jpg')}
+                            src={getStaticUrl('public/Logo.png')}
                             alt="Logo"
                         />
                         <p className="text-sm leading-6">
