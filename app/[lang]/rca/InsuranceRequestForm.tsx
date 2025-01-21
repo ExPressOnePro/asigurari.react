@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import { getStaticUrl } from "@/app/[lang]/components/Footer.tsx";
-import TextInputWithTooltip from "@/app/[lang]/rca/rca_components/TextInputWithTooltip.tsx";
-import ConsentToggle from "@/app/[lang]/rca/rca_components/ConsentToggle.tsx";
+import React, {useState} from "react";
+import {getStaticUrl} from "@/app/[lang]/components/Footer.tsx";
+import TextInputWithTooltip from "@/app/[lang]/components/TextInputWithTooltip.tsx";
+import ConsentToggle from "@/app/[lang]/components/ConsentToggle.tsx";
 import SubmitButton from "@/app/[lang]/rca/rca_components/SubmitButton.tsx";
+
 const InsuranceRequestForm = ({
                                   IDNX,
                                   setIDNX,
@@ -100,13 +101,14 @@ const InsuranceRequestForm = ({
                         />
 
                         {/* Кнопка отправки с учётом загрузки */}
-                        <SubmitButton isConsentGiven={isConsentGiven} isLoading={isLoading} />
+                        <SubmitButton isConsentGiven={isConsentGiven} isLoading={isLoading}/>
                     </form>
 
                     {/* Индикатор загрузки */}
                     {isLoading && (
                         <div className="flex justify-center mt-4">
-                            <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-blue-500 border-solid"></div>
+                            <div
+                                className="animate-spin rounded-full h-10 w-10 border-t-2 border-blue-500 border-solid"></div>
                         </div>
                     )}
 

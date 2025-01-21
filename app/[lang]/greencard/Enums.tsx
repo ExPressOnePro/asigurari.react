@@ -22,22 +22,23 @@ export enum TermInsurance {
 }
 
 export const GreenCardZoneOptions = [
-    {value: GreenCardZones.Z1, label: "Ucraina și Belarus"},
-    {value: GreenCardZones.Z3, label: "Toate țările sistemului carte verde"},
+    {value: GreenCardZones.Z1, label: "Украина"},
+    {value: GreenCardZones.Z3, label: "Все страны зеленой карты"},
 ];
 
 export const TermInsuranceOptions = [
-    {value: TermInsurance.D15, label: "15 zile"},
-    {value: TermInsurance.M1, label: "1 lună"},
-    {value: TermInsurance.M2, label: "2 luni"},
-    {value: TermInsurance.M3, label: "3 luni"},
-    {value: TermInsurance.M4, label: "4 luni"},
-    {value: TermInsurance.M5, label: "5 luni"},
-    {value: TermInsurance.M6, label: "6 luni"},
-    {value: TermInsurance.M7, label: "7 luni"},
-    {value: TermInsurance.M8, label: "8 luni"},
-    {value: TermInsurance.M9, label: "9 luni"},
-    {value: TermInsurance.M10, label: "10 luni"},
-    {value: TermInsurance.M11, label: "11 luni"},
-    {value: TermInsurance.M12, label: "12 luni"},
+    {value: TermInsurance.D15, label: "15 дней"},
+    {value: TermInsurance.M1, label: "1 месяц"},
+    {value: TermInsurance.M2, label: "2 месяца"},
+    {value: TermInsurance.M3, label: "3 месяца"},
+    {value: TermInsurance.M4, label: "4 месяца"},
+    {value: TermInsurance.M5, label: "5 месяцев"},
+    {value: TermInsurance.M6, label: "6 месяцев"},
+    {value: TermInsurance.M7, label: "7 месяцев"},
+    {value: TermInsurance.M8, label: "8 месяцев"},
+    {value: TermInsurance.M9, label: "9 месяцев"},
+    {value: TermInsurance.M10, label: "10 месяцев"},
+    {value: TermInsurance.M11, label: "11 месяцев"},
+    {value: TermInsurance.M12, label: "12 месяцев"},
 ];
+

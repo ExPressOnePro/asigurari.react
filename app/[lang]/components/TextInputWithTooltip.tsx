@@ -7,6 +7,9 @@ interface TextInputWithTooltipProps {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     placeholder: string;
     tooltipImage: string;
+    maxLength?: number;
+    minLength?: number;
+    required?: boolean;
 }
 
 const TextInputWithTooltip: React.FC<TextInputWithTooltipProps> = ({
@@ -15,7 +18,10 @@ const TextInputWithTooltip: React.FC<TextInputWithTooltipProps> = ({
                                                                        value,
                                                                        onChange,
                                                                        placeholder,
-                                                                       tooltipImage
+                                                                       tooltipImage,
+                                                                       maxLength,
+                                                                       minLength,
+                                                                       required = true,
                                                                    }) => (
     <div className="relative">
         <label htmlFor={id} className="block text-sm font-bold text-gray-700">
@@ -29,7 +35,9 @@ const TextInputWithTooltip: React.FC<TextInputWithTooltipProps> = ({
                 onChange={onChange}
                 className="block w-full px-6 py-3 text-sm border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500"
                 placeholder={placeholder}
-                required
+                required={required}
+                maxLength={maxLength || undefined}
+                minLength={minLength || undefined}
             />
             <div className="ml-2 relative group">
                 <button
