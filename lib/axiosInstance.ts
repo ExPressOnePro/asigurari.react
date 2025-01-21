@@ -7,7 +7,7 @@ const csrfToken =
         : null;
 
 const axiosInstance = axios.create({
-    baseURL: "https://e85b-2a00-1858-104a-8050-5f3-a23d-957-3465.ngrok-free.app/api/",
+    baseURL: process.env.NEXT_PUBLIC_API_URL,
     headers: {
         "Content-Type": "application/json",
         ...(csrfToken && { "X-CSRF-TOKEN": csrfToken }), // Условно добавляем CSRF токен
