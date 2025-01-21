@@ -1,8 +1,7 @@
 "use client";
 
-import { Locale } from "@/i18n.config";
-import React, { useEffect, useState } from "react";
-import { getDictionary } from "@/lib/dictionary";
+import {Locale} from "@/i18n.config";
+import React, {useEffect, useState} from "react";
 import axiosInstance from "@/lib/axiosInstance";
 import InsuranceRequestForm from "@/app/[lang]/rca/InsuranceRequestForm";
 import InfoRCA from "@/app/[lang]/rca/InfoRCA";
@@ -12,7 +11,7 @@ import AdditionalDataForm from "@/app/[lang]/rca/AdditionalDataForm";
 import SelectedParameters from "@/app/[lang]/rca/SelectedParameters.tsx";
 
 
-export default function Page({ params }: { params: { lang: Locale } }) {
+export default function Page({params}: { params: { lang: Locale } }) {
     // const [dictionary, setDictionary] = useState<any>(null);
     //
     // // Использование React.use() для работы с params
@@ -54,7 +53,8 @@ export default function Page({ params }: { params: { lang: Locale } }) {
         insuranceStartDate: string;
     } | null>(null);
     const [isAdditionalDataSubmitted, setIsAdditionalDataSubmitted] = useState<boolean>(false);
-    const [qrCodeUrl, setQrCodeUrl] = useState<string | null>(null);;
+    const [qrCodeUrl, setQrCodeUrl] = useState<string | null>(null);
+    ;
     const [paymentStatus, setPaymentStatus] = useState<string | null>(null);
     const [isCheckingStatus, setIsCheckingStatus] = useState(false);
     const [selectedInsurerIDNO, setSelectedInsurerIDNO] = useState<string | null>(null);
@@ -62,7 +62,10 @@ export default function Page({ params }: { params: { lang: Locale } }) {
     const handleInsurerSelect = (insurer: any) => {
         setSelectedInsurerIDNO(insurer.IDNO); // Сохраняем IDNO выбранного страховщика
     };
-    const handleAdditionalSubmit = (data: { possessionBase: { value: string; label: string } | null; insuranceStartDate: string }) => {
+    const handleAdditionalSubmit = (data: {
+        possessionBase: { value: string; label: string } | null;
+        insuranceStartDate: string
+    }) => {
         setSelectedAdditional(data);
         setIsAdditionalDataSubmitted(true);
     };
@@ -75,7 +78,7 @@ export default function Page({ params }: { params: { lang: Locale } }) {
             return;
         }
 
-        const requestData = { IDNX, VehicleRegistrationCertificateNumber, OperatingModes, PersonIsJuridical };
+        const requestData = {IDNX, VehicleRegistrationCertificateNumber, OperatingModes, PersonIsJuridical};
         try {
             const response = await axiosInstance.post("/rca/calculate-rca/", requestData);
             const result = response.data;
@@ -116,7 +119,7 @@ export default function Page({ params }: { params: { lang: Locale } }) {
 
             try {
                 const response = await axiosInstance.post('/qr/', requestData);
-                const { url, uuid, qr_as_image} = response.data;
+                const {url, uuid, qr_as_image} = response.data;
                 setQrCodeUrl(url);
                 setQrHeaderUUID(uuid);
                 setQrAsImage(qr_as_image);
@@ -170,7 +173,7 @@ export default function Page({ params }: { params: { lang: Locale } }) {
 
         try {
             const response = await axiosInstance.get(`/qr/${qrHeaderUUID}/status/`);
-            const { status } = response.data; // Получаем статус из ответа
+            const {status} = response.data; // Получаем статус из ответа
 
             if (status === "Paid") {
                 setPaymentStatus("Успешно оплачено");

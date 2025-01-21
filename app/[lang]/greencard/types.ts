@@ -2,9 +2,9 @@ export interface Insurer {
     Name: string;
     IDNO: string;
     PrimeSum: string;
-    PrimeSumMDL: string;
+    PrimeSumMDL: string | number;
     is_active: boolean;
-    logo: string;
+    logo?: string;
 }
 
 export interface InsurersPrime {

@@ -4,8 +4,8 @@ import React, {useState} from "react";
 import GreenCardRequestForm from "@/app/[lang]/greencard/GreenCardRequestForm.tsx";
 import InsurerList from "@/app/[lang]/greencard/InsurerList";
 import AdditionalDataForm from "@/app/[lang]/greencard/AdditionalDataForm";
-import FAQAccordion from "@/app/[lang]/greencard/FAQAccordion";
 import {GreenCardCalculationResponse, Insurer} from "./types";
+import FAQAccordion from "@/app/[lang]/greencard/FAQAccordion.tsx";
 
 export default function Page() {
     const [calculatedData, setCalculatedData] = useState<GreenCardCalculationResponse | null>(null);
@@ -30,43 +30,63 @@ export default function Page() {
                     </h1>
                 </div>
             </div>
-            <div className="flex-grow flex justify-center py-12 px-4 sm:px-6 lg:px-8">
-                <div className="w-full max-w-3xl">
 
-                    {!calculatedData && (
-                        <GreenCardRequestForm onCalculationSuccess={handleCalculationSuccess}/>
-                    )}
+            {!calculatedData && (
+                <GreenCardRequestForm onCalculationSuccess={handleCalculationSuccess}/>
+            )}
 
-                    {calculatedData && (
-                        <div className="mt-8">
-                            <div className="bg-gray-50 p-6 rounded-md shadow-md">
-                                <p className="text-gray-700 mb-2">
-                                    <strong>Имя клиента:</strong> {calculatedData.PersonFirstName}{" "}
-                                    {calculatedData.PersonLastName}
-                                </p>
-                                <p className="text-gray-700 mb-2">
-                                    <strong>Автомобиль:</strong> {calculatedData.VehicleMark}{" "}
-                                    {calculatedData.VehicleModel} ({calculatedData.VehicleRegistrationNumber})
-                                </p>
-                                <p className="text-gray-700 mb-4">
-                                    <strong>Категория автомобиля:</strong> {calculatedData.VehicleCategory}
-                                </p>
+            {calculatedData && (
+                <div>
+                    <div className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+                        <div className="w-full max-w-3xl">
+                            <div className="bg-white border shadow-lg rounded-lg p-8">
+                                <h2 className="text-xl font-bold text-gray-800 mb-4">Выбранные параметры:</h2>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2">
+                                    <div className="text-sm text-gray-700">Автомобиль:</div>
+                                    <div className="text-sm font-extrabold text-gray-800">
+                                        {calculatedData?.VehicleMark} {calculatedData?.VehicleModel} ({calculatedData?.VehicleRegistrationNumber})
+                                    </div>
+
+                                    <div className="text-sm text-gray-700">Категория автомобиля:</div>
+                                    <div className="text-sm font-extrabold text-gray-800">
+                                        {calculatedData?.VehicleCategory}
+                                    </div>
+
+                                    <div className="text-sm text-gray-700">Клиент:</div>
+                                    <div className="text-sm font-extrabold text-gray-800">
+                                        {calculatedData?.PersonFirstName} {calculatedData?.PersonLastName}
+                                    </div>
+                                    {selectedInsurer && (
+                                        <>
+                                            <div className="text-sm text-gray-700">Страховщик:</div>
+                                            <div className="text-sm font-extrabold text-gray-800">
+                                                {selectedInsurer.Name}
+                                            </div>
+
+                                            <div className="text-sm text-gray-700">Стоимость "Зелёной карты":
+                                            </div>
+                                            <div className="text-sm font-extrabold text-gray-800">
+                                                {selectedInsurer.PrimeSumMDL} MDL
+                                            </div>
+                                        </>
+                                    )}
+                                </div>
                             </div>
-
-                            {!selectedInsurer && calculatedData.InsurersPrime.InsurerPrimeRCAE.length > 0 && (
-                                <InsurerList
-                                    insurers={calculatedData.InsurersPrime.InsurerPrimeRCAE}
-                                    handleInsurerSelect={handleInsurerSelect}
-                                />
-                            )}
-
-                            {selectedInsurer && <AdditionalDataForm/>}
                         </div>
+                    </div>
+                    {!selectedInsurer && calculatedData.InsurersPrime.InsurerPrimeRCAE.length > 0 && (
+                        <InsurerList
+                            insurers={calculatedData.InsurersPrime.InsurerPrimeRCAE}
+                            handleInsurerSelect={handleInsurerSelect}
+                        />
                     )}
 
-                    {error && <p className="text-sm text-red-500 mt-4">{error}</p>}
+                    {selectedInsurer && <AdditionalDataForm/>}
                 </div>
-            </div>
+            )}
+
+            {error && <p className="text-sm text-red-500 mt-4">{error}</p>}
+
 
             {calculatedData && <FAQAccordion/>}
         </div>

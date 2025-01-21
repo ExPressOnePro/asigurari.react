@@ -1,5 +1,3 @@
-// src/constants/GreenCardOptions.ts
-
 export enum GreenCardZones {
     Z1 = "Z1", // Zona 1 - Ucraina și Belarus
     Z3 = "Z3", // Zona 3 - Toate țările sistemului carte verde
@@ -40,5 +38,21 @@ export const TermInsuranceOptions = [
     {value: TermInsurance.M10, label: "10 месяцев"},
     {value: TermInsurance.M11, label: "11 месяцев"},
     {value: TermInsurance.M12, label: "12 месяцев"},
+];
+
+
+export enum Possession {
+    Property = "Property",
+    Lease = "Lease",
+    Leasing = "Leasing",
+    PowerOfAttorney = "PowerOfAttorney",
+}
+
+
+export const PossessionOptions = [
+    {value: Possession.Property, label: "Собственность"},
+    {value: Possession.Lease, label: "Аренда"},
+    {value: Possession.Leasing, label: "Лизинг"},
+    {value: Possession.PowerOfAttorney, label: "Доверенность"},
 ];
 

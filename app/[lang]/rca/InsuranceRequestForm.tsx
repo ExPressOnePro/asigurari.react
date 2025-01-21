@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {getStaticUrl} from "@/app/[lang]/components/Footer.tsx";
 import TextInputWithTooltip from "@/app/[lang]/components/TextInputWithTooltip.tsx";
 import ConsentToggle from "@/app/[lang]/components/ConsentToggle.tsx";
-import SubmitButton from "@/app/[lang]/rca/rca_components/SubmitButton.tsx";
+import SubmitButton from "@/app/[lang]/components/SubmitButton.tsx";
 
 const InsuranceRequestForm = ({
                                   IDNX,

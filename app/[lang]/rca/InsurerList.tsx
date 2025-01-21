@@ -16,7 +16,7 @@ interface InsurerListProps {
     handleInsurerSelect: (insurer: Insurer) => void;
 }
 
-const InsurerList: React.FC<InsurerListProps> = ({ insurers, handleInsurerSelect }) => {
+const InsurerList: React.FC<InsurerListProps> = ({insurers, handleInsurerSelect}) => {
     // Сортировка страховщиков по возрастанию PrimeSumMDL
     const sortedInsurers = useMemo(() => {
         return [...insurers].sort((a, b) => {
@@ -27,12 +27,12 @@ const InsurerList: React.FC<InsurerListProps> = ({ insurers, handleInsurerSelect
     }, [insurers]);
 
     const features = [
-        { label: "Территория покрытия", value: "Moldova" },
-        { label: "Лимит по имуществу", value: "100 000 €" },
-        { label: "Лимит по здоровью (event)", value: "500 000 €" },
-        { label: "Лимит по здоровью (event)", value: "100 000 €" },
-        { label: "Моментальное получение договора на email", value: null },
-        { label: "Онлайн регистрация полиса в RCAData", value: null },
+        {label: "Территория покрытия", value: "Moldova"},
+        {label: "Лимит по имуществу", value: "100 000 €"},
+        {label: "Лимит по здоровью (event)", value: "500 000 €"},
+        {label: "Лимит по здоровью (event)", value: "100 000 €"},
+        {label: "Моментальное получение договора на email", value: null},
+        {label: "Онлайн регистрация полиса в RCAData", value: null},
     ];
 
     return (
@@ -44,7 +44,7 @@ const InsurerList: React.FC<InsurerListProps> = ({ insurers, handleInsurerSelect
                         className={`max-w-sm w-full border rounded-xl shadow-lg transition-transform duration-300 overflow-hidden ${
                             insurer.is_active
                                 ? "bg-white border-gray-200 hover:shadow-xl hover:scale-105"
-                                : "bg-gray-50 border-gray-300 opacity-60" 
+                                : "bg-gray-50 border-gray-300 opacity-60"
                         }`}
                     >
                         {/* Логотип страховщика */}

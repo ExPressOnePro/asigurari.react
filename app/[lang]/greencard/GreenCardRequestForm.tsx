@@ -8,7 +8,7 @@ import {getStaticUrl} from "@/app/[lang]/components/Footer.tsx";
 import TextInputWithTooltip from "@/app/[lang]/components/TextInputWithTooltip.tsx";
 import SelectInputWithTooltip from "@/app/[lang]/components/SelectInputWithTooltip.tsx";
 import ConsentToggle from "@/app/[lang]/components/ConsentToggle.tsx";
-import SubmitButton from "@/app/[lang]/rca/rca_components/SubmitButton.tsx";
+import SubmitButton from "@/app/[lang]/components/SubmitButton.tsx";
 
 interface GreenCardFormProps {
     onCalculationSuccess: (data: GreenCardCalculationResponse) => void;
@@ -17,8 +17,8 @@ interface GreenCardFormProps {
 const GreenCardRequestForm: React.FC<GreenCardFormProps> = ({onCalculationSuccess}) => {
     const [greenCardZone, setGreenCardZone] = useState<GreenCardZones>(GreenCardZones.Z3);
     const [termInsurance, setTermInsurance] = useState<TermInsurance>(TermInsurance.D15);
-    const [IDNX, setIDNX] = useState<string>("");
-    const [vehicleRegistrationCertificateNumber, setVehicleRegistrationCertificateNumber] = useState<string>("");
+    const [IDNX, setIDNX] = useState<string>("2005021106830");
+    const [vehicleRegistrationCertificateNumber, setVehicleRegistrationCertificateNumber] = useState<string>("218000136");
     const [error, setError] = useState<string | null>(null);
     const [isConsentGiven, setIsConsentGiven] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -76,87 +76,91 @@ const GreenCardRequestForm: React.FC<GreenCardFormProps> = ({onCalculationSucces
     // @ts-ignore
     // @ts-ignore
     return (
-        <div className="bg-white shadow-lg rounded-lg p-8">
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-center text-gray-400 mb-4">
-                Рассчитайте стоимость "Зеленой карты"
-            </h1>
-            <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Green Card Zone Selection */}
-                <SelectInputWithTooltip
-                    id="greenCardZone"
-                    label="Зона Зеленой Карты"
-                    value={greenCardZone}
-                    onChange={(e) => setGreenCardZone(e.target.value as GreenCardZones)}
-                    options={GreenCardZoneOptions}
-                    tooltipImage={undefined}
-                    required={true}
-                />
+        <div className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+            <div className="w-full max-w-3xl">
+                <div className="bg-white shadow-lg rounded-lg p-8">
+                    <h1 className="text-3xl sm:text-4xl font-extrabold text-center text-gray-400 mb-4">
+                        Рассчитайте стоимость "Зеленой карты"
+                    </h1>
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                        {/* Green Card Zone Selection */}
+                        <SelectInputWithTooltip
+                            id="greenCardZone"
+                            label="Зона Зеленой Карты"
+                            value={greenCardZone}
+                            onChange={(e) => setGreenCardZone(e.target.value as GreenCardZones)}
+                            options={GreenCardZoneOptions}
+                            tooltipImage={undefined}
+                            required={true}
+                        />
 
 
-                {/* Term Insurance Selection */}
-                <SelectInputWithTooltip
-                    id="termInsurance"
-                    label="Срок страхования"
-                    value={termInsurance}
-                    onChange={(e) => setTermInsurance(e.target.value as TermInsurance)}
-                    options={TermInsuranceOptions}
-                    tooltipImage={undefined}
-                    required={true}
-                />
+                        {/* Term Insurance Selection */}
+                        <SelectInputWithTooltip
+                            id="termInsurance"
+                            label="Срок страхования"
+                            value={termInsurance}
+                            onChange={(e) => setTermInsurance(e.target.value as TermInsurance)}
+                            options={TermInsuranceOptions}
+                            tooltipImage={undefined}
+                            required={true}
+                        />
 
 
-                {/* IDNX Input */}
-                <TextInputWithTooltip
-                    id="idnx"
-                    label="IDNP"
-                    value={IDNX}
-                    onChange={(e) => setIDNX(e.target.value)}
-                    placeholder="Введите IDNP"
-                    tooltipImage={getStaticUrl("public/idnp.webp")}
-                    maxLength={13}
-                    minLength={13}
-                    required
-                />
+                        {/* IDNX Input */}
+                        <TextInputWithTooltip
+                            id="idnx"
+                            label="IDNP"
+                            value={IDNX}
+                            onChange={(e) => setIDNX(e.target.value)}
+                            placeholder="Введите IDNP"
+                            tooltipImage={getStaticUrl("public/idnp.webp")}
+                            maxLength={13}
+                            minLength={13}
+                            required
+                        />
 
-                {/* Vehicle Registration Certificate Number Input */}
-                <TextInputWithTooltip
-                    id="vehicleRegCertificateNumber"
-                    label="Номер техпаспорта"
-                    value={vehicleRegistrationCertificateNumber}
-                    onChange={(e) => setVehicleRegistrationCertificateNumber(e.target.value)}
-                    placeholder="Введите номер техпаспорта"
-                    tooltipImage={getStaticUrl("public/exemplu-certificat-inmatriculare.webp")}
-                    maxLength={9}
-                    minLength={9}
-                    required={true}
-                />
+                        {/* Vehicle Registration Certificate Number Input */}
+                        <TextInputWithTooltip
+                            id="vehicleRegCertificateNumber"
+                            label="Номер техпаспорта"
+                            value={vehicleRegistrationCertificateNumber}
+                            onChange={(e) => setVehicleRegistrationCertificateNumber(e.target.value)}
+                            placeholder="Введите номер техпаспорта"
+                            tooltipImage={getStaticUrl("public/exemplu-certificat-inmatriculare.webp")}
+                            maxLength={9}
+                            minLength={9}
+                            required={true}
+                        />
 
 
-                {/* Consent Toggle */}
-                <ConsentToggle
-                    isConsentGiven={isConsentGiven}
-                    setIsConsentGiven={setIsConsentGiven}
-                />
+                        {/* Consent Toggle */}
+                        <ConsentToggle
+                            isConsentGiven={isConsentGiven}
+                            setIsConsentGiven={setIsConsentGiven}
+                        />
 
-                {/* Submit Button */}
-                <SubmitButton isConsentGiven={isConsentGiven} isLoading={isLoading}/>
-            </form>
+                        {/* Submit Button */}
+                        <SubmitButton isConsentGiven={isConsentGiven} isLoading={isLoading}/>
+                    </form>
 
-            {/* Индикатор загрузки */}
-            {isLoading && (
-                <div className="flex justify-center mt-4">
-                    <div
-                        className="animate-spin rounded-full h-10 w-10 border-t-2 border-blue-500 border-solid"></div>
+                    {/* Индикатор загрузки */}
+                    {isLoading && (
+                        <div className="flex justify-center mt-4">
+                            <div
+                                className="animate-spin rounded-full h-10 w-10 border-t-2 border-blue-500 border-solid"></div>
+                        </div>
+                    )}
+
+                    {error && (
+                        <div className="mt-4 text-red-500 text-sm text-center">
+                            {error}
+                        </div>
+                    )}
                 </div>
-            )}
-
-            {error && (
-                <div className="mt-4 text-red-500 text-sm text-center">
-                    {error}
-                </div>
-            )}
+            </div>
         </div>
     );
-}
+};
 
 export default GreenCardRequestForm;
