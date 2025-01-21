@@ -1,4 +1,5 @@
 import React from "react";
+import {getStaticUrl} from "@/app/[lang]/components/Footer.tsx";
 
 // Интерфейс для страховщика
 interface Insurer {
@@ -15,8 +16,9 @@ interface InsurerListProps {
     handleInsurerSelect: (insurer: Insurer) => void;
 }
 
-const InsurerList: React.FC<InsurerListProps> = ({ insurers, handleInsurerSelect }) => (
-    <div className="mt-4">
+const InsurerList: React.FC<InsurerListProps> = ({insurers, handleInsurerSelect}) => (
+    <div className="mt-8">
+        <h3 className="text-xl font-bold text-gray-800 mb-4">Выберите страховщика:</h3>
         <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-6 max-w-6xl">
             {insurers.map((insurer, index) => (
                 <div
@@ -30,7 +32,7 @@ const InsurerList: React.FC<InsurerListProps> = ({ insurers, handleInsurerSelect
                     {/* Логотип страховщика */}
                     <div className="bg-gray-50 p-6 flex items-center justify-center">
                         <img
-                            src={insurer.logo || "/default-logo.png"}
+                            src={insurer.logo || getStaticUrl('public/default-logo.png')}
                             alt={insurer.Name}
                             className={`h-20 object-contain ${!insurer.is_active && "grayscale"}`}
                         />
