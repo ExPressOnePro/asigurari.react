@@ -83,28 +83,33 @@ const GreenCardRequestForm: React.FC<GreenCardFormProps> = ({onCalculationSucces
                         Рассчитайте стоимость "Зеленой карты"
                     </h1>
                     <form onSubmit={handleSubmit} className="space-y-6">
-                        {/* Green Card Zone Selection */}
-                        <SelectInputWithTooltip
-                            id="greenCardZone"
-                            label="Зона Зеленой Карты"
-                            value={greenCardZone}
-                            onChange={(e) => setGreenCardZone(e.target.value as GreenCardZones)}
-                            options={GreenCardZoneOptions}
-                            tooltipImage={undefined}
-                            required={true}
-                        />
+                        <div className="flex items-center space-x-4">
+                            {/* Green Card Zone Selection */}
+                            <div className="flex-1">
+                                <SelectInputWithTooltip
+                                    id="greenCardZone"
+                                    label="Зона Зеленой Карты"
+                                    value={greenCardZone}
+                                    onChange={(e) => setGreenCardZone(e.target.value as GreenCardZones)}
+                                    options={GreenCardZoneOptions}
+                                    tooltipImage={undefined}
+                                    required={true}
+                                />
+                            </div>
 
-
-                        {/* Term Insurance Selection */}
-                        <SelectInputWithTooltip
-                            id="termInsurance"
-                            label="Срок страхования"
-                            value={termInsurance}
-                            onChange={(e) => setTermInsurance(e.target.value as TermInsurance)}
-                            options={TermInsuranceOptions}
-                            tooltipImage={undefined}
-                            required={true}
-                        />
+                            {/* Term Insurance Selection */}
+                            <div className="flex-1">
+                                <SelectInputWithTooltip
+                                    id="termInsurance"
+                                    label="Срок страхования"
+                                    value={termInsurance}
+                                    onChange={(e) => setTermInsurance(e.target.value as TermInsurance)}
+                                    options={TermInsuranceOptions}
+                                    tooltipImage={undefined}
+                                    required={true}
+                                />
+                            </div>
+                        </div>
 
 
                         {/* IDNX Input */}
