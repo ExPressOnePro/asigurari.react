@@ -1,122 +1,163 @@
-import React, {useState} from "react";
-import {getStaticUrl} from "@/app/[lang]/components/Footer.tsx";
-import TextInputWithTooltip from "@/app/[lang]/components/TextInputWithTooltip.tsx";
-import ConsentToggle from "@/app/[lang]/components/ConsentToggle.tsx";
+import React, {useEffect, useState} from "react";
+import { useDispatch } from "react-redux";
+import { setApiData} from "@/store/insuranceFormSlice";
+
 import SubmitButton from "@/app/[lang]/components/SubmitButton.tsx";
+import StatusMessage from "@/app/[lang]/rca/rca_components/StatusMessage.tsx";
+import TextInputWithTooltip from "@/app/[lang]/rca/rca_components/InsuranceRequestForm/TextInputWithTooltip.tsx";
+import ConsentToggle from "@/app/[lang]/components/ConsentToggle.tsx";
+import OperatingModeSelect from "@/app/[lang]/rca/rca_components/InsuranceRequestForm/OperatingModeSelect.tsx";
+import PersonTypeToggle from "@/app/[lang]/rca/rca_components/InsuranceRequestForm/PersonTypeToggle.tsx";
+import axiosInstance from "@/lib/axiosInstance.ts";
+import SkeletonLoaderForm from "@/app/[lang]/rca/rca_components/InsuranceRequestForm/SkeletonLoaderForm.tsx";
 
-const InsuranceRequestForm = ({
-                                  IDNX,
-                                  setIDNX,
-                                  VehicleRegistrationCertificateNumber,
-                                  setVehicleRegistrationCertificateNumber,
-                                  isConsentGiven,
-                                  setIsConsentGiven,
-                                  handleSubmit,
-                              }: any) => {
-    // Состояние для отслеживания загрузки и ошибок
+
+const InsuranceRequestForm = ({ dictionary }: any) => {
+    const dispatch = useDispatch();
+    const [IDNX, setIDNX] = useState<string>('');
+    const [VehicleRegistrationCertificateNumber, setVehicleRegistrationCertificateNumber] = useState<string>('');
+    const [OperatingModes, setOperatingModes] = useState<string>('');
+    const [PersonIsJuridical, setPersonIsJuridical] = useState<boolean>(false);
+
+    const [isConsentGiven, setIsConsentGiven] = useState<boolean>(false);
+    const [localError, setLocalError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null); // Добавлено состояние для ошибки
+    const [formSubmitted, setFormSubmitted] = useState(false);
+    const [calculatedData, setCalculatedData] = useState<any>({});
+    const [insurers, setInsurers] = useState<any[]>([]);
+    const [success, setSuccess] = useState(false);
 
-    // Валидация формы
+    useEffect(() => {
+        const loadData = async () => {
+            setIsSkeletonLoading(true);
+            try {
+                await new Promise((resolve) => setTimeout(resolve, 1000)); // Заглушка для загрузки
+            } catch (error) {
+                console.error("Error loading data:", error);
+            } finally {
+                setIsSkeletonLoading(false);
+            }
+        };
+        loadData();
+    }, []);
+
     const validateForm = () => {
-        // Проверка, что IDNX состоит из 13 цифр
-        const idnxRegex = /^[0-9]{13}$/;
-        if (!idnxRegex.test(IDNX)) {
-            setError("Поле IDNP/IDNO должно содержать 13 цифр.");
-            return false;
-        }
-
-        // Проверка, что номер техпаспорта состоит из 9 цифр
-        const vehicleRegNumRegex = /^[0-9]{9}$/;
-        if (!vehicleRegNumRegex.test(VehicleRegistrationCertificateNumber)) {
-            setError("Номер техпаспорта должен содержать 9 цифр.");
-            return false;
-        }
-
         if (!isConsentGiven) {
-            setError("Необходимо согласие на обработку данных.");
+            setLocalError(dictionary?.osago?.RCAForm?.Privacy);
             return false;
         }
-
         return true;
     };
 
-    // Обработчик отправки формы
-    const handleFormSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        // Проверка формы перед отправкой
-        if (!validateForm()) {
+        if (!validateForm() || !OperatingModes) {
+            setLocalError(dictionary?.osago?.OperatingModes?.SelectOperatingModeError || "Please select a vehicle type.");
             return;
         }
 
         setIsLoading(true);
-        setError(null); // Сбрасываем предыдущие ошибки
+        setLocalError(null);
 
+        const requestData = { IDNX, VehicleRegistrationCertificateNumber, OperatingModes, PersonIsJuridical };
+        console.log("Request data:", requestData);
         try {
-            await handleSubmit(e); // Ожидаем отправку формы
+            const response = await axiosInstance.post("/rca/calculate-rca/", requestData);
+            const result = response.data;
+
+            dispatch(setApiData({
+                BonusMalusClass: result.BonusMalusClass,
+                IsSuccess: result.IsSuccess,
+                ErrorMessage: result.ErrorMessage,
+                Territory: result.Territory,
+                PersonFirstName: result.PersonFirstName,
+                PersonLastName: result.PersonLastName,
+                VehicleMark: result.VehicleMark,
+                VehicleModel: result.VehicleModel,
+                VehicleRegistrationNumber: result.VehicleRegistrationNumber,
+            }));
+
+            setCalculatedData({
+                vehicleMark: result.VehicleMark,
+                vehicleModel: result.VehicleModel,
+                vehicleRegistrationNumber: result.VehicleRegistrationNumber,
+                bonusMalusClass: result.BonusMalusClass,
+                personFirstName: result.PersonFirstName,
+                personLastName: result.PersonLastName,
+            });
+
+            setInsurers(result.InsurersPrime?.InsurerPrimeRCAI || []);
+            setSuccess(true);
+            setFormSubmitted(true);
         } catch (error) {
-            setError("Произошла ошибка при отправке формы.");
+            console.error("Ошибка при запросе к API:", error);
+            setLocalError("Произошла ошибка при расчетах.");
         } finally {
             setIsLoading(false);
         }
     };
+    const [isSkeletonLoading, setIsSkeletonLoading] = useState(true); // Для скелетона
+    if (isSkeletonLoading) {
+        return <SkeletonLoaderForm />;
+    }
 
     return (
         <div className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
             <div className="w-full max-w-3xl">
                 <div className="bg-white shadow-lg rounded-lg p-8 relative">
-                    {/* Затемняем форму, если идет загрузка */}
-                    {isLoading && (
-                        <div className="absolute inset-0 bg-gray-200 opacity-50 z-10"></div>
-                    )}
+                    {isLoading && <div className="absolute inset-0 bg-gray-200 opacity-50 z-10"></div>}
+
                     <h1 className="text-3xl sm:text-4xl font-extrabold text-center text-gray-400 mb-4">
-                        Рассчитайте стоимость ОСАГО
+                        {dictionary?.osago?.RCAForm?.Title}
                     </h1>
-                    <form
-                        onSubmit={handleFormSubmit}
-                        className={`space-y-6 ${isLoading ? "pointer-events-none" : ""}`}
-                    >
+
+                    <form onSubmit={handleSubmit} className={`space-y-6 ${isLoading ? "pointer-events-none" : ""}`}>
+
+                        <PersonTypeToggle
+                            PersonIsJuridical={PersonIsJuridical}
+                            setPersonIsJuridical={setPersonIsJuridical}
+                            dictionary={dictionary}
+                        />
+
                         <TextInputWithTooltip
                             id="idnx"
                             label="IDNP/IDNO"
                             value={IDNX}
                             onChange={(e) => setIDNX(e.target.value)}
-                            placeholder="Введите IDNP/IDNO"
-                            tooltipImage={getStaticUrl("public/exemplu-certificat-inmatriculare.webp")}
+                            placeholder={dictionary?.osago?.RCAForm?.IDNPPlaceholder}
+                            tooltipImage="exemplu-certificat-inmatriculare.webp"
                         />
 
                         <TextInputWithTooltip
                             id="VehicleRegistrationCertificateNumber"
-                            label="Номер техпаспорта"
+                            label={dictionary?.osago?.RCAForm?.InputTehTitle}
                             value={VehicleRegistrationCertificateNumber}
                             onChange={(e) => setVehicleRegistrationCertificateNumber(e.target.value)}
-                            placeholder="Введите номер техпаспорта"
-                            tooltipImage={getStaticUrl("public/idnp.webp")}
+                            placeholder={dictionary?.osago?.RCAForm?.InputTehPlaceholder}
+                            tooltipImage="public/idnp.webp"
                         />
-
+                        <OperatingModeSelect
+                            value={OperatingModes}
+                            onChange={setOperatingModes}
+                            dictionary={dictionary}
+                        />
                         <ConsentToggle
                             isConsentGiven={isConsentGiven}
                             setIsConsentGiven={setIsConsentGiven}
+                            dictionary={dictionary}
                         />
 
-                        {/* Кнопка отправки с учётом загрузки */}
-                        <SubmitButton isConsentGiven={isConsentGiven} isLoading={isLoading}/>
+                        <SubmitButton
+                            isConsentGiven={isConsentGiven}
+                            isLoading={isLoading}
+                            dictionary={dictionary}
+                        />
                     </form>
 
-                    {/* Индикатор загрузки */}
-                    {isLoading && (
-                        <div className="flex justify-center mt-4">
-                            <div
-                                className="animate-spin rounded-full h-10 w-10 border-t-2 border-blue-500 border-solid"></div>
-                        </div>
-                    )}
-
-                    {error && (
-                        <div className="mt-4 text-red-500 text-sm text-center">
-                            {error}
-                        </div>
-                    )}
+                    {localError && <StatusMessage message={localError} isError={true} />}
+                    {formSubmitted && success && <StatusMessage message={dictionary?.osago?.RCAForm?.SuccessMessage} isError={false} />}
+                    {formSubmitted && !success && <StatusMessage message={dictionary?.osago?.RCAForm?.ErrorMessage} isError={true} />}
                 </div>
             </div>
         </div>

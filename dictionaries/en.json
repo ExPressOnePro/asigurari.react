@@ -33,14 +33,60 @@
     }
   },
   "osago": {
+    "Title": "Registration of OSAGO insurance",
     "RCAForm": {
-      "Title": "RCA Calculation (Auto Insurance)",
-      "tehpass": "Vehicle registration certificate number",
-      "acceptance": "I agree to the terms of use and consent to the processing of personal data",
-      "ButtonCalculate": "Calculate"
+      "Title": "RCA Calculation (RCA)",
+      "IDNPPlaceholder": "Enter IDNP/IDNO",
+      "InputTehTitle": "Registration Certificate Number",
+      "InputTehPlaceholder": "Vehicle registration certificate number",
+      "Acceptance": "Consent for data processing",
+      "PolicePrivacy": "Privacy policy",
+      "ButtonCalculate": "Calculate",
+      "ErrorIDNP": "The IDNP/IDNO field must contain 13 digits.",
+      "ErrorTeh": "The registration certificate number must contain 9 digits.",
+      "ErrorPrivacy": "Consent for data processing is required.",
+      "ErrorForm": "An error occurred while submitting the form.",
+      "PersonTypeLabel": "Legal or Physical Person",
+      "PhysicalPerson": "Physical",
+      "LegalPerson": "Legal"
+    },
+    "OperatingModes": {
+      "OperatingModesLabel": "Vehicle Type",
+      "SelectOperatingMode": "Select Vehicle Type",
+      "SelectOperatingModeError": "Please select type auto",
+      "OperatingMode1": "Usual",
+      "OperatingMode2": "Minibus",
+      "OperatingMode3": "IntercityBus",
+      "OperatingMode4": "Taxi",
+      "OperatingMode5": "RentACar"
+    },
+    "SelectedParameters":
+    {
+      "SelectedParameters": "Selected parameters:",
+      "Car": "Car",
+      "BonusMalusClass": "Bonus-malus class",
+      "Client": "Client",
+      "Insurer": "Insurer:",
+      "PolicyCost": "Policy cost:",
+      "OwnershipType": "Ownership type:",
+      "InsuranceStartDate": "Insurance start date:"
     },
     "InsurerCard": {
       "ButtonChoise": "Choose"
+    },
+    "InsurerList": {
+      "Features": {
+        "CoverageArea": "Coverage area",
+        "PropertyLimit": "Property limit",
+        "HealthLimitEvent": "Health limit (event)",
+        "InstantContractEmail": "Instant contract receipt on email",
+        "OnlineRegistration": "Online policy registration in RCAData"
+      },
+      "Cost": "Price:",
+      "InsurerStatus": {
+        "Available": "Select",
+        "Unavailable": "Unavailable"
+      }
     },
     "OwnershipCard": {
       "AddInfo": "Additional Information",

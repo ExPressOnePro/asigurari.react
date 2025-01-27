@@ -53,7 +53,7 @@ const TextInputWithTooltip: React.FC<TextInputWithTooltipProps> = ({
                     <img
                         src={tooltipImage}
                         alt="Пример"
-                        className="w-full h-auto mb-2 rounded-md"
+                        className="w-full h-auto mb-2 rounded-md "
                     />
                 </div>
             </div>

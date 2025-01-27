@@ -33,14 +33,60 @@
     }
   },
   "osago": {
+    "Title": "Оформление страховки ОСАГО",
     "RCAForm": {
       "Title": "Рассчёт ОСАГО (RCA)",
-      "tehpass": "Номер техпаспорта авто",
-      "acceptance": "Я согласен с условиями использования и выражаю согласие на обработку персональных данных",
-      "ButtonCalculate": "Рассчитать"
+      "IDNPPlaceholder": "Введите IDNP/IDNO",
+      "InputTehTitle": "Номер техпаспорта",
+      "InputTehPlaceholder": "Номер техпаспорта авто",
+      "Acceptance": "Согласие на обработку данных",
+      "PolicePrivacy": "Политика конфиденциальности",
+      "ButtonCalculate": "Рассчитать",
+      "ErrorIDNP":"Поле IDNP/IDNO должно содержать 13 цифр.",
+      "ErrorTeh":"Номер техпаспорта должен содержать 9 цифр.",
+      "ErrorPrivacy":"Необходимо согласие на обработку данных.",
+      "ErrorForm":"Произошла ошибка при отправке формы.",
+      "PersonTypeLabel": "Юридическое или физическое лицо",
+      "PhysicalPerson": "Физическое",
+      "LegalPerson": "Юридическое"
+    },
+    "OperatingModes": {
+      "OperatingModesLabel": "Тип авто",
+      "SelectOperatingMode": "Выберите тип авто",
+      "SelectOperatingModeError": "Пожалуйста выберите тип авто",
+      "OperatingMode1": "Обычный",
+      "OperatingMode2": "Миниавтобус",
+      "OperatingMode3": "Междугородний автобус",
+      "OperatingMode4": "Такси",
+      "OperatingMode5": "Прокат автомобилей"
     },
     "InsurerCard": {
       "ButtonChoise": "Выбрать"
+    },
+    "SelectedParameters":
+      {
+        "SelectedParameters": "Выбранные параметры:",
+        "Car": "Автомобиль",
+        "BonusMalusClass": "Класс бонус-малус",
+        "Client": "Клиент",
+        "Insurer": "Страховщик:",
+        "PolicyCost": "Стоимость полиса:",
+        "OwnershipType": "Тип владения:",
+        "InsuranceStartDate": "Дата начала страховки:"
+      },
+    "InsurerList": {
+      "Features": {
+        "CoverageArea": "Территория покрытия",
+        "PropertyLimit": "Лимит по имуществу",
+        "HealthLimitEvent": "Лимит по здоровью (event)",
+        "InstantContractEmail": "Моментальное получение договора на email",
+        "OnlineRegistration": "Онлайн регистрация полиса в RCAData"
+      },
+      "Cost": "Стоимость:",
+      "InsurerStatus": {
+        "Available": "Выбрать",
+        "Unavailable": "Недоступно"
+      }
     },
     "OwnershipCard": {
       "AddInfo": "Дополнительная информация",

@@ -4,16 +4,21 @@ interface AdditionalDataFormProps {
     onSubmit: (data: { possessionBase: { value: string; label: string } | null; insuranceStartDate: string }) => void;
 }
 
-
 const AdditionalDataForm: React.FC<AdditionalDataFormProps> = ({ onSubmit }) => {
     const [isFromTransnistria, setIsFromTransnistria] = useState<boolean>(false);
     const [personIsExternal, setPersonIsExternal] = useState<boolean>(false);
     const [birthDate, setBirthDate] = useState<string>("");
-    const [insuranceStartDate, setInsuranceStartDate] = useState<string>(new Date().toISOString().split("T")[0]);
+    const [insuranceStartDate, setInsuranceStartDate] = useState<string>("");
     const [insuranceEndDate, setInsuranceEndDate] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [possessionBase, setPossessionBase] = useState<{ value: string; label: string } | null>(null);
+
+    // Set the current date as the start date on component mount
+    useEffect(() => {
+        const currentDate = new Date().toISOString().split("T")[0];
+        setInsuranceStartDate(currentDate);
+    }, []);
 
     // Handle switching logic, ensuring only one can be active at a time
     const handleIsFromTransnistriaChange = () => {
@@ -62,6 +67,7 @@ const AdditionalDataForm: React.FC<AdditionalDataFormProps> = ({ onSubmit }) => 
         await onSubmit({ possessionBase, insuranceStartDate });
         setIsSubmitting(false);
     };
+
 
     return (
         <form onSubmit={handleSubmit} className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
