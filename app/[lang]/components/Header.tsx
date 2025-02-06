@@ -1,13 +1,14 @@
-import {Locale} from "@/i18n.config";
-import {getDictionary} from "@/lib/dictionary";
+"use client";
+
 import Link from "next/link";
 import LocaleSwitcher from "@/app/[lang]/components/locale-switcher";
 import MobileMenuToggle from "@/app/[lang]/components/MobileMenuToggle";
 import {getStaticUrl} from "@/app/[lang]/components/Footer.tsx";
+import {useLocalization} from "@/lib/LocalizationProvider.tsx";
 
 
-export default async function Header({ lang }: { lang: Locale }) {
-  const { navigation } = await getDictionary(lang)
+export default function Header({ lang }: { lang: string }) {
+  const { dictionary } = useLocalization();
 
   return (
       <header className="py-6 bg-gray-50 shadow-md">
@@ -24,7 +25,7 @@ export default async function Header({ lang }: { lang: Locale }) {
               />
             </Link>
             {/* Передаем управление мобильным меню в клиентский компонент */}
-            <MobileMenuToggle lang={lang} navigation={navigation}/>
+            <MobileMenuToggle lang={lang}/>
           </div>
           <div className="hidden md:flex items-center space-x-8">
             <ul className="flex gap-x-8">
@@ -33,7 +34,7 @@ export default async function Header({ lang }: { lang: Locale }) {
                     href={`/${lang}`}
                     className="text-gray-700 hover:text-orange-700"
                 >
-                  {navigation.home}
+                  {dictionary.navigation.home}
                 </Link>
               </li>
               <li>
@@ -41,7 +42,7 @@ export default async function Header({ lang }: { lang: Locale }) {
                     href={`/${lang}/rca`}
                     className="text-gray-700 hover:text-orange-700"
                 >
-                  {navigation.rca}
+                  {dictionary.navigation.rca}
                 </Link>
               </li>
               <li>
@@ -49,7 +50,7 @@ export default async function Header({ lang }: { lang: Locale }) {
                     href={`/${lang}/greencard`}
                     className="text-gray-700 hover:text-orange-700"
                 >
-                  {navigation.greencard}
+                  {dictionary.navigation.greencard}
                 </Link>
               </li>
               <li>
@@ -57,7 +58,7 @@ export default async function Header({ lang }: { lang: Locale }) {
                     href={`/${lang}/medical`}
                     className="text-gray-700 hover:text-orange-700"
                 >
-                  {navigation.medical}
+                  {dictionary.navigation.medical}
                 </Link>
               </li>
             </ul>

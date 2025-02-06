@@ -1,8 +1,7 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { Locale } from "@/i18n.config";
-import { getDictionary } from "@/lib/dictionary";
 
 interface LocalizationContextProps {
     dictionary: Record<string, any>;
@@ -17,25 +16,20 @@ const LocalizationContext = createContext<LocalizationContextProps | undefined>(
 export const LocalizationProvider = ({
                                          children,
                                          initialLocale,
+                                         dictionary,
                                      }: {
     children: React.ReactNode;
     initialLocale: Locale;
+    dictionary: Record<string, any>;
 }) => {
-    const [dictionary, setDictionary] = useState<Record<string, any>>({});
     const [currentLocale, setCurrentLocale] = useState<Locale>(initialLocale);
-
-    useEffect(() => {
-        const loadDictionary = async () => {
-            const dict = await getDictionary(currentLocale);
-            setDictionary(dict);
-        };
-        loadDictionary();
-    }, [currentLocale]);
 
     const changeLocale = (locale: Locale) => setCurrentLocale(locale);
 
     return (
-        <LocalizationContext.Provider value={{ dictionary, currentLocale, changeLocale }}>
+        <LocalizationContext.Provider
+            value={{ dictionary, currentLocale, changeLocale }}
+        >
             {children}
         </LocalizationContext.Provider>
     );
@@ -44,7 +38,9 @@ export const LocalizationProvider = ({
 export const useLocalization = () => {
     const context = useContext(LocalizationContext);
     if (!context) {
-        throw new Error("useLocalization must be used within a LocalizationProvider");
+        throw new Error(
+            "useLocalization must be used within a LocalizationProvider"
+        );
     }
     return context;
 };

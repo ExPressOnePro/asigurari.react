@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from "react";
+import {useDispatch} from "react-redux";
+import {setAdditionalData } from "@/store/insuranceFormSlice";
+import {setAdditionalCarInfo } from "@/store/insuranceFormSlice";
 
 interface AdditionalDataFormProps {
-    onSubmit: (data: { possessionBase: { value: string; label: string } | null; insuranceStartDate: string }) => void;
+    dictionary: any;
+    onStepChange: any;
 }
 
-const AdditionalDataForm: React.FC<AdditionalDataFormProps> = ({ onSubmit }) => {
+const AdditionalDataForm: React.FC<AdditionalDataFormProps> = ({ dictionary, onStepChange }) => {
+    const dispatch = useDispatch();
+
     const [isFromTransnistria, setIsFromTransnistria] = useState<boolean>(false);
     const [personIsExternal, setPersonIsExternal] = useState<boolean>(false);
     const [birthDate, setBirthDate] = useState<string>("");
@@ -13,14 +19,29 @@ const AdditionalDataForm: React.FC<AdditionalDataFormProps> = ({ onSubmit }) => 
     const [error, setError] = useState<string | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [possessionBase, setPossessionBase] = useState<{ value: string; label: string } | null>(null);
+    const shouldShowDetails = isFromTransnistria || personIsExternal;
 
-    // Set the current date as the start date on component mount
+    const [additionalCarInfoForm, setAdditionalCarInfoForm] = useState({
+        ProductionYear: 0,
+        CilinderVolume: 0,
+        TotalWeight: 0,
+        EnginePower: 0,
+        Seats: 0,
+    });
+
     useEffect(() => {
         const currentDate = new Date().toISOString().split("T")[0];
         setInsuranceStartDate(currentDate);
     }, []);
 
-    // Handle switching logic, ensuring only one can be active at a time
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setAdditionalCarInfoForm((prevInfo) => ({
+            ...prevInfo,
+            [name]: value,
+        }));
+    };
+
     const handleIsFromTransnistriaChange = () => {
         if (isFromTransnistria) {
             setIsFromTransnistria(false); // Reset if already active
@@ -64,9 +85,30 @@ const AdditionalDataForm: React.FC<AdditionalDataFormProps> = ({ onSubmit }) => 
         e.preventDefault();
         if (!validateForm()) return;
         setIsSubmitting(true);
-        await onSubmit({ possessionBase, insuranceStartDate });
+
+        dispatch(setAdditionalData({
+            IsFromTransnistria: isFromTransnistria,
+            PersonIsExternal: personIsExternal,
+            StartDate: insuranceStartDate,
+            BirthDate: birthDate,
+            PossessionBase: possessionBase,
+            DocumentPossessionBaseDate: insuranceStartDate,
+        }));
+
+        dispatch(setAdditionalCarInfo({
+            ProductionYear: additionalCarInfoForm.ProductionYear,
+            CilinderVolume: additionalCarInfoForm.CilinderVolume,
+            TotalWeight: additionalCarInfoForm.TotalWeight,
+            EnginePower: additionalCarInfoForm.EnginePower,
+            Seats: additionalCarInfoForm.Seats,
+        }));
+
+        console.log(possessionBase);
+        onStepChange(+1);
+
         setIsSubmitting(false);
     };
+
 
 
     return (
@@ -142,6 +184,48 @@ const AdditionalDataForm: React.FC<AdditionalDataFormProps> = ({ onSubmit }) => 
                         </div>
                     </div>
 
+
+                    {/* Date of birth field */}
+                    <div className="mb-6">
+                        <label htmlFor="birthDate" className="block text-sm font-medium text-gray-700">
+                            Введите вашу дату рождения
+                        </label>
+                        <input
+                            type="date"
+                            id="birthDate"
+                            value={birthDate}
+                            onChange={(e) => setBirthDate(e.target.value)}
+                            className="mt-2 block w-full px-4 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                            required
+                        />
+                    </div>
+
+                    {shouldShowDetails && (
+                        <div className="p-4 border border-gray-300 rounded-lg mb-6 bg-white shadow-md">
+                            <h3 className="text-lg font-semibold text-gray-700 mb-4">Дополнительные данные</h3>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                {[
+                                    { label: "Год выпуска", name: "ProductionYear", type: "number" },
+                                    { label: "Объем двигателя (см³)", name: "CilinderVolume", type: "number" },
+                                    { label: "Масса (кг)", name: "TotalWeight", type: "number" },
+                                    { label: "Мощность двигателя (л.с.)", name: "EnginePower", type: "number" },
+                                    { label: "Кол-во мест", name: "Seats", type: "number" },
+                                ].map((field) => (
+                                    <div key={field.name} className="flex flex-col">
+                                        <label className="text-sm text-gray-600">{field.label}</label>
+                                        <input
+                                            type={field.type}
+                                            name={field.name}
+                                            value={additionalCarInfoForm[field.name as keyof typeof additionalCarInfoForm]}
+                                            onChange={handleChange}
+                                            className="p-2 border rounded-md focus:ring focus:ring-orange-300"
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
                     {/* Possession Base Dropdown */}
                     <div className="mb-6">
                         <label htmlFor="possessionBase" className="block text-sm font-medium text-gray-700">
@@ -168,23 +252,6 @@ const AdditionalDataForm: React.FC<AdditionalDataFormProps> = ({ onSubmit }) => 
 
                     </div>
                     {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
-
-                    {/* Date of birth field */}
-                    {(isFromTransnistria || personIsExternal) && (
-                        <div className="mb-6">
-                            <label htmlFor="birthDate" className="block text-sm font-medium text-gray-700">
-                                Введите вашу дату рождения
-                            </label>
-                            <input
-                                type="date"
-                                id="birthDate"
-                                value={birthDate}
-                                onChange={(e) => setBirthDate(e.target.value)}
-                                className="mt-2 block w-full px-4 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                                required
-                            />
-                        </div>
-                    )}
 
                     {/* Date of start and end insurance in the same row */}
                     <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-6">
@@ -227,12 +294,13 @@ const AdditionalDataForm: React.FC<AdditionalDataFormProps> = ({ onSubmit }) => 
                         >
                             {isSubmitting ? "Загрузка..." : "Подтвердить"}
                         </button>
+
                     </div>
                 </div>
             </div>
         </form>
-)
-    ;
+    )
+        ;
 };
 
 export default AdditionalDataForm;

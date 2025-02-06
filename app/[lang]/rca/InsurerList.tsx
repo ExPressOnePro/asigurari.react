@@ -1,10 +1,12 @@
-import React, { useMemo } from "react";
+import React, {useCallback, useMemo} from "react";
+import { useDispatch } from "react-redux";
+import {setSelectedInsurer} from "@/store/insuranceFormSlice.ts";
 
 // Интерфейс для страховщика
 interface Insurer {
     Name: string;
     IDNO: string;
-    Description: string;
+    PrimeSum: string;
     PrimeSumMDL: string | number;
     is_active: boolean;
     logo?: string;
@@ -13,12 +15,13 @@ interface Insurer {
 // Типизация пропсов компонента
 interface InsurerListProps {
     insurers: Insurer[];
-    handleInsurerSelect: (insurer: Insurer) => void;
     dictionary: any;
+    onStepChange: any;
 }
 
-const InsurerList: React.FC<InsurerListProps> = ({ insurers, handleInsurerSelect, dictionary }) => {
-    // Сортировка страховщиков по возрастанию PrimeSumMDL
+const InsurerList: React.FC<InsurerListProps> = ({ insurers, dictionary, onStepChange }) => {
+    const dispatch = useDispatch();
+
     const sortedInsurers = useMemo(() => {
         return [...insurers].sort((a, b) => {
             const primeSumA = typeof a.PrimeSumMDL === "string" ? parseFloat(a.PrimeSumMDL) : a.PrimeSumMDL;
@@ -36,6 +39,23 @@ const InsurerList: React.FC<InsurerListProps> = ({ insurers, handleInsurerSelect
         { label: dictionary?.osago?.InsurerList.Features?.InstantContractEmail, value: null },
         { label: dictionary?.osago?.InsurerList.Features?.OnlineRegistration, value: null }
     ];
+
+    const handleSelectInsurer = useCallback(
+        (insurer: Insurer) => {
+            dispatch(setSelectedInsurer({
+                Name: insurer.Name,
+                IDNO: insurer.IDNO,
+                PrimeSum: insurer.PrimeSum,
+                PrimeSumMDL: insurer.PrimeSumMDL,
+                is_active: insurer.is_active,
+                logo: insurer.logo
+            }));
+
+            onStepChange(3);
+        },
+        [dispatch, onStepChange]
+    );
+
 
     return (
         <div className="py-12 px-4 sm:px-6 lg:px-8">
@@ -105,7 +125,7 @@ const InsurerList: React.FC<InsurerListProps> = ({ insurers, handleInsurerSelect
                                         : "bg-gray-400 cursor-not-allowed"
                                 } text-white font-medium py-2 px-6 rounded-full transition duration-200`}
                                 disabled={!insurer.is_active}
-                                onClick={() => insurer.is_active && handleInsurerSelect(insurer)}
+                                onClick={() => handleSelectInsurer(insurer)}
                             >
                                 {insurer.is_active ? dictionary?.osago?.InsurerList.InsurerStatus.Available : dictionary?.osago?.InsurerList.InsurerStatus.Unavailable }
                             </button>

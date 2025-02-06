@@ -1,14 +1,12 @@
-import {Locale} from '@/i18n.config'
-import {getDictionary} from '@/lib/dictionary'
-import Card from "@/app/[lang]/components/Card";
-import {getStaticUrl} from "@/app/[lang]/components/Footer.tsx";
+"use client";
 
-export default async function Home({
-                                       params: {lang}
-                                   }: {
-    params: { lang: Locale }
-}) {
-    const {page} = await getDictionary(lang)
+
+import { useLocalization } from "@/lib/LocalizationProvider";
+import Card from "@/app/[lang]/components/Card";
+import { getStaticUrl } from "@/app/[lang]/components/Footer";
+
+export default function Home() {
+    const { dictionary } = useLocalization();
 
     return (
         <div className="min-h-screen">
@@ -18,7 +16,7 @@ export default async function Home({
                         {/* Image Section */}
                         <div className="w-full lg:w-1/2">
                             <img
-                                src={getStaticUrl('public/porsche.png')}
+                                src={getStaticUrl("public/porsche.png")}
                                 alt="Страхование транспортных средств"
                                 className="w-full h-auto rounded-lg"
                             />
@@ -27,9 +25,9 @@ export default async function Home({
                         {/* Text Section */}
                         <div className="w-full lg:w-1/2 lg:pl-12 text-center lg:text-left">
                             <h2 className="text-3xl font-bold text-gray-800 mb-4">
-                                {page.home.title}
+                                {dictionary.page.home.title}
                             </h2>
-                            <p className="text-lg text-gray-600 mb-6">{page.home.description}</p>
+                            <p className="text-lg text-gray-600 mb-6">{dictionary.page.home.description}</p>
                         </div>
                     </div>
                 </div>
@@ -41,29 +39,29 @@ export default async function Home({
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                         {/* Используем компонент Card для каждой карточки */}
                         <Card
-                            image={page.cards.rca.picture}
-                            title={page.cards.rca.title}
-                            description={page.cards.rca.description}
-                            buttonText={page.cards.rca.button}
+                            image={dictionary.page.cards.rca.picture}
+                            title={dictionary.page.cards.rca.title}
+                            description={dictionary.page.cards.rca.description}
+                            buttonText={dictionary.page.cards.rca.button}
                             link="/rca"
                         />
                         <Card
-                            image={page.cards.greencard.picture}
-                            title={page.cards.greencard.title}
-                            description={page.cards.greencard.description}
-                            buttonText={page.cards.greencard.button}
+                            image={dictionary.page.cards.greencard.picture}
+                            title={dictionary.page.cards.greencard.title}
+                            description={dictionary.page.cards.greencard.description}
+                            buttonText={dictionary.page.cards.greencard.button}
                             link="/greencard"
                         />
                         <Card
-                            image={page.cards.medical.picture}
-                            title={page.cards.medical.title}
-                            description={page.cards.medical.description}
-                            buttonText={page.cards.medical.button}
+                            image={dictionary.page.cards.medical.picture}
+                            title={dictionary.page.cards.medical.title}
+                            description={dictionary.page.cards.medical.description}
+                            buttonText={dictionary.page.cards.medical.button}
                             link="/medical"
                         />
                     </div>
                 </div>
             </section>
         </div>
-    )
+    );
 }

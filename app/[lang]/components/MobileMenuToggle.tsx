@@ -5,24 +5,11 @@ import { useState } from 'react'
 import Link from "next/link";
 import { Locale } from "@/i18n.config";
 import LocaleSwitcher from "@/app/[lang]/components/locale-switcher";
+import {useLocalization} from "@/lib/LocalizationProvider.tsx";
 
-interface MobileMenuToggleProps {
-    lang: Locale;
-    navigation: {
-        home: string;
-        rca: string;
-        greencard: string;
-        medical: string;
-    };
-}
-
-export default function MobileMenuToggle({ lang, navigation }: MobileMenuToggleProps) {
+export default function Header({ lang }: { lang: string }) {
+    const { dictionary } = useLocalization();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-    // Проверка на наличие navigation
-    if (!navigation) {
-        return <div>Loading...</div>; // Можно добавить индикатор загрузки
-    }
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -97,7 +84,7 @@ export default function MobileMenuToggle({ lang, navigation }: MobileMenuToggleP
                                     className="block text-gray-800 text-lg font-medium hover:text-blue-600 transition-colors"
                                     onClick={toggleMenu}
                                 >
-                                    {navigation.home}
+                                    {dictionary.navigation.home}
                                 </Link>
                             </li>
                             <div className="border-t border-gray-300 my-4"/>
@@ -107,7 +94,7 @@ export default function MobileMenuToggle({ lang, navigation }: MobileMenuToggleP
                                     className="block text-gray-800 text-lg font-medium hover:text-blue-600 transition-colors"
                                     onClick={toggleMenu}
                                 >
-                                    {navigation.rca}
+                                    {dictionary.navigation.rca}
                                 </Link>
                             </li>
 
@@ -120,7 +107,7 @@ export default function MobileMenuToggle({ lang, navigation }: MobileMenuToggleP
                                     className="block text-gray-800 text-lg font-medium hover:text-blue-600 transition-colors"
                                     onClick={toggleMenu}
                                 >
-                                    {navigation.greencard}
+                                    {dictionary.navigation.greencard}
                                 </Link>
                             </li>
                             <div className="border-t border-gray-300 my-4"/>
@@ -130,7 +117,7 @@ export default function MobileMenuToggle({ lang, navigation }: MobileMenuToggleP
                                     className="block text-gray-800 text-lg font-medium hover:text-blue-600 transition-colors"
                                     onClick={toggleMenu}
                                 >
-                                    {navigation.medical}
+                                    {dictionary.navigation.medical}
                                 </Link>
                             </li>
                         </ul>

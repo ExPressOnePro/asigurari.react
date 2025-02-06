@@ -1,147 +1,42 @@
 "use client";
 
-import { Locale } from "@/i18n.config";
 import React, { useEffect, useRef, useState, use  } from "react";
-import { getDictionary } from "@/lib/dictionary";
-import axiosInstance from "@/lib/axiosInstance";
+
 import InsuranceRequestForm from "@/app/[lang]/rca/InsuranceRequestForm";
 import InfoRCA from "@/app/[lang]/rca/InfoRCA";
 import FAQAccordion from "@/app/[lang]/rca/FAQAccordion";
 import InsurerList from "@/app/[lang]/rca/InsurerList";
 import AdditionalDataForm from "@/app/[lang]/rca/AdditionalDataForm";
 import SelectedParameters from "@/app/[lang]/rca/SelectedParameters.tsx";
-import QRCodeFetcher from "@/app/[lang]/rca/rca_components/QRCodeFetcher.tsx";
 import {Provider} from "react-redux";
 import {store} from "@/store/store.ts";
+import GenerateQr from "@/app/[lang]/rca/rca_components/qr/GenerateQr.tsx";
+import RCASaver from "@/app/[lang]/rca/rca_components/RCASaver.tsx";
+import ContactForm from "@/app/[lang]/rca/rca_components/ContactForm/ContactForm.tsx";
+import {useLocalization} from "@/lib/LocalizationProvider.tsx";
 
-
-export default function Page({ params }: { params: Promise<{ lang: Locale }> }) {
-    const { lang } = use(params); // Используем use() для извлечения параметров
-    const [dictionary, setDictionary] = useState<any>(null);
-
-    useEffect(() => {
-        const loadDictionary = async () => {
-            const dict = await getDictionary(lang); // Используем извлеченное значение lang
-            setDictionary(dict);
-        };
-        loadDictionary();
-    }, [lang]);
-
-
-    const insuranceRequestFormRef = useRef<HTMLDivElement | null>(null); // 1 step
-    const selectedParametersRef = useRef<HTMLDivElement | null>(null); // 2 step
-    const qrCodeSectionRef = useRef<HTMLDivElement | null>(null); // 3 step
-    // 4 step
-    // 5 step FINAL download button and send email with insurance
+export default function Page() {
+    const { dictionary } = useLocalization();
+    const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string | null>(null);
+    const [currentStep, setCurrentStep] = useState<number>(1);
 
     const scrollToRef = (ref: React.RefObject<HTMLDivElement>) => {
         ref.current?.scrollIntoView({ behavior: "smooth", block: "center" });
     };
+    const handleStepChange = (nextStep: number) => {
+        setCurrentStep(nextStep);
+    };
 
-    const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
-    const [selectedInsurer, setSelectedInsurer] = useState(null);
-
-    const [qrCodeUrl, setQrCodeUrl] = useState<string | null>(null);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [qrCodeData, setQrCodeData] = useState(null);
-
-    const [isAdditionalDataSubmitted, setIsAdditionalDataSubmitted] = useState(false);
     const [selectedAdditional, setSelectedAdditional] = useState<{
         possessionBase: { value: string; label: string } | null;
         insuranceStartDate: string;
     } | null>(null);
 
-    const [isSelectedAdditionalReady, setIsSelectedAdditionalReady] = useState(false);
-
-
-    const [error, setError] = useState<string | null>(null);
-    const [success, setSuccess] = useState<boolean>(false);
     const [insurers, setInsurers] = useState<any[]>([]);
-    const [calculatedData, setCalculatedData] = useState<{
-        vehicleMark: string;
-        vehicleModel: string;
-        vehicleRegistrationNumber: string;
-        bonusMalusClass: number;
-        personFirstName: string;
-        personLastName: string;
-        possessionBase?: string;
-        insuranceStartDate?: string;
-    } | null>(null);
-
-    const handleInsurerSelect = (insurer: any) => {
-        setSelectedInsurer(insurer);
+    const handleInsurersUpdate = (newInsurers: any[]) => {
+        setInsurers(newInsurers);
     };
-
-    const handleAdditionalSubmit = (data: { possessionBase: { value: string; label: string } | null; insuranceStartDate: string }) => {
-        setSelectedAdditional(data);
-        setIsAdditionalDataSubmitted(true);
-    };
-
-
-    // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault();
-    //
-    //     if (!isConsentGiven) {
-    //         setError("Вы должны дать согласие на обработку персональных данных.");
-    //         return;
-    //     }
-    //
-    //     const requestData = { IDNX, VehicleRegistrationCertificateNumber, OperatingModes, PersonIsJuridical };
-    //     try {
-    //         const response = await axiosInstance.post("/rca/calculate-rca/", requestData);
-    //         const result = response.data;
-    //
-    //         setCalculatedData({
-    //             vehicleMark: result.VehicleMark,
-    //             vehicleModel: result.VehicleModel,
-    //             vehicleRegistrationNumber: result.VehicleRegistrationNumber,
-    //             bonusMalusClass: result.BonusMalusClass,
-    //             personFirstName: result.PersonFirstName,
-    //             personLastName: result.PersonLastName,
-    //             possessionBase: "",
-    //             insuranceStartDate: "",
-    //         });
-    //
-    //         setInsurers(result.InsurersPrime?.InsurerPrimeRCAI || []);
-    //         setSuccess(true);
-    //         setFormSubmitted(true);
-    //     } catch (error) {
-    //         console.error("Ошибка при запросе к API:", error);
-    //         setError("Произошла ошибка при расчетах.");
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     if (formSubmitted && success) {
-    //         scrollToRef(selectedParametersRef);
-    //     }
-    //     if (qrCodeUrl) {
-    //         scrollToRef(qrCodeSectionRef);
-    //     }
-    // }, [formSubmitted, success, qrCodeUrl]);
-
-    const handleSuccess = (data: any) => {
-        setQrCodeData(data);
-    };
-
-    const handleError = (error: any) => {
-        console.error('Ошибка загрузки данных:', error);
-    };
-
-    useEffect(() => {
-        if (selectedAdditional) {
-            setIsSelectedAdditionalReady(true);
-        }
-    }, [selectedAdditional]);
-
-    const handleSuccessQR = () => {
-        console.log("QR Code fetched successfully!");
-    };
-
-    const handleErrorQR = (error: any) => {
-        console.error("Error fetching QR code:", error);
-    };
-
 
     return (
         <div className="min-h-screen">
@@ -152,82 +47,64 @@ export default function Page({ params }: { params: Promise<{ lang: Locale }> }) 
                     </h1>
                 </div>
             </div>
-            <Provider store={store}>
-                <InsuranceRequestForm
-                    // IDNX={IDNX}
-                    // setIDNX={setIDNX}
-                    // VehicleRegistrationCertificateNumber={VehicleRegistrationCertificateNumber}
-                    // setVehicleRegistrationCertificateNumber={setVehicleRegistrationCertificateNumber}
-                    // isConsentGiven={isConsentGiven}
-                    // setIsConsentGiven={setIsConsentGiven}
-                    // handleSubmit={handleSubmit}
-                    // error={error}
-                    dictionary={dictionary}
-                />
-            </Provider>
-            {/*{!formSubmitted && (*/}
-            {/*    <div ref={insuranceRequestFormRef}>*/}
-            {/*        <InsuranceRequestForm*/}
-            {/*            IDNX={IDNX}*/}
-            {/*            setIDNX={setIDNX}*/}
-            {/*            VehicleRegistrationCertificateNumber={VehicleRegistrationCertificateNumber}*/}
-            {/*            setVehicleRegistrationCertificateNumber={setVehicleRegistrationCertificateNumber}*/}
-            {/*            isConsentGiven={isConsentGiven}*/}
-            {/*            setIsConsentGiven={setIsConsentGiven}*/}
-            {/*            handleSubmit={handleSubmit}*/}
-            {/*            error={error}*/}
-            {/*            dictionary={dictionary}*/}
+
+            {/* Step 1*/}
+            {currentStep === 1 && (
+                <Provider store={store}>
+                    <InsuranceRequestForm
+                        dictionary={dictionary}
+                        onStepChange={handleStepChange}
+                        onInsurersUpdate={handleInsurersUpdate} // Передаем функцию для обновления insurers
+                    />
+                </Provider>
+            )}
+
+            {currentStep > 1 && (
+                <Provider store={store}>
+                    <SelectedParameters dictionary={dictionary} currentStep={currentStep}/>
+                </Provider>
+            )}
+
+            {/* Step 2 */}
+            {currentStep === 2 && (
+                <Provider store={store}>
+                    <InsurerList
+                        insurers={insurers} // Передаем данные insurers в следующий шаг
+                        dictionary={dictionary}
+                        onStepChange={handleStepChange}
+                    />
+                </Provider>
+            )}
+
+            {currentStep === 3 && (
+                <Provider store={store}>
+                    <AdditionalDataForm
+                        dictionary={dictionary}
+                        onStepChange={handleStepChange}
+                    />
+                </Provider>
+            )}
+
+            {/*{currentStep === 4 && (*/}
+            {/*    <Provider store={store}>*/}
+            {/*        <ContactForm*/}
             {/*        />*/}
-            {/*    </div>*/}
+            {/*    </Provider>*/}
             {/*)}*/}
 
-            {success && (
-                <div ref={selectedParametersRef}>
-                    <SelectedParameters
-                        calculatedData={calculatedData}
-                        selectedInsurer={selectedInsurer}
-                        selectedAdditional={isSelectedAdditionalReady ? selectedAdditional : null} // Передаем только после инициализации
-                        dictionary={dictionary}
+            {currentStep === 5 && (
+                <Provider store={store}>
+                    <GenerateQr
+                        onStepChange={handleStepChange}
                     />
-                    {!selectedInsurer && (
-                        <InsurerList insurers={insurers}
-                                     handleInsurerSelect={handleInsurerSelect}
-                                     dictionary={dictionary}
-                        />
-                    )}
-                </div>
+                </Provider>
             )}
 
-            {selectedInsurer && !isAdditionalDataSubmitted && (
-                <AdditionalDataForm onSubmit={handleAdditionalSubmit} />
+            {currentStep === 6 && (
+                <Provider store={store}>
+                    <RCASaver   />
+                </Provider>
             )}
-
-            {/* QR Code Fetcher */}
-            {isAdditionalDataSubmitted && (
-                <QRCodeFetcher
-                    VehicleRegistrationCertificateNumber={VehicleRegistrationCertificateNumber}
-                    selectedInsurer={selectedInsurer}
-                    calculatedData={calculatedData}
-                    selectedAdditional={selectedAdditional}
-                    onSuccess={handleSuccess}
-                    onError={handleError}
-                />
-            )}
-
-            {isAdditionalDataSubmitted && selectedAdditional && (
-                <QRCodeFetcher
-                    VehicleRegistrationCertificateNumber="SomeCertificateNumber" // замените на свой номер
-                    selectedInsurer="SomeInsurer" // замените на выбранного страховщика
-                    calculatedData={{}} // добавьте свои данные
-                    selectedAdditional={selectedAdditional}
-                    onSuccess={handleSuccessQR}
-                    onError={handleErrorQR}
-                />
-            )}
-
-
-
-
 
             <InfoRCA/>
             <FAQAccordion/>

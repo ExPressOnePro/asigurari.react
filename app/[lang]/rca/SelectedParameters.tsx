@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, JSX} from "react";
+import { useSelector } from 'react-redux';
+import {RootState} from "@/store/store.ts";
 
-const SelectedParameters = ({ calculatedData, selectedInsurer, selectedAdditional, dictionary }: any) => {
+const SelectedParameters = ({ calculatedData, selectedAdditional, dictionary, currentStep }: any) => {
     const [initialized, setInitialized] = useState(false);
 
     // Используем useEffect, чтобы установить флаг после первого рендера
@@ -10,7 +12,7 @@ const SelectedParameters = ({ calculatedData, selectedInsurer, selectedAdditiona
         }
     }, [selectedAdditional]);
 
-    // Функция для рендера пары "метка: значение"
+
     const renderParameter = (label: string, value: string | JSX.Element | null) => (
         value ? (
             <>
@@ -20,6 +22,12 @@ const SelectedParameters = ({ calculatedData, selectedInsurer, selectedAdditiona
         ) : null
     );
 
+    const userData = useSelector((state: RootState) => state.insuranceForm.userData);
+    const apiData = useSelector((state: RootState) => state.insuranceForm.apiData);
+    const selectedInsurer = useSelector((state: RootState) => state.insuranceForm.selectedInsurer);
+    const additionalData = useSelector((state: RootState) => state.insuranceForm.additionalData);
+
+
     return (
         <div className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
             <div className="w-full max-w-3xl">
@@ -28,25 +36,32 @@ const SelectedParameters = ({ calculatedData, selectedInsurer, selectedAdditiona
                         {dictionary?.osago?.SelectedParameters?.SelectedParameters}
                     </h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2">
-                        {renderParameter(dictionary?.osago?.SelectedParameters?.Car,
-                            `${calculatedData?.vehicleMark} ${calculatedData?.vehicleModel} (${calculatedData?.vehicleRegistrationNumber})`)}
 
-                        {renderParameter(dictionary?.osago?.SelectedParameters?.BonusMalusClass, calculatedData?.bonusMalusClass)}
+
+                        {renderParameter(dictionary?.osago?.SelectedParameters?.Car,
+                            `${apiData?.VehicleMark} ${apiData?.VehicleModel} (${apiData?.VehicleRegistrationNumber})`)}
+
+                        {renderParameter(dictionary?.osago?.SelectedParameters?.BonusMalusClass,
+                            `${apiData?.BonusMalusClass}`)}
 
                         {renderParameter(dictionary?.osago?.SelectedParameters?.Client,
-                            `${calculatedData?.personFirstName} ${calculatedData?.personLastName}`)}
+                            `${apiData?.PersonFirstName} ${apiData?.PersonLastName}`)}
 
-                        {selectedInsurer && (
+                        {currentStep > 2 && (
                             <>
-                                {renderParameter(dictionary?.osago?.SelectedParameters?.Insurer, selectedInsurer.Name)}
-                                {renderParameter(dictionary?.osago?.SelectedParameters?.PolicyCost, `${selectedInsurer.PrimeSumMDL} MDL`)}
+                                {renderParameter(dictionary?.osago?.SelectedParameters?.Insurer,
+                                    `${selectedInsurer?.Name}`)}
+                                {renderParameter(dictionary?.osago?.SelectedParameters?.PolicyCost,
+                                    `${selectedInsurer?.PrimeSumMDL} MDL`)}
                             </>
                         )}
 
-                        {initialized && selectedAdditional?.possessionBase && (
+                        {currentStep > 3 && (
                             <>
-                                {renderParameter(dictionary?.osago?.SelectedParameters?.OwnershipType, selectedAdditional.possessionBase.label)}
-                                {renderParameter(dictionary?.osago?.SelectedParameters?.InsuranceStartDate, selectedAdditional.insuranceStartDate)}
+                                {renderParameter(dictionary?.osago?.SelectedParameters?.OwnershipType,
+                                    `${additionalData?.PossessionBase?.label}`)}
+                                {renderParameter(dictionary?.osago?.SelectedParameters?.InsuranceStartDate,
+                                    `${additionalData?.StartDate}`)}
                             </>
                         )}
                     </div>

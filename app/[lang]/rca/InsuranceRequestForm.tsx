@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { useDispatch } from "react-redux";
-import { setApiData} from "@/store/insuranceFormSlice";
+import {setApiData, setUserData} from "@/store/insuranceFormSlice";
 
 import SubmitButton from "@/app/[lang]/components/SubmitButton.tsx";
 import StatusMessage from "@/app/[lang]/rca/rca_components/StatusMessage.tsx";
@@ -12,10 +12,10 @@ import axiosInstance from "@/lib/axiosInstance.ts";
 import SkeletonLoaderForm from "@/app/[lang]/rca/rca_components/InsuranceRequestForm/SkeletonLoaderForm.tsx";
 
 
-const InsuranceRequestForm = ({ dictionary }: any) => {
+const InsuranceRequestForm = ({ dictionary, onInsurersUpdate, onStepChange }: any) => {
     const dispatch = useDispatch();
-    const [IDNX, setIDNX] = useState<string>('');
-    const [VehicleRegistrationCertificateNumber, setVehicleRegistrationCertificateNumber] = useState<string>('');
+    const [IDNX, setIDNX] = useState<string>('2005021106830');
+    const [VehicleRegistrationCertificateNumber, setVehicleRegistrationCertificateNumber] = useState<string>('218000136');
     const [OperatingModes, setOperatingModes] = useState<string>('');
     const [PersonIsJuridical, setPersonIsJuridical] = useState<boolean>(false);
 
@@ -31,7 +31,7 @@ const InsuranceRequestForm = ({ dictionary }: any) => {
         const loadData = async () => {
             setIsSkeletonLoading(true);
             try {
-                await new Promise((resolve) => setTimeout(resolve, 1000)); // Заглушка для загрузки
+                await new Promise((resolve) => setTimeout(resolve, 1000));
             } catch (error) {
                 console.error("Error loading data:", error);
             } finally {
@@ -56,15 +56,22 @@ const InsuranceRequestForm = ({ dictionary }: any) => {
             setLocalError(dictionary?.osago?.OperatingModes?.SelectOperatingModeError || "Please select a vehicle type.");
             return;
         }
-
         setIsLoading(true);
         setLocalError(null);
 
+
         const requestData = { IDNX, VehicleRegistrationCertificateNumber, OperatingModes, PersonIsJuridical };
-        console.log("Request data:", requestData);
         try {
             const response = await axiosInstance.post("/rca/calculate-rca/", requestData);
             const result = response.data;
+            onInsurersUpdate(result.InsurersPrime?.InsurerPrimeRCAI || []);
+
+            dispatch(setUserData({
+                IDNX: IDNX,
+                VehicleRegistrationCertificateNumber : VehicleRegistrationCertificateNumber,
+                OperatingModes : OperatingModes,
+                PersonIsJuridical : PersonIsJuridical
+            }));
 
             dispatch(setApiData({
                 BonusMalusClass: result.BonusMalusClass,
@@ -87,9 +94,9 @@ const InsuranceRequestForm = ({ dictionary }: any) => {
                 personLastName: result.PersonLastName,
             });
 
-            setInsurers(result.InsurersPrime?.InsurerPrimeRCAI || []);
             setSuccess(true);
             setFormSubmitted(true);
+            onStepChange(2);
         } catch (error) {
             console.error("Ошибка при запросе к API:", error);
             setLocalError("Произошла ошибка при расчетах.");
@@ -97,6 +104,7 @@ const InsuranceRequestForm = ({ dictionary }: any) => {
             setIsLoading(false);
         }
     };
+
     const [isSkeletonLoading, setIsSkeletonLoading] = useState(true); // Для скелетона
     if (isSkeletonLoading) {
         return <SkeletonLoaderForm />;
@@ -137,11 +145,13 @@ const InsuranceRequestForm = ({ dictionary }: any) => {
                             placeholder={dictionary?.osago?.RCAForm?.InputTehPlaceholder}
                             tooltipImage="public/idnp.webp"
                         />
+
                         <OperatingModeSelect
                             value={OperatingModes}
                             onChange={setOperatingModes}
                             dictionary={dictionary}
                         />
+
                         <ConsentToggle
                             isConsentGiven={isConsentGiven}
                             setIsConsentGiven={setIsConsentGiven}

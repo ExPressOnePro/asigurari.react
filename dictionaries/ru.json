@@ -60,19 +60,20 @@
       "OperatingMode4": "Такси",
       "OperatingMode5": "Прокат автомобилей"
     },
+
     "InsurerCard": {
       "ButtonChoise": "Выбрать"
     },
     "SelectedParameters":
       {
-        "SelectedParameters": "Выбранные параметры:",
+        "SelectedParameters": "Выбранные параметры",
         "Car": "Автомобиль",
         "BonusMalusClass": "Класс бонус-малус",
         "Client": "Клиент",
-        "Insurer": "Страховщик:",
-        "PolicyCost": "Стоимость полиса:",
-        "OwnershipType": "Тип владения:",
-        "InsuranceStartDate": "Дата начала страховки:"
+        "Insurer": "Страховщик",
+        "PolicyCost": "Стоимость полиса",
+        "OwnershipType": "Тип владения",
+        "InsuranceStartDate": "Дата начала страховки"
       },
     "InsurerList": {
       "Features": {

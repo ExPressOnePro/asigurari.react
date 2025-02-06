@@ -62,14 +62,14 @@
     },
     "SelectedParameters":
     {
-      "SelectedParameters": "Selected parameters:",
+      "SelectedParameters": "Selected parameters",
       "Car": "Car",
       "BonusMalusClass": "Bonus-malus class",
       "Client": "Client",
-      "Insurer": "Insurer:",
-      "PolicyCost": "Policy cost:",
-      "OwnershipType": "Ownership type:",
-      "InsuranceStartDate": "Insurance start date:"
+      "Insurer": "Insurer",
+      "PolicyCost": "Policy cost",
+      "OwnershipType": "Ownership type",
+      "InsuranceStartDate": "Insurance start date"
     },
     "InsurerCard": {
       "ButtonChoise": "Choose"

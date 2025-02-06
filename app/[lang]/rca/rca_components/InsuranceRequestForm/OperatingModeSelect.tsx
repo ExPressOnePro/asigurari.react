@@ -17,7 +17,7 @@ const OperatingModeSelect: React.FC<OperatingModeSelectProps> = ({
         if (e.target.value === "") {
             setError(dictionary?.osago?.OperatingModes?.SelectOperatingModeError || "Please select a vehicle type.");
         } else {
-            setError(null);  // Сброс ошибки
+            setError(null);
             onChange(e.target.value);
         }
     };
