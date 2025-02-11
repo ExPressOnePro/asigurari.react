@@ -6,7 +6,7 @@ export default function Footer() {
     return (
         <footer className="bg-gradient-to-r from-gray-200 to-orange-300 py-12">
             <div className="container mx-auto px-6 md:px-12">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-left">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
                     {/* Logo and Company Info */}
                     <div>
                         <img
@@ -49,33 +49,19 @@ export default function Footer() {
                         <ul className="space-y-2">
                             <li><a href="/rca" className="hover:underline">Страхование ОСАГО</a></li>
                             <li><a href="/greencard" className="hover:underline">Зеленая карта</a></li>
-                            <li><a href="/travel" className="hover:underline">Трэвел</a></li>
+                            <li><a href="/medical" className="hover:underline">Медицинская страховка</a></li>
                         </ul>
-                    </div>
-
-                    {/* App and Powered By */}
-                    <div>
-                        <h3 className="text-lg font-bold mb-3">Мобильные приложения</h3>
-                        <div className="flex flex-col items-center md:items-start space-y-3">
-                            {/*<img src="images/content/App-Store.png" alt="App Store" className="w-32" />*/}
-                            {/*<img src="images/content/Google-Play.png" alt="Google Play" className="w-32" />*/}
-                        </div>
-                        <div className="mt-6">
-                            <a href="https://partnership.viapp.tech?utm_sitefrom=asig.md/">
-                                {/*<img src="images/content/powerup9.png" alt="Powered By" className="w-32" />*/}
-                            </a>
-                        </div>
                     </div>
                 </div>
 
                 <div
                     className="border-t border-black mt-8 pt-6 text-sm flex flex-col md:flex-row justify-between items-center text-center">
                     <div className="flex space-x-4">
-                        <a href="/terms" className="hover:underline">Условия и положения</a>
-                        <a href="/privacy" className="hover:underline">Политика безопасности</a>
+                        <a href="/Terms" className="hover:underline">Условия и положения</a>
+                        <a href="/Privacy" className="hover:underline">Политика конфиденциальности</a>
                     </div>
                     <div className="mt-4 md:mt-0">
-                        {/*<img src="images/content/logo.png" alt="Payment Logos" className="w-32" />*/}
+                        <img src={getStaticUrl('public/payments.png')} alt="Payment Logos" className="w-32"/>
                     </div>
                 </div>
             </div>
