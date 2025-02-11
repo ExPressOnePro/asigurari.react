@@ -1,9 +1,10 @@
 import React from "react";
+import {GreenCardZones} from "@/app/[lang]/greencard/Enums.tsx";
 
 interface SelectInputWithTooltipProps {
     id: string;
     label: string;
-    value: string;
+    value: string  | GreenCardZones;
     onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
     options: { value: string; label: string }[];
     tooltipImage?: string;

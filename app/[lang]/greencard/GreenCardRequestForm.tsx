@@ -1,45 +1,73 @@
 "use client";
 
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import axiosInstance from "@/lib/axiosInstance";
 import {GreenCardZoneOptions, GreenCardZones, TermInsurance, TermInsuranceOptions,} from "./Enums";
 import {GreenCardCalculationResponse} from "./types";
 import {getStaticUrl} from "@/app/[lang]/components/Footer.tsx";
-import TextInputWithTooltip from "@/app/[lang]/components/TextInputWithTooltip.tsx";
+
 import SelectInputWithTooltip from "@/app/[lang]/components/SelectInputWithTooltip.tsx";
-import ConsentToggle from "@/app/[lang]/components/ConsentToggle.tsx";
+import TextInputWithTooltip from "../rca/rca_components/InsuranceRequestForm/TextInputWithTooltip";
 import SubmitButton from "@/app/[lang]/components/SubmitButton.tsx";
+import {useLocalization} from "@/lib/LocalizationProvider.tsx";
+import ConsentToggle from "@/app/[lang]/components/ConsentToggle.tsx";
+import {useDispatch} from "react-redux";
+import {setUserData} from "@/store/greenCardFormSlice.ts";
+import {setApiData} from "@/store/greenCardFormSlice.ts";
+import SkeletonLoaderForm from "@/app/[lang]/rca/rca_components/InsuranceRequestForm/SkeletonLoaderForm.tsx";
 
-interface GreenCardFormProps {
-    onCalculationSuccess: (data: GreenCardCalculationResponse) => void;
-}
 
-const GreenCardRequestForm: React.FC<GreenCardFormProps> = ({onCalculationSuccess}) => {
-    const [greenCardZone, setGreenCardZone] = useState<GreenCardZones>(GreenCardZones.Z3);
+const GreenCardRequestForm = ({ onStepChange, onInsurersUpdate }: any) => {
+    const dispatch = useDispatch();
+    const { dictionary } = useLocalization();
+
+    const [GreenCardZone, setGreenCardZone] = useState<GreenCardZones>(GreenCardZones.Z3);
     const [termInsurance, setTermInsurance] = useState<TermInsurance>(TermInsurance.D15);
     const [IDNX, setIDNX] = useState<string>("2005021106830");
-    const [vehicleRegistrationCertificateNumber, setVehicleRegistrationCertificateNumber] = useState<string>("218000136");
-    const [error, setError] = useState<string | null>(null);
+    const [VehicleRegistrationCertificateNumber, setVehicleRegistrationCertificateNumber] = useState<string>("218000136");
+
     const [isConsentGiven, setIsConsentGiven] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [calculatedData, setCalculatedData] = useState<any>({});
+    const [formSubmitted, setFormSubmitted] = useState(false);
+    const [success, setSuccess] = useState(false);
+    const [localError, setLocalError] = useState<string | null>(null);
+
+
+    useEffect(() => {
+        const loadData = async () => {
+            setIsSkeletonLoading(true);
+            try {
+                await new Promise((resolve) => setTimeout(resolve, 1000));
+            } catch (error) {
+                console.error("Error loading data:", error);
+            } finally {
+                setIsSkeletonLoading(false);
+            }
+        };
+        loadData();
+    }, []);
+
+    const validateForm = () => {
+        if (!isConsentGiven) {
+            setLocalError(dictionary?.osago?.RCAForm?.Privacy);
+            return false;
+        }
+        return true;
+    };
+
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (!isConsentGiven) {
-            setError("Необходимо согласие на обработку данных.");
-            return false;
+        if (!validateForm()) {
+            setLocalError(dictionary?.osago?.OperatingModes?.SelectOperatingModeError || "Please select a vehicle type.");
+            return;
         }
-
-        const requestData = {
-            GreenCardZone: greenCardZone,
-            TermInsurance: termInsurance,
-            IDNX: IDNX || null,
-            VehicleRegistrationCertificateNumber: vehicleRegistrationCertificateNumber || null,
-        };
-
         setIsLoading(true);
-        setError(null);
+        setLocalError(null);
+
+        const requestData = { IDNX, VehicleRegistrationCertificateNumber, TermInsurance: termInsurance, GreenCardZone };
 
         try {
             const response = await axiosInstance.post<GreenCardCalculationResponse>(
@@ -47,34 +75,48 @@ const GreenCardRequestForm: React.FC<GreenCardFormProps> = ({onCalculationSucces
                 requestData
             );
             const result = response.data;
+            onInsurersUpdate(result.InsurersPrime?.InsurerPrimeRCAE || []);
 
-            if (result.IsSuccess) {
-                onCalculationSuccess(result);
-            } else {
-                setError(result.ErrorMessage || "Произошла ошибка при расчетах.");
-            }
-        } catch (error: any) {
-            console.error("Ошибка при запросе к API:", error);
+            dispatch(setUserData({
+                IDNX: IDNX,
+                VehicleRegistrationCertificateNumber : VehicleRegistrationCertificateNumber,
+                TermInsurance : TermInsurance.D15,
+                GreenCardZone : GreenCardZone
+            }));
 
-            if (error.response?.status === 500) {
-                setError("Ошибка сервера. Пожалуйста, попробуйте позже.");
-            } else if (error.response?.data?.detail) {
-                setError(error.response.data.detail);
-            } else if (error.response?.data) {
-                const errorMessages = Object.values(error.response.data)
-                    .flat()
-                    .join(", ");
-                setError(errorMessages || "Произошла ошибка при расчетах.");
-            } else {
-                setError("Произошла ошибка при расчетах.");
-            }
+            dispatch(setApiData({
+                IsSuccess: result.IsSuccess,
+                ErrorMessage: result.ErrorMessage,
+                PersonFirstName: result.PersonFirstName,
+                PersonLastName: result.PersonLastName,
+                VehicleMark: result.VehicleMark,
+                VehicleModel: result.VehicleModel,
+                VehicleRegistrationNumber: result.VehicleRegistrationNumber,
+                VehicleCategory: result.VehicleCategory,
+            }));
+
+            setCalculatedData({
+                vehicleMark: result.VehicleMark,
+                vehicleModel: result.VehicleModel,
+                vehicleRegistrationNumber: result.VehicleRegistrationNumber,
+                personFirstName: result.PersonFirstName,
+                personLastName: result.PersonLastName,
+            });
+
+            setSuccess(true);
+            setFormSubmitted(true);
+            onStepChange(2);
+        } catch (error) {
+
         } finally {
             setIsLoading(false);
         }
     };
+    const [isSkeletonLoading, setIsSkeletonLoading] = useState(true); // Для скелетона
+    if (isSkeletonLoading) {
+        return <SkeletonLoaderForm />;
+    }
 
-    // @ts-ignore
-    // @ts-ignore
     return (
         <div className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
             <div className="w-full max-w-3xl">
@@ -89,7 +131,7 @@ const GreenCardRequestForm: React.FC<GreenCardFormProps> = ({onCalculationSucces
                                 <SelectInputWithTooltip
                                     id="greenCardZone"
                                     label="Зона Зеленой Карты"
-                                    value={greenCardZone}
+                                    value={GreenCardZone}
                                     onChange={(e) => setGreenCardZone(e.target.value as GreenCardZones)}
                                     options={GreenCardZoneOptions}
                                     tooltipImage={undefined}
@@ -129,7 +171,7 @@ const GreenCardRequestForm: React.FC<GreenCardFormProps> = ({onCalculationSucces
                         <TextInputWithTooltip
                             id="vehicleRegCertificateNumber"
                             label="Номер техпаспорта"
-                            value={vehicleRegistrationCertificateNumber}
+                            value={VehicleRegistrationCertificateNumber}
                             onChange={(e) => setVehicleRegistrationCertificateNumber(e.target.value)}
                             placeholder="Введите номер техпаспорта"
                             tooltipImage={getStaticUrl("public/exemplu-certificat-inmatriculare.webp")}
@@ -138,16 +180,20 @@ const GreenCardRequestForm: React.FC<GreenCardFormProps> = ({onCalculationSucces
                             required={true}
                         />
 
-
-                        {/* Consent Toggle */}
                         <ConsentToggle
                             isConsentGiven={isConsentGiven}
                             setIsConsentGiven={setIsConsentGiven}
+                            dictionary={dictionary}
                         />
 
-                        {/* Submit Button */}
-                        <SubmitButton isConsentGiven={isConsentGiven} isLoading={isLoading}/>
+                        <SubmitButton
+                            isConsentGiven={isConsentGiven}
+                            isLoading={isLoading}
+                            dictionary={dictionary}
+                        />
                     </form>
+
+
 
                     {/* Индикатор загрузки */}
                     {isLoading && (
@@ -157,11 +203,7 @@ const GreenCardRequestForm: React.FC<GreenCardFormProps> = ({onCalculationSucces
                         </div>
                     )}
 
-                    {error && (
-                        <div className="mt-4 text-red-500 text-sm text-center">
-                            {error}
-                        </div>
-                    )}
+
                 </div>
             </div>
         </div>

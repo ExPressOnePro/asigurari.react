@@ -10,21 +10,23 @@ import OperatingModeSelect from "@/app/[lang]/rca/rca_components/InsuranceReques
 import PersonTypeToggle from "@/app/[lang]/rca/rca_components/InsuranceRequestForm/PersonTypeToggle.tsx";
 import axiosInstance from "@/lib/axiosInstance.ts";
 import SkeletonLoaderForm from "@/app/[lang]/rca/rca_components/InsuranceRequestForm/SkeletonLoaderForm.tsx";
+import {useLocalization} from "@/lib/LocalizationProvider.tsx";
 
 
-const InsuranceRequestForm = ({ dictionary, onInsurersUpdate, onStepChange }: any) => {
+const InsuranceRequestForm = React.memo(({ onStepChange }: any) => {
     const dispatch = useDispatch();
+    const { dictionary } = useLocalization();
+
     const [IDNX, setIDNX] = useState<string>('2005021106830');
     const [VehicleRegistrationCertificateNumber, setVehicleRegistrationCertificateNumber] = useState<string>('218000136');
-    const [OperatingModes, setOperatingModes] = useState<string>('');
+    const [OperatingModes, setOperatingModes] = useState<string>('1');
     const [PersonIsJuridical, setPersonIsJuridical] = useState<boolean>(false);
 
-    const [isConsentGiven, setIsConsentGiven] = useState<boolean>(false);
+    const [isConsentGiven, setIsConsentGiven] = useState<boolean>(true);
     const [localError, setLocalError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [formSubmitted, setFormSubmitted] = useState(false);
     const [calculatedData, setCalculatedData] = useState<any>({});
-    const [insurers, setInsurers] = useState<any[]>([]);
     const [success, setSuccess] = useState(false);
 
     useEffect(() => {
@@ -64,8 +66,6 @@ const InsuranceRequestForm = ({ dictionary, onInsurersUpdate, onStepChange }: an
         try {
             const response = await axiosInstance.post("/rca/calculate-rca/", requestData);
             const result = response.data;
-            onInsurersUpdate(result.InsurersPrime?.InsurerPrimeRCAI || []);
-
             dispatch(setUserData({
                 IDNX: IDNX,
                 VehicleRegistrationCertificateNumber : VehicleRegistrationCertificateNumber,
@@ -74,6 +74,7 @@ const InsuranceRequestForm = ({ dictionary, onInsurersUpdate, onStepChange }: an
             }));
 
             dispatch(setApiData({
+                InsurerPrimeRCAI: result.InsurersPrime.InsurerPrimeRCAI,
                 BonusMalusClass: result.BonusMalusClass,
                 IsSuccess: result.IsSuccess,
                 ErrorMessage: result.ErrorMessage,
@@ -172,6 +173,6 @@ const InsuranceRequestForm = ({ dictionary, onInsurersUpdate, onStepChange }: an
             </div>
         </div>
     );
-};
+});
 
 export default InsuranceRequestForm;

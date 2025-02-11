@@ -1,15 +1,14 @@
 import React, {useState, useEffect, JSX} from "react";
 import { useSelector } from 'react-redux';
 import {RootState} from "@/store/store.ts";
-import {useLocalization} from "@/lib/LocalizationProvider.tsx";
+import {TermInsurance} from "@/app/[lang]/greencard/Enums.tsx";
 
-const SelectedParameters = React.memo( ({ calculatedData, selectedAdditional, step }: any) => {
+const SelectedParameters = ({ calculatedData, selectedAdditional, dictionary, currentStep }: any) => {
     const [initialized, setInitialized] = useState(false);
-    const { dictionary } = useLocalization();
-    // Используем useEffect, чтобы установить флаг после первого рендера
+
     useEffect(() => {
         if (selectedAdditional) {
-            setInitialized(true);  // Устанавливаем флаг, когда данные доступны
+            setInitialized(true);
         }
     }, [selectedAdditional]);
 
@@ -23,10 +22,10 @@ const SelectedParameters = React.memo( ({ calculatedData, selectedAdditional, st
         ) : null
     );
 
-    const userData = useSelector((state: RootState) => state.insuranceForm.userData);
-    const apiData = useSelector((state: RootState) => state.insuranceForm.apiData);
-    const selectedInsurer = useSelector((state: RootState) => state.insuranceForm.selectedInsurer);
-    const additionalData = useSelector((state: RootState) => state.insuranceForm.additionalData);
+    const userData = useSelector((state: RootState) => state.greenCardForm.userData);
+    const apiData = useSelector((state: RootState) => state.greenCardForm.apiData);
+    const selectedInsurer = useSelector((state: RootState) => state.greenCardForm.selectedInsurer);
+    // const additionalData = useSelector((state: RootState) => state.greenCardForm.additionalData);
 
 
     return (
@@ -38,17 +37,19 @@ const SelectedParameters = React.memo( ({ calculatedData, selectedAdditional, st
                     </h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2">
 
+                        {renderParameter("Зона покрытия",
+                            `${userData?.GreenCardZone}`)}
+
+                        {renderParameter("Срок действия",
+                            `${userData?.TermInsurance}`)}
 
                         {renderParameter(dictionary?.osago?.SelectedParameters?.Car,
                             `${apiData?.VehicleMark} ${apiData?.VehicleModel} (${apiData?.VehicleRegistrationNumber})`)}
 
-                        {renderParameter(dictionary?.osago?.SelectedParameters?.BonusMalusClass,
-                            `${apiData?.BonusMalusClass}`)}
-
                         {renderParameter(dictionary?.osago?.SelectedParameters?.Client,
                             `${apiData?.PersonFirstName} ${apiData?.PersonLastName}`)}
 
-                        {step > 2 && (
+                        {currentStep > 2 && (
                             <>
                                 {renderParameter(dictionary?.osago?.SelectedParameters?.Insurer,
                                     `${selectedInsurer?.Name}`)}
@@ -57,19 +58,19 @@ const SelectedParameters = React.memo( ({ calculatedData, selectedAdditional, st
                             </>
                         )}
 
-                        {step > 3 && (
-                            <>
-                                {renderParameter(dictionary?.osago?.SelectedParameters?.OwnershipType,
-                                    `${additionalData?.PossessionBase?.label}`)}
-                                {renderParameter(dictionary?.osago?.SelectedParameters?.InsuranceStartDate,
-                                    `${additionalData?.StartDate}`)}
-                            </>
-                        )}
+                        {/*{currentStep > 3 && (*/}
+                        {/*    <>*/}
+                        {/*        {renderParameter(dictionary?.osago?.SelectedParameters?.OwnershipType,*/}
+                        {/*            `${additionalData?.PossessionBase?.label}`)}*/}
+                        {/*        {renderParameter(dictionary?.osago?.SelectedParameters?.InsuranceStartDate,*/}
+                        {/*            `${additionalData?.StartDate}`)}*/}
+                        {/*    </>*/}
+                        {/*)}*/}
                     </div>
                 </div>
             </div>
         </div>
     );
-});
+};
 
 export default SelectedParameters;

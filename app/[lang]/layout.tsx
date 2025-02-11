@@ -35,7 +35,7 @@ export async function generateStaticParams() {
         <LocalizationProvider initialLocale={params.lang} dictionary={dictionary}>
             <Header lang={lang} />
             <BubbleBackground />
-            <main>{children}</main>
+                <main>{children}</main>
             <Footer />
         </LocalizationProvider>
         </body>

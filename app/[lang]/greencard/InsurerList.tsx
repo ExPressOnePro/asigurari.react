@@ -8,7 +8,7 @@ interface InsurerListProps {
 }
 
 const InsurerList: React.FC<InsurerListProps> = ({insurers, handleInsurerSelect}) => {
-    // Сортировка страховщиков по возрастанию PrimeSumMDL
+
     const sortedInsurers = useMemo(() => {
         return [...insurers].sort((a, b) => {
             const primeSumA = typeof a.PrimeSumMDL === "string" ? parseFloat(a.PrimeSumMDL) : a.PrimeSumMDL;

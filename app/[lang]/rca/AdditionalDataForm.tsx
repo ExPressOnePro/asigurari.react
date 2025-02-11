@@ -2,18 +2,19 @@ import React, { useState, useEffect } from "react";
 import {useDispatch} from "react-redux";
 import {setAdditionalData } from "@/store/insuranceFormSlice";
 import {setAdditionalCarInfo } from "@/store/insuranceFormSlice";
+import {useLocalization} from "@/lib/LocalizationProvider.tsx";
 
 interface AdditionalDataFormProps {
-    dictionary: any;
     onStepChange: any;
 }
 
-const AdditionalDataForm: React.FC<AdditionalDataFormProps> = ({ dictionary, onStepChange }) => {
+const AdditionalDataForm: React.FC<AdditionalDataFormProps> = React.memo(({ onStepChange }) => {
     const dispatch = useDispatch();
+    const { dictionary } = useLocalization();
 
     const [isFromTransnistria, setIsFromTransnistria] = useState<boolean>(false);
     const [personIsExternal, setPersonIsExternal] = useState<boolean>(false);
-    const [birthDate, setBirthDate] = useState<string>("");
+    const [birthDate, setBirthDate] = useState<string>("2001-03-30");
     const [insuranceStartDate, setInsuranceStartDate] = useState<string>("");
     const [insuranceEndDate, setInsuranceEndDate] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
@@ -103,9 +104,7 @@ const AdditionalDataForm: React.FC<AdditionalDataFormProps> = ({ dictionary, onS
             Seats: additionalCarInfoForm.Seats,
         }));
 
-        console.log(possessionBase);
-        onStepChange(+1);
-
+        onStepChange(4);
         setIsSubmitting(false);
     };
 
@@ -301,6 +300,6 @@ const AdditionalDataForm: React.FC<AdditionalDataFormProps> = ({ dictionary, onS
         </form>
     )
         ;
-};
+});
 
 export default AdditionalDataForm;
