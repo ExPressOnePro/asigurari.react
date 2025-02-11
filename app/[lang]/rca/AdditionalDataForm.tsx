@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
-import {setAdditionalData } from "@/store/insuranceFormSlice";
-import {setAdditionalCarInfo } from "@/store/insuranceFormSlice";
+import {setAdditionalCarInfo, setAdditionalData} from "@/store/insuranceFormSlice";
 import {useLocalization} from "@/lib/LocalizationProvider.tsx";
 
 interface AdditionalDataFormProps {
     onStepChange: any;
 }
 
-const AdditionalDataForm: React.FC<AdditionalDataFormProps> = React.memo(({ onStepChange }) => {
+const AdditionalDataForm: React.FC<AdditionalDataFormProps> = React.memo(({onStepChange}) => {
     const dispatch = useDispatch();
-    const { dictionary } = useLocalization();
+    const {dictionary} = useLocalization();
 
     const [isFromTransnistria, setIsFromTransnistria] = useState<boolean>(false);
     const [personIsExternal, setPersonIsExternal] = useState<boolean>(false);
@@ -36,7 +35,7 @@ const AdditionalDataForm: React.FC<AdditionalDataFormProps> = React.memo(({ onSt
     }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setAdditionalCarInfoForm((prevInfo) => ({
             ...prevInfo,
             [name]: value,
@@ -107,7 +106,6 @@ const AdditionalDataForm: React.FC<AdditionalDataFormProps> = React.memo(({ onSt
         onStepChange(4);
         setIsSubmitting(false);
     };
-
 
 
     return (
@@ -204,11 +202,11 @@ const AdditionalDataForm: React.FC<AdditionalDataFormProps> = React.memo(({ onSt
                             <h3 className="text-lg font-semibold text-gray-700 mb-4">Дополнительные данные</h3>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 {[
-                                    { label: "Год выпуска", name: "ProductionYear", type: "number" },
-                                    { label: "Объем двигателя (см³)", name: "CilinderVolume", type: "number" },
-                                    { label: "Масса (кг)", name: "TotalWeight", type: "number" },
-                                    { label: "Мощность двигателя (л.с.)", name: "EnginePower", type: "number" },
-                                    { label: "Кол-во мест", name: "Seats", type: "number" },
+                                    {label: "Год выпуска", name: "ProductionYear", type: "number"},
+                                    {label: "Объем двигателя (см³)", name: "CilinderVolume", type: "number"},
+                                    {label: "Масса (кг)", name: "TotalWeight", type: "number"},
+                                    {label: "Мощность двигателя (л.с.)", name: "EnginePower", type: "number"},
+                                    {label: "Кол-во мест", name: "Seats", type: "number"},
                                 ].map((field) => (
                                     <div key={field.name} className="flex flex-col">
                                         <label className="text-sm text-gray-600">{field.label}</label>
@@ -291,7 +289,7 @@ const AdditionalDataForm: React.FC<AdditionalDataFormProps> = React.memo(({ onSt
                             disabled={isSubmitting}
                             className={`w-full ${isSubmitting ? "bg-gray-500" : "bg-blue-600 hover:bg-blue-700"} text-white font-semibold py-2 px-4 rounded-lg shadow-md`}
                         >
-                            {isSubmitting ? "Загрузка..." : "Подтвердить"}
+                            {isSubmitting ? "Загрузка..." : "Перейти к оплате"}
                         </button>
 
                     </div>

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
+import React, {useState} from "react";
+import {useSelector} from "react-redux";
+import {RootState} from "@/store/store";
 import axiosInstance from "@/lib/axiosInstance";
 import SpinnerBlue from "@/app/[lang]/components/SpinnerBlue";
 
@@ -44,7 +44,7 @@ const RCASaver: React.FC = () => {
                 StartDate: additionalData.StartDate,
                 PossessionBase: additionalData.PossessionBase?.value,
                 DocumentPossessionBaseDate: additionalData.DocumentPossessionBaseDate,
-                OperatingMode: userData.OperatingModes,
+                OperatingModes: userData.OperatingModes,
                 qrCode: qrCodeData?.uuid,
             };
 
@@ -69,7 +69,7 @@ const RCASaver: React.FC = () => {
 
     const fetchFile = async (documentId: number) => {
         try {
-            const response = await axiosInstance.get(`/api/rca/${documentId}/get-rca-file/`, {
+            const response = await axiosInstance.get(`/rca/${documentId}/get-rca-file/`, {
                 params: {
                     DocumentType: "Contract",
                     ContractType: "RCAI"
@@ -98,7 +98,7 @@ const RCASaver: React.FC = () => {
                 Сохранить RCA
             </button>
 
-            {isLoading && <SpinnerBlue />}
+            {isLoading && <SpinnerBlue/>}
 
             {documentId && (
                 <p className="text-green-600 font-medium mt-4 bg-green-100 px-4 py-2 rounded-lg w-full text-center">
