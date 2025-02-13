@@ -2,7 +2,7 @@
 "use client";
 
 import { useDispatch, useSelector } from "react-redux";
-import { setStep } from "@/store/rcaSlice";
+import { setStep } from "@/store/insuranceFormSlice.ts";
 import { RootState } from "@/store/store.ts";
 import InsuranceRequestForm from "@/app/[lang]/rca/InsuranceRequestForm.tsx";
 import SelectedParameters from "@/app/[lang]/rca/SelectedParameters.tsx";
@@ -14,14 +14,14 @@ import RCASaver from "@/app/[lang]/rca/rca_components/RCASaver.tsx";
 
 export default function RCAController() {
     const dispatch = useDispatch();
-    const step = useSelector((state: RootState) => state.rca.step);
+    const step = useSelector((state: RootState) => state.insuranceForm.step);
     const handleStepChange = (newStep: number) => {
         dispatch(setStep(newStep));
     };
 
     return (
         <div>
-            {step > 1 && <SelectedParameters step={step}/>}
+            {step > 1 && step < 6 && <SelectedParameters step={step}/>}
             {step === 1 && <InsuranceRequestForm onStepChange={handleStepChange} />}
             {step === 2 && <InsurerList onStepChange={handleStepChange}/>}
             {step === 3 && <AdditionalDataForm onStepChange={handleStepChange}/>}

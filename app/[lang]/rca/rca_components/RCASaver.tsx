@@ -1,13 +1,15 @@
 import React, {useEffect, useRef, useState} from "react";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { RootState } from "@/store/store";
 import axiosInstance from "@/lib/axiosInstance";
 import SpinnerBlue from "@/app/[lang]/components/SpinnerBlue";
 import {getStaticUrl} from "@/app/[lang]/components/Footer.tsx";
 import {useLocalization} from "@/lib/LocalizationProvider.tsx";
+import {clearData} from "@/store/insuranceFormSlice.ts";
 
 const RCASaver: React.FC = () => {
     const { dictionary } = useLocalization();
+    const dispatch = useDispatch();
     const userData = useSelector((state: RootState) => state.insuranceForm.userData);
     const additionalData = useSelector((state: RootState) => state.insuranceForm.additionalData);
     const selectedInsurer = useSelector((state: RootState) => state.insuranceForm.selectedInsurer);
@@ -19,8 +21,7 @@ const RCASaver: React.FC = () => {
     const [documentUrl, setDocumentUrl] = useState<string | null>(null);
     const [fileUrl, setFileUrl] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
-
-    const isMounted = useRef(false); // Флаг для отслеживания монтирования компонента
+    const isMounted = useRef(false);
 
     useEffect(() => {
         const saveRCAData = async () => {
@@ -64,7 +65,6 @@ const RCASaver: React.FC = () => {
                     setDocumentId(result.DocumentId);
                     setDocumentUrl(result.url);
                 }
-
                 console.log("Ответ от API:", response.data);
             } catch (error: any) {
                 setError(error?.response?.data?.message || "Ошибка при сохранении данных.");
@@ -75,12 +75,18 @@ const RCASaver: React.FC = () => {
         };
 
         saveRCAData();
-
+        dispatch(clearData());
         return () => {
             console.log("Компонент размонтирован");
-            isMounted.current = true; // Устанавливаем флаг в true, чтобы запрос не отправился снова
+            isMounted.current = true;
         };
     }, [qrCodeData?.status, selectedInsurer?.PrimeSumMDL]);
+
+    useEffect(() => {
+        if (documentId) {
+            fetchFile(documentId);
+        }
+    }, [documentId]);
 
     const fetchFile = async (documentId: number) => {
         try {
@@ -95,6 +101,7 @@ const RCASaver: React.FC = () => {
             const file = response.data;
             const fileURL = URL.createObjectURL(file);
             setFileUrl(fileURL);
+            dispatch(clearData());
         } catch (error: any) {
             setError(error?.response?.data?.message || "Ошибка при загрузке файла.");
             console.error("Ошибка при загрузке файла:", error);
@@ -122,7 +129,7 @@ const RCASaver: React.FC = () => {
 
                         <div className="flex flex-col sm:flex-row gap-4 mt-4">
                             <a
-                                href={documentUrl}
+                                href={getStaticUrl(documentUrl)}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="px-4 py-2 bg-blue-500 text-white font-medium rounded-lg shadow hover:bg-blue-600 transition"
@@ -130,7 +137,7 @@ const RCASaver: React.FC = () => {
                                 Открыть документ
                             </a>
                             <a
-                                href={documentUrl}
+                                href={getStaticUrl(documentUrl)}
                                 download="rca_document.pdf"
                                 className="px-4 py-2 bg-green-500 text-white font-medium rounded-lg shadow hover:bg-green-600 transition"
                             >

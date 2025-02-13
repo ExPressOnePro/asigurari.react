@@ -92,7 +92,9 @@
         "Insurer": "Страховщик",
         "PolicyCost": "Стоимость полиса",
         "OwnershipType": "Тип владения",
-        "InsuranceStartDate": "Дата начала страховки"
+        "InsuranceStartDate": "Дата начала страховки",
+        "GreenCardZone": "Зона зеленой карты",
+        "TermInsurance": "Время действия"
       },
     "InsurerList": {
       "Features": {
@@ -144,6 +146,11 @@
       "M10": "10 месяцев",
       "M11": "11 месяцев",
       "M12": "12 месяцев"
+    },
+    "Titles": {
+    "Selected": {
+
+    }
     }
   }
 }
