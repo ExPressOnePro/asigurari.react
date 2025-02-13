@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { useDispatch } from "react-redux";
 import {setApiData, setUserData} from "@/store/insuranceFormSlice";
-
+import { getStaticUrl } from "@/app/[lang]/components/Footer";
 import SubmitButton from "@/app/[lang]/components/SubmitButton.tsx";
 import StatusMessage from "@/app/[lang]/rca/rca_components/StatusMessage.tsx";
 import TextInputWithTooltip from "@/app/[lang]/rca/rca_components/InsuranceRequestForm/TextInputWithTooltip.tsx";
@@ -135,7 +135,7 @@ const InsuranceRequestForm = React.memo(({ onStepChange }: any) => {
                             value={IDNX}
                             onChange={(e) => setIDNX(e.target.value)}
                             placeholder={dictionary?.osago?.RCAForm?.IDNPPlaceholder}
-                            tooltipImage="exemplu-certificat-inmatriculare.webp"
+                            tooltipImage={getStaticUrl("public/exemplu-certificat-inmatriculare.webp")}
                         />
 
                         <TextInputWithTooltip
@@ -144,7 +144,7 @@ const InsuranceRequestForm = React.memo(({ onStepChange }: any) => {
                             value={VehicleRegistrationCertificateNumber}
                             onChange={(e) => setVehicleRegistrationCertificateNumber(e.target.value)}
                             placeholder={dictionary?.osago?.RCAForm?.InputTehPlaceholder}
-                            tooltipImage="public/idnp.webp"
+                            tooltipImage={getStaticUrl("public/idnp.webp")}
                         />
 
                         <OperatingModeSelect
