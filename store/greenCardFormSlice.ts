@@ -5,11 +5,22 @@ interface GreenCardUserData {
     IDNX: string;
     VehicleRegistrationCertificateNumber: string;
     GreenCardZone: GreenCardZones;
+    GreenCardZoneLabel: any;
     TermInsurance: TermInsurance;
+    TermInsuranceLabel: any;
 }
 
+interface InsurerPrime {
+    Name: string;
+    IDNO: string;
+    PrimeSum: string;
+    PrimeSumMDL: any;
+    is_active: boolean;
+    logo: string;
+}
 
 interface ApiData {
+    InsurerPrimeRCAE: InsurerPrime[];
     IsSuccess: boolean;
     ErrorMessage: string | null;
     PersonFirstName: string;
@@ -18,6 +29,7 @@ interface ApiData {
     VehicleModel: string;
     VehicleRegistrationNumber: string;
     VehicleCategory: string;
+    insuranceNumber: string;
 }
 
 interface Insurer {
@@ -53,9 +65,10 @@ interface AdditionalCarInfo{
 }
 
 interface QrCodeData {
-    uuid: any;
-    qr_as_image: any;
-    url: any;
+    uuid: string | null;
+    qr_as_image: string | null;
+    url: string | null;
+    status: string | null;
 }
 
 interface GreenCardState {
@@ -65,9 +78,9 @@ interface GreenCardState {
     success: boolean;
     error: string | null;
     selectedInsurer: Insurer | null;
-    // additionalData: AdditionalData;
-    // additionalCarInfo: AdditionalCarInfo;
-    // qrCodeData: QrCodeData | null;
+    additionalData: AdditionalData;
+    additionalCarInfo: AdditionalCarInfo;
+    qrCodeData: QrCodeData | null;
 }
 
 const initialState: GreenCardState = {
@@ -77,10 +90,13 @@ const initialState: GreenCardState = {
         VehicleRegistrationCertificateNumber: "",
         GreenCardZone: GreenCardZones.Z3,  // Значение по умолчанию из перечисления
         TermInsurance: TermInsurance.D15,
+        GreenCardZoneLabel:"",
+        TermInsuranceLabel:""
     },
 
 
     apiData: {
+        InsurerPrimeRCAE: [],
         IsSuccess: false,
         ErrorMessage: "",
         PersonFirstName: "",
@@ -89,6 +105,7 @@ const initialState: GreenCardState = {
         VehicleModel: "",
         VehicleRegistrationNumber: "",
         VehicleCategory: "",
+        insuranceNumber: "",
     },
 
     selectedInsurer: {
@@ -99,31 +116,32 @@ const initialState: GreenCardState = {
         is_active: true,
         logo: ""
     },
-    //
-    // additionalData: {
-    //     IsFromTransnistria: false,
-    //     PersonIsExternal: false,
-    //     StartDate: "",
-    //     BirthDate: "",
-    //     PossessionBase: null,
-    //     DocumentPossessionBaseDate: "",
-    // },
-    //
-    // additionalCarInfo: {
-    //     ProductionYear: 0,
-    //     CilinderVolume: 0,
-    //     TotalWeight: 0,
-    //     EnginePower: 0,
-    //     Seats: 0,
-    // },
-    //
-    // qrCodeData: {
-    //     uuid: "",
-    //     qr_as_image: "",
-    //     url: "",
-    // },
-    //
-    //
+
+    additionalData: {
+        IsFromTransnistria: false,
+        PersonIsExternal: false,
+        StartDate: "",
+        BirthDate: "",
+        PossessionBase: null,
+        DocumentPossessionBaseDate: "",
+    },
+
+    additionalCarInfo: {
+        ProductionYear: 0,
+        CilinderVolume: 0,
+        TotalWeight: 0,
+        EnginePower: 0,
+        Seats: 0,
+    },
+
+    qrCodeData: {
+        uuid: null,
+        qr_as_image: null,
+        url: null,
+        status: null,
+    },
+
+
     formSubmitted: false,
     success: false,
     error: null,
@@ -151,15 +169,15 @@ const greenCardFormSlice = createSlice({
         setSelectedInsurer: (state, action: PayloadAction<Insurer | null>) => {
             state.selectedInsurer = action.payload;
         },
-        // setAdditionalData: (state, action: PayloadAction<AdditionalData>) => {
-        //     state.additionalData = action.payload;
-        // },
-        // setAdditionalCarInfo: (state, action: PayloadAction<AdditionalCarInfo>) => {
-        //     state.additionalCarInfo = action.payload;
-        // },
-        // setQrCodeData: (state, action: PayloadAction<QrCodeData | null>) => {
-        //     state.qrCodeData = action.payload;
-        // },
+        setAdditionalData: (state, action: PayloadAction<AdditionalData>) => {
+            state.additionalData = action.payload;
+        },
+        setAdditionalCarInfo: (state, action: PayloadAction<AdditionalCarInfo>) => {
+            state.additionalCarInfo = action.payload;
+        },
+        setQrCodeData: (state, action: PayloadAction<QrCodeData | null>) => {
+            state.qrCodeData = action.payload;
+        },
     },
 });
 
@@ -170,9 +188,9 @@ export const {
     // setSuccess,
     // setError,
     setSelectedInsurer,
-    // setAdditionalData,
-    // setAdditionalCarInfo,
-    // setQrCodeData,
+    setAdditionalData,
+    setAdditionalCarInfo,
+    setQrCodeData,
 } = greenCardFormSlice.actions;
 
 export default greenCardFormSlice.reducer;

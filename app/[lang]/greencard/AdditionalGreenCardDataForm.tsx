@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import {useDispatch} from "react-redux";
-import {setAdditionalData } from "@/store/insuranceFormSlice";
-import {setAdditionalCarInfo } from "@/store/insuranceFormSlice";
+import { setAdditionalData } from "@/store/greenCardFormSlice";
+import { setAdditionalCarInfo } from "@/store/greenCardFormSlice.ts";
 import {useLocalization} from "@/lib/LocalizationProvider.tsx";
 
-interface AdditionalDataFormProps {
+interface AdditionalGreenCardDataFormProps {
     onStepChange: any;
 }
 
-const AdditionalDataForm: React.FC<AdditionalDataFormProps> = React.memo(({ onStepChange }) => {
+const AdditionalDataGreenCardForm: React.FC<AdditionalGreenCardDataFormProps> = React.memo(({ onStepChange }) => {
     const dispatch = useDispatch();
     const { dictionary } = useLocalization();
 
@@ -312,4 +312,4 @@ const AdditionalDataForm: React.FC<AdditionalDataFormProps> = React.memo(({ onSt
         ;
 });
 
-export default AdditionalDataForm;
+export default AdditionalDataGreenCardForm;

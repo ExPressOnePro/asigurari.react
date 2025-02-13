@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store.ts";
 import axiosInstance from "@/lib/axiosInstance.ts";
-import { setQrCodeData } from "@/store/insuranceFormSlice.ts";
+import { setQrCodeData } from "@/store/greenCardFormSlice.ts";
 
 interface QRCodeRequestProps {
     onStepChange: (step: number) => void;
@@ -11,11 +11,11 @@ interface QRCodeRequestProps {
 
 const QRCodeRequest: React.FC<QRCodeRequestProps> = React.memo(({ onStepChange, step }) => {
     const dispatch = useDispatch();
-    const selectedInsurer = useSelector((state: RootState) => state.insuranceForm.selectedInsurer);
-    const userData = useSelector((state: RootState) => state.insuranceForm.userData);
-    const additionalData = useSelector((state: RootState) => state.insuranceForm.additionalData);
-    const additionalCarInfo = useSelector((state: RootState) => state.insuranceForm.additionalCarInfo);
-    const QrCodeDate = useSelector((state: RootState) => state.insuranceForm.qrCodeData);
+    const selectedInsurer = useSelector((state: RootState) => state.greenCardForm.selectedInsurer);
+    const userData = useSelector((state: RootState) => state.greenCardForm.userData);
+    const additionalData = useSelector((state: RootState) => state.greenCardForm.additionalData);
+    const additionalCarInfo = useSelector((state: RootState) => state.greenCardForm.additionalCarInfo);
+    const QrCodeDate = useSelector((state: RootState) => state.greenCardForm.qrCodeData);
 
     // Флаг, который показывает, что компонент уже был смонтирован
     const isMounted = React.useRef(false);
@@ -49,7 +49,6 @@ const QRCodeRequest: React.FC<QRCodeRequestProps> = React.memo(({ onStepChange, 
                             StartDate: additionalData?.StartDate,
                             PossessionBase: additionalData?.PossessionBase,
                             DocumentPossessionBaseDate: additionalData?.DocumentPossessionBaseDate,
-                            OperatingMode: userData?.OperatingModes,
                         }
                     });
 

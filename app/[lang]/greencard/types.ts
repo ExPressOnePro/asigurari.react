@@ -21,4 +21,5 @@ export interface GreenCardCalculationResponse {
     VehicleModel: string;
     VehicleRegistrationNumber: string;
     VehicleCategory: string;
+    insuranceNumber: string;
 }

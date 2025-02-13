@@ -2,8 +2,10 @@ import React, {useState, useEffect, JSX} from "react";
 import { useSelector } from 'react-redux';
 import {RootState} from "@/store/store.ts";
 import {TermInsurance} from "@/app/[lang]/greencard/Enums.tsx";
+import {useLocalization} from "@/lib/LocalizationProvider.tsx";
 
-const SelectedParameters = ({ calculatedData, selectedAdditional, dictionary, currentStep }: any) => {
+const SelectedParameters = ({ calculatedData, selectedAdditional, currentStep }: any) => {
+    const {dictionary} = useLocalization()
     const [initialized, setInitialized] = useState(false);
 
     useEffect(() => {
@@ -38,10 +40,10 @@ const SelectedParameters = ({ calculatedData, selectedAdditional, dictionary, cu
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2">
 
                         {renderParameter("Зона покрытия",
-                            `${userData?.GreenCardZone}`)}
+                            `${userData?.GreenCardZoneLabel}`)}
 
                         {renderParameter("Срок действия",
-                            `${userData?.TermInsurance}`)}
+                            `${userData?.TermInsuranceLabel}`)}
 
                         {renderParameter(dictionary?.osago?.SelectedParameters?.Car,
                             `${apiData?.VehicleMark} ${apiData?.VehicleModel} (${apiData?.VehicleRegistrationNumber})`)}

@@ -101,6 +101,8 @@
       "Phone": "Număr de telefon",
       "Email": "Adresă de e-mail"
     }
+  },
+  "SaveRCA": {
+    "doc": "/doc3.png"
   }
-
 }

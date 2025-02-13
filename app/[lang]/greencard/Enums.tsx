@@ -1,6 +1,6 @@
 export enum GreenCardZones {
     Z1 = "Z1", // Zona 1 - Ucraina și Belarus
-    Z3 = "Z3", // Zona 3 - Toate țările sistemului carte verde
+    Z3 = "Z3", // Zona 3 - Toate țările sistemului carte verde (EUROPA)
 }
 
 export enum TermInsurance {
@@ -19,26 +19,30 @@ export enum TermInsurance {
     M12 = "m12", // 12 luni
 }
 
-export const GreenCardZoneOptions = [
-    {value: GreenCardZones.Z1, label: "Украина"},
-    {value: GreenCardZones.Z3, label: "Все страны зеленой карты"},
+// GreenCard zones options for select
+export const GreenCardZoneOptions = (dictionary: any) => [
+    { value: GreenCardZones.Z1, label: dictionary?.GreenCard?.zones?.z1 ?? "Зона 1" },
+    { value: GreenCardZones.Z3, label: dictionary?.GreenCard?.zones?.z3 ?? "Все страны зеленой карты" },
 ];
 
-export const TermInsuranceOptions = [
-    {value: TermInsurance.D15, label: "15 дней"},
-    {value: TermInsurance.M1, label: "1 месяц"},
-    {value: TermInsurance.M2, label: "2 месяца"},
-    {value: TermInsurance.M3, label: "3 месяца"},
-    {value: TermInsurance.M4, label: "4 месяца"},
-    {value: TermInsurance.M5, label: "5 месяцев"},
-    {value: TermInsurance.M6, label: "6 месяцев"},
-    {value: TermInsurance.M7, label: "7 месяцев"},
-    {value: TermInsurance.M8, label: "8 месяцев"},
-    {value: TermInsurance.M9, label: "9 месяцев"},
-    {value: TermInsurance.M10, label: "10 месяцев"},
-    {value: TermInsurance.M11, label: "11 месяцев"},
-    {value: TermInsurance.M12, label: "12 месяцев"},
+
+ // GreenCard period options for select
+export const TermInsuranceOptions = (dictionary: any) => [
+    { value: TermInsurance.D15, label: dictionary?.GreenCard?.TermInsurance?.D15 ?? "15 дней" },
+    { value: TermInsurance.M1, label: dictionary?.GreenCard?.TermInsurance?.M1 ?? "1 месяц" },
+    { value: TermInsurance.M2, label: dictionary?.GreenCard?.TermInsurance?.M2 ?? "2 месяца" },
+    { value: TermInsurance.M3, label: dictionary?.GreenCard?.TermInsurance?.M3 ?? "3 месяца" },
+    { value: TermInsurance.M4, label: dictionary?.GreenCard?.TermInsurance?.M4 ?? "4 месяца" },
+    { value: TermInsurance.M5, label: dictionary?.GreenCard?.TermInsurance?.M5 ?? "5 месяцев" },
+    { value: TermInsurance.M6, label: dictionary?.GreenCard?.TermInsurance?.M6 ?? "6 месяцев" },
+    { value: TermInsurance.M7, label: dictionary?.GreenCard?.TermInsurance?.M7 ?? "7 месяцев" },
+    { value: TermInsurance.M8, label: dictionary?.GreenCard?.TermInsurance?.M8 ?? "8 месяцев" },
+    { value: TermInsurance.M9, label: dictionary?.GreenCard?.TermInsurance?.M9 ?? "9 месяцев" },
+    { value: TermInsurance.M10, label: dictionary?.GreenCard?.TermInsurance?.M10 ?? "10 месяцев" },
+    { value: TermInsurance.M11, label: dictionary?.GreenCard?.TermInsurance?.M11 ?? "11 месяцев" },
+    { value: TermInsurance.M12, label: dictionary?.GreenCard?.TermInsurance?.M12 ?? "12 месяцев" },
 ];
+
 
 
 export enum Possession {

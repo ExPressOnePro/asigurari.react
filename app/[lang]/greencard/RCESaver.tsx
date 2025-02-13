@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {use, useEffect, useRef, useState} from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import axiosInstance from "@/lib/axiosInstance";
@@ -8,11 +8,12 @@ import {useLocalization} from "@/lib/LocalizationProvider.tsx";
 
 const RCASaver: React.FC = () => {
     const { dictionary } = useLocalization();
-    const userData = useSelector((state: RootState) => state.insuranceForm.userData);
-    const additionalData = useSelector((state: RootState) => state.insuranceForm.additionalData);
-    const selectedInsurer = useSelector((state: RootState) => state.insuranceForm.selectedInsurer);
-    const qrCodeData = useSelector((state: RootState) => state.insuranceForm.qrCodeData);
-    const additionalCarInfo = useSelector((state: RootState) => state.insuranceForm.additionalCarInfo);
+    const userData = useSelector((state: RootState) => state.greenCardForm.userData);
+    const additionalData = useSelector((state: RootState) => state.greenCardForm.additionalData);
+    const selectedInsurer = useSelector((state: RootState) => state.greenCardForm.selectedInsurer);
+    const qrCodeData = useSelector((state: RootState) => state.greenCardForm.qrCodeData);
+    const apiData = useSelector((state: RootState) => state.greenCardForm.apiData);
+    const additionalCarInfo = useSelector((state: RootState) => state.greenCardForm.additionalCarInfo);
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [documentId, setDocumentId] = useState<number | null>(null);
@@ -49,15 +50,17 @@ const RCASaver: React.FC = () => {
                         RegistrationCertificateNumber: userData?.VehicleRegistrationCertificateNumber || "",
                     },
                     StartDate: additionalData.StartDate,
+                    TermInsurance: userData.TermInsurance,
+                    GreenCardZone: userData.GreenCardZone,
                     PossessionBase: additionalData.PossessionBase?.value,
                     DocumentPossessionBaseDate: additionalData.DocumentPossessionBaseDate,
-                    OperatingMode: userData.OperatingModes,
                     qrCode: qrCodeData?.uuid,
+                    PolicyNumber: apiData.insuranceNumber,
                 };
 
                 console.log("requestData:", JSON.stringify(requestData, null, 2));
 
-                const response = await axiosInstance.post("/rca/save-rca/", requestData);
+                const response = await axiosInstance.post("/rca/save-green-card/", requestData);
                 const result = response.data;
 
                 if (result?.DocumentId) {

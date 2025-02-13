@@ -2,7 +2,7 @@
 "use client";
 
 import { useDispatch, useSelector } from "react-redux";
-import { setStep, incrementStep, decrementStep } from "@/store/rcaSlice";
+import { setStep } from "@/store/rcaSlice";
 import { RootState } from "@/store/store.ts";
 import InsuranceRequestForm from "@/app/[lang]/rca/InsuranceRequestForm.tsx";
 import SelectedParameters from "@/app/[lang]/rca/SelectedParameters.tsx";
@@ -10,7 +10,7 @@ import InsurerList from "@/app/[lang]/rca/InsurerList.tsx";
 import AdditionalDataForm from "@/app/[lang]/rca/AdditionalDataForm.tsx";
 import QRCodeRequest from "@/app/[lang]/rca/rca_components/qr/QRCodeRequest.tsx";
 import QRCodeImage from "@/app/[lang]/rca/rca_components/qr/QRCodeImage.tsx";
-import RCASaver from "@/app/[lang]/rca/rca_components/RCASaver.tsx";  // Путь до вашего хранилища
+import RCASaver from "@/app/[lang]/rca/rca_components/RCASaver.tsx";
 
 export default function RCAController() {
     const dispatch = useDispatch();

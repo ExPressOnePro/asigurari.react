@@ -1,6 +1,8 @@
-import React, {useCallback, useMemo} from "react";
-import { useDispatch } from "react-redux";
-import {setSelectedInsurer} from "@/store/greenCardFormSlice.ts";
+import React, { useCallback, useMemo } from "react";
+import {useDispatch, useSelector} from "react-redux";
+import { setSelectedInsurer } from "@/store/greenCardFormSlice.ts";
+import {useLocalization} from "@/lib/LocalizationProvider.tsx";
+import {RootState} from "@/store/store.ts";
 
 // Интерфейс для страховщика
 interface Insurer {
@@ -13,14 +15,15 @@ interface Insurer {
 }
 
 // Типизация пропсов компонента
+
 interface InsurerListProps {
-    insurers: Insurer[];
-    dictionary: any;
-    onStepChange: any;
+    onStepChange: (nextStep: number) => void;
 }
 
-const InsurerList: React.FC<InsurerListProps> = ({ insurers, dictionary, onStepChange }) => {
+const InsurerList: React.FC<InsurerListProps> = ({ onStepChange }) => {
     const dispatch = useDispatch();
+    const { dictionary } = useLocalization();
+    const insurers = useSelector((state: RootState) => state.greenCardForm.apiData.InsurerPrimeRCAE);
 
     const sortedInsurers = useMemo(() => {
         return [...insurers].sort((a, b) => {
@@ -32,30 +35,34 @@ const InsurerList: React.FC<InsurerListProps> = ({ insurers, dictionary, onStepC
 
     const features = [
         { label: dictionary?.osago?.InsurerList.Features?.CoverageArea, value: "Moldova" },
-        { label: dictionary?.osago?.InsurerList.Features?.CoverageArea, value: "Moldova" },
         { label: dictionary?.osago?.InsurerList.Features?.PropertyLimit, value: "100 000 €" },
         { label: dictionary?.osago?.InsurerList.Features?.HealthLimitEvent, value: "500 000 €" },
-        { label: dictionary?.osago?.InsurerList.Features?.HealthLimitEvent, value: "100 000 €" },
         { label: dictionary?.osago?.InsurerList.Features?.InstantContractEmail, value: null },
         { label: dictionary?.osago?.InsurerList.Features?.OnlineRegistration, value: null }
     ];
 
     const handleSelectInsurer = useCallback(
-        (insurer: Insurer) => {
+        (insurer: Insurer | null) => {
+            console.log('Selected insurer:', insurer);
+            if (!insurer) {
+                console.error("Ошибка: выбранный страховщик пустой!", insurer);
+                return;
+            }
+
+            const primeSumMDL = typeof insurer.PrimeSumMDL === "string" ? parseFloat(insurer.PrimeSumMDL) : insurer.PrimeSumMDL;
             dispatch(setSelectedInsurer({
                 Name: insurer.Name,
                 IDNO: insurer.IDNO,
                 PrimeSum: insurer.PrimeSum,
-                PrimeSumMDL: insurer.PrimeSumMDL,
+                PrimeSumMDL: primeSumMDL,
                 is_active: insurer.is_active,
                 logo: insurer.logo
             }));
-
-            onStepChange(3);
+            // onSelectInsurer(insurer);
+            onStepChange(3);  // Убедитесь, что шаг меняется
         },
         [dispatch, onStepChange]
     );
-
 
     return (
         <div className="py-12 px-4 sm:px-6 lg:px-8">
@@ -69,7 +76,6 @@ const InsurerList: React.FC<InsurerListProps> = ({ insurers, dictionary, onStepC
                                 : "bg-gray-50 border-gray-300 opacity-60"
                         }`}
                     >
-
                         <div className="p-6 flex items-center justify-between">
                             <p className="text-sm text-gray-600 font-bold">{insurer.Name}</p>
                             <img
@@ -87,19 +93,22 @@ const InsurerList: React.FC<InsurerListProps> = ({ insurers, dictionary, onStepC
                                     <div className="flex items-end">
                                         <div className="text-2xl font-bold text-orange-500">
                                             {typeof insurer.PrimeSumMDL !== "number"
-                                                ? insurer.PrimeSumMDL?.split('.').map((part, index) => (
+                                                ? (insurer.PrimeSumMDL && typeof insurer.PrimeSumMDL === "string"
+                                                    ? insurer.PrimeSumMDL.split('.').map((part, index) => (
+                                                        <span key={index}>
+                    {index === 0 ? part : <span className="text-sm">{part}</span>}
+                                                            {index === 0 && '.'}
+                </span>
+                                                    ))
+                                                    : "—") // Если значение null или undefined
+                                                : (insurer.PrimeSumMDL as number).toFixed(2).split('.').map((part, index) => (
                                                     <span key={index}>
-                                                          {index === 0 ? part : <span className="text-sm">{part}</span>}
+                {index === 0 ? part : <span className="text-sm">{part}</span>}
                                                         {index === 0 && '.'}
-                                                      </span>
-                                                ))
-                                                : insurer.PrimeSumMDL.toFixed(2).split('.').map((part, index) => (
-                                                    <span key={index}>
-                                                          {index === 0 ? part : <span className="text-sm">{part}</span>}
-                                                        {index === 0 && '.'}
-                                                      </span>
+            </span>
                                                 ))}
                                         </div>
+
                                         <p className="text-sm text-gray-800 font-bold ml-2">MDL</p>
                                     </div>
                                 </div>
@@ -107,10 +116,10 @@ const InsurerList: React.FC<InsurerListProps> = ({ insurers, dictionary, onStepC
                             <ul className="space-y-3">
                                 {features.map((feature, idx) => (
                                     <li key={idx} className="flex justify-between text-sm text-gray-700">
-                                        <span className="text-sm text-gray-600">
-                                            <strong className="text-green-500 mr-2">✅</strong>
-                                            {feature.label}
-                                        </span>
+                    <span className="text-sm text-gray-600">
+                      <strong className="text-green-500 mr-2">✅</strong>
+                        {feature.label}
+                    </span>
                                         {feature.value && <span className="font-bold">{feature.value}</span>}
                                     </li>
                                 ))}
@@ -127,7 +136,9 @@ const InsurerList: React.FC<InsurerListProps> = ({ insurers, dictionary, onStepC
                                 disabled={!insurer.is_active}
                                 onClick={() => handleSelectInsurer(insurer)}
                             >
-                                {insurer.is_active ? dictionary?.osago?.InsurerList.InsurerStatus.Available : dictionary?.osago?.InsurerList.InsurerStatus.Unavailable }
+                                {insurer.is_active
+                                    ? dictionary?.osago?.InsurerList.InsurerStatus.Available
+                                    : dictionary?.osago?.InsurerList.InsurerStatus.Unavailable}
                             </button>
                         </div>
                     </div>

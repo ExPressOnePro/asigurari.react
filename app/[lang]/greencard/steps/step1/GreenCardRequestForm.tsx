@@ -2,12 +2,10 @@
 
 import React, {useEffect, useState} from "react";
 import axiosInstance from "@/lib/axiosInstance";
-import {GreenCardZoneOptions, GreenCardZones, TermInsurance, TermInsuranceOptions,} from "./Enums";
-import {GreenCardCalculationResponse} from "./types";
 import {getStaticUrl} from "@/app/[lang]/components/Footer.tsx";
 
 import SelectInputWithTooltip from "@/app/[lang]/components/SelectInputWithTooltip.tsx";
-import TextInputWithTooltip from "../rca/rca_components/InsuranceRequestForm/TextInputWithTooltip";
+
 import SubmitButton from "@/app/[lang]/components/SubmitButton.tsx";
 import {useLocalization} from "@/lib/LocalizationProvider.tsx";
 import ConsentToggle from "@/app/[lang]/components/ConsentToggle.tsx";
@@ -15,20 +13,27 @@ import {useDispatch} from "react-redux";
 import {setUserData} from "@/store/greenCardFormSlice.ts";
 import {setApiData} from "@/store/greenCardFormSlice.ts";
 import SkeletonLoaderForm from "@/app/[lang]/rca/rca_components/InsuranceRequestForm/SkeletonLoaderForm.tsx";
+import TextInputWithTooltip from "@/app/[lang]/rca/rca_components/InsuranceRequestForm/TextInputWithTooltip.tsx";
+import {
+    GreenCardZoneOptions,
+    GreenCardZones,
+    TermInsurance,
+    TermInsuranceOptions
+} from "@/app/[lang]/greencard/Enums.tsx";
+import {GreenCardCalculationResponse} from "@/app/[lang]/greencard/types.ts";
 
 
-const GreenCardRequestForm = ({ onStepChange, onInsurersUpdate }: any) => {
+const GreenCardRequestForm = ({ onStepChange }: any) => {
     const dispatch = useDispatch();
     const { dictionary } = useLocalization();
 
-    const [GreenCardZone, setGreenCardZone] = useState<GreenCardZones>(GreenCardZones.Z3);
-    const [termInsurance, setTermInsurance] = useState<TermInsurance>(TermInsurance.D15);
     const [IDNX, setIDNX] = useState<string>("2005021106830");
     const [VehicleRegistrationCertificateNumber, setVehicleRegistrationCertificateNumber] = useState<string>("218000136");
+    const [GreenCardZone, setGreenCardZone] = useState<GreenCardZones>(GreenCardZones.Z3);
+    const [termInsurance, setTermInsurance] = useState<TermInsurance>(TermInsurance.D15);
 
-    const [isConsentGiven, setIsConsentGiven] = useState<boolean>(false);
+    const [isConsentGiven, setIsConsentGiven] = useState<boolean>(true);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [calculatedData, setCalculatedData] = useState<any>({});
     const [formSubmitted, setFormSubmitted] = useState(false);
     const [success, setSuccess] = useState(false);
     const [localError, setLocalError] = useState<string | null>(null);
@@ -61,27 +66,48 @@ const GreenCardRequestForm = ({ onStepChange, onInsurersUpdate }: any) => {
         e.preventDefault();
 
         if (!validateForm()) {
-            setLocalError(dictionary?.osago?.OperatingModes?.SelectOperatingModeError || "Please select a vehicle type.");
+            const errorMessage = dictionary?.osago?.OperatingModes?.SelectOperatingModeError || "Please select a vehicle type.";
+            console.error("Ошибка валидации формы:", errorMessage);
+            setLocalError(errorMessage);
             return;
         }
+
         setIsLoading(true);
         setLocalError(null);
 
-        const requestData = { IDNX, VehicleRegistrationCertificateNumber, TermInsurance: termInsurance, GreenCardZone };
+        const requestData = {
+            IDNX: IDNX,
+            VehicleRegistrationCertificateNumber: VehicleRegistrationCertificateNumber,
+            TermInsurance: termInsurance,
+            GreenCardZone: GreenCardZone
+        };
+
 
         try {
             const response = await axiosInstance.post<GreenCardCalculationResponse>(
                 "rca/calculate-green-card/",
                 requestData
             );
+
+            if (!response || !response.data) {
+                throw new Error("Пустой ответ от API");
+            }
+
             const result = response.data;
-            onInsurersUpdate(result.InsurersPrime?.InsurerPrimeRCAE || []);
+
+            if (!result.IsSuccess) {
+                setLocalError(result.ErrorMessage || "Ошибка API");
+                return;
+            }
+            console.log(result)
 
             dispatch(setUserData({
-                IDNX: IDNX,
-                VehicleRegistrationCertificateNumber : VehicleRegistrationCertificateNumber,
-                TermInsurance : TermInsurance.D15,
-                GreenCardZone : GreenCardZone
+                IDNX,
+                VehicleRegistrationCertificateNumber,
+                TermInsurance: termInsurance, // value
+                TermInsuranceLabel: TermInsuranceOptions(dictionary).find(opt => opt.value === termInsurance)?.label || "",
+                GreenCardZone: GreenCardZone, // value
+                GreenCardZoneLabel: GreenCardZoneOptions(dictionary).find(opt => opt.value === GreenCardZone)?.label || "",
             }));
 
             dispatch(setApiData({
@@ -93,25 +119,27 @@ const GreenCardRequestForm = ({ onStepChange, onInsurersUpdate }: any) => {
                 VehicleModel: result.VehicleModel,
                 VehicleRegistrationNumber: result.VehicleRegistrationNumber,
                 VehicleCategory: result.VehicleCategory,
+                InsurerPrimeRCAE: result.InsurersPrime?.InsurerPrimeRCAE.map(insurer => ({
+                    ...insurer,
+                    PrimeSumMDL: String(insurer.PrimeSumMDL), // Приводим к строке
+                    logo: insurer.logo ?? "" // Гарантируем, что logo будет строкой
+                })) || [],
+                insuranceNumber: result.insuranceNumber
             }));
 
-            setCalculatedData({
-                vehicleMark: result.VehicleMark,
-                vehicleModel: result.VehicleModel,
-                vehicleRegistrationNumber: result.VehicleRegistrationNumber,
-                personFirstName: result.PersonFirstName,
-                personLastName: result.PersonLastName,
-            });
 
             setSuccess(true);
             setFormSubmitted(true);
+            console.log("Переход на следующий шаг...");
             onStepChange(2);
-        } catch (error) {
-
+        } catch (error: any) {
+            console.error("Ошибка при отправке запроса:", error.message || error);
+            setLocalError("Ошибка при отправке запроса. Проверьте консоль.");
         } finally {
             setIsLoading(false);
         }
     };
+
     const [isSkeletonLoading, setIsSkeletonLoading] = useState(true); // Для скелетона
     if (isSkeletonLoading) {
         return <SkeletonLoaderForm />;
@@ -122,7 +150,7 @@ const GreenCardRequestForm = ({ onStepChange, onInsurersUpdate }: any) => {
             <div className="w-full max-w-3xl">
                 <div className="bg-white shadow-lg rounded-lg p-8">
                     <h1 className="text-3xl sm:text-4xl font-extrabold text-center text-gray-400 mb-4">
-                        Рассчитайте стоимость "Зеленой карты"
+                        Рассчитайте стоимость Зеленой карты
                     </h1>
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div className="flex items-center space-x-4">
@@ -133,7 +161,7 @@ const GreenCardRequestForm = ({ onStepChange, onInsurersUpdate }: any) => {
                                     label="Зона Зеленой Карты"
                                     value={GreenCardZone}
                                     onChange={(e) => setGreenCardZone(e.target.value as GreenCardZones)}
-                                    options={GreenCardZoneOptions}
+                                    options={GreenCardZoneOptions(dictionary)}
                                     tooltipImage={undefined}
                                     required={true}
                                 />
@@ -146,13 +174,12 @@ const GreenCardRequestForm = ({ onStepChange, onInsurersUpdate }: any) => {
                                     label="Срок страхования"
                                     value={termInsurance}
                                     onChange={(e) => setTermInsurance(e.target.value as TermInsurance)}
-                                    options={TermInsuranceOptions}
+                                    options={TermInsuranceOptions(dictionary)}
                                     tooltipImage={undefined}
                                     required={true}
                                 />
                             </div>
                         </div>
-
 
                         {/* IDNX Input */}
                         <TextInputWithTooltip
