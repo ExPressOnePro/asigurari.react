@@ -21,7 +21,7 @@ export enum TermInsurance {
 
 // GreenCard zones options for select
 export const GreenCardZoneOptions = (dictionary: any) => [
-    { value: GreenCardZones.Z1, label: dictionary?.GreenCard?.zones?.z1 ?? "Зона 1" },
+    { value: GreenCardZones.Z1, label: dictionary?.GreenCard?.zones?.z1 ?? "Украина" },
     { value: GreenCardZones.Z3, label: dictionary?.GreenCard?.zones?.z3 ?? "Все страны зеленой карты" },
 ];
 
