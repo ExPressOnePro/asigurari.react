@@ -299,7 +299,7 @@ const AdditionalDataForm: React.FC<AdditionalDataFormProps> = React.memo(({onSte
                             disabled={isSubmitting}
                             className={`w-full ${isSubmitting ? "bg-gray-500" : "bg-blue-600 hover:bg-blue-700"} text-white font-semibold py-2 px-4 rounded-lg shadow-md`}
                         >
-                            {isSubmitting ? "Загрузка..." : "Перейти к оплате"}
+                            {isSubmitting ? dictionary.osago.RCAForm.Loading : "Перейти к оплате"}
                         </button>
 
                     </div>

@@ -2,7 +2,7 @@ export const getStaticUrl = (file_name: string) => {
     return process.env.NEXT_PUBLIC_STATIC_FILES_URL + file_name;
 }
 
-export default function Footer() {
+export default function Footer({dictionary}: { dictionary: Record<string, any> }) {
     return (
         <footer className="bg-gradient-to-r from-gray-200 to-orange-300 py-12">
             <div className="container mx-auto px-6 md:px-12">
@@ -25,7 +25,7 @@ export default function Footer() {
 
                     {/* Support */}
                     <div>
-                        <h3 className="text-lg font-bold mb-3">Поддержка</h3>
+                        <h3 className="text-lg font-bold mb-3">{dictionary.Footer.Help}</h3>
                         <p className="text-sm leading-6 mb-4">
                             <a href="mailto:info@topasig.md" className="hover:underline">info@topasig.md</a><br/>
                             <a href="tel:+37379441105" className="hover:underline">+373 79 441 105</a>1
@@ -45,11 +45,12 @@ export default function Footer() {
 
                     {/* Products */}
                     <div>
-                        <h3 className="text-lg font-bold mb-3">Продукты</h3>
+                        <h3 className="text-lg font-bold mb-3">{dictionary.Footer.Products}</h3>
                         <ul className="space-y-2">
-                            <li><a href="/rca" className="hover:underline">Страхование ОСАГО</a></li>
-                            <li><a href="/greencard" className="hover:underline">Зеленая карта</a></li>
-                            <li><a href="/medical" className="hover:underline">Медицинская страховка</a></li>
+                            <li><a href="/rca" className="hover:underline">{dictionary.navigation.rca}</a></li>
+                            <li><a href="/greencard" className="hover:underline">{dictionary.navigation.greencard}</a>
+                            </li>
+                            <li><a href="/medical" className="hover:underline">{dictionary.navigation.medical}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -57,8 +58,8 @@ export default function Footer() {
                 <div
                     className="border-t border-black mt-8 pt-6 text-sm flex flex-col md:flex-row justify-between items-center text-center">
                     <div className="flex space-x-4">
-                        <a href="/Terms" className="hover:underline">Условия и положения</a>
-                        <a href="/Privacy" className="hover:underline">Политика конфиденциальности</a>
+                        <a href="/Terms" className="hover:underline">{dictionary.Footer.Terms}</a>
+                        <a href="/Privacy" className="hover:underline">{dictionary.Footer.Privacy}</a>
                     </div>
                     <div className="mt-4 md:mt-0">
                         <img src={getStaticUrl('public/payments.png')} alt="Payment Logos" className="w-32"/>

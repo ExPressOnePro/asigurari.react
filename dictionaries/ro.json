@@ -16,7 +16,57 @@
         "picture": "/rca.jpg",
         "title": "Asigurare RCA",
         "description": "Obține-ți polița de Asigurare RCA direct pe site-ul nostru. Oferim prețuri accesibile și servicii convenabile.",
-        "button": "Mergi la Asigurarea RCA"
+        "longDescription": "RCA, sau Asigurarea Obligatorie de Răspundere Civilă Auto, este o formă fiabilă de protecție atunci când conduceți o mașină în Moldova. Această asigurare oferă protecție persoanelor care au avut de suferit în urma unui accident rutier cauzat din vina unei alte părți. În cazul unui accident, aceasta ajută la acoperirea cheltuielilor medicale, a reparațiilor mașinii și a altor pierderi. Asigurarea RCA este o cerință obligatorie pentru toți șoferii. Asigurați-vă că polița dvs. este activă înainte de a conduce. Nerespectarea acestei cerințe poate duce la amenzi semnificative.Atunci când alegeți o companie de asigurări, trebuie să evaluați mai mult decât prețul poliței. Alegerea companiei de asigurări potrivite poate preveni probleme suplimentare în cazul unui accident și vă poate asigura că dumneavoastră și persoanele vătămate primiți sprijinul și despăgubirile de care aveți nevoie.",
+        "button": "Mergi la Asigurarea RCA",
+        "questionTitle": "Întrebări frecvente",
+        "faq": {
+          "items": [
+            {
+              "question": "Ce este RCA?",
+              "answer": "RCA este asigurarea obligatorie de răspundere civilă auto, care acoperă cheltuielile în caz de accidente provocate de dumneavoastră."
+            },
+            {
+              "question": "Cum funcționează RCA?",
+              "answer": "RCA protejează șoferii de pierderile financiare în caz de accidente pe care le provocați. În cazul unui accident, compania de asigurări compensează daunele suferite de partea afectată."
+            },
+            {
+              "question": "Cum se încheie asigurarea RCA?",
+              "answer": "Asigurarea RCA poate fi încheiată online prin intermediul site-ului companiei de asigurări sau la un birou, furnizând documentele necesare."
+            },
+            {
+              "question": "Cum se poate verifica autenticitatea poliței?",
+              "answer": "Autenticitatea poliței poate fi verificată pe pagina web a BNM (https://rca.bnm.md/)."
+            },
+            {
+              "question": "Este valabilă polița de asigurare în format electronic?",
+              "answer": "Da, în Moldova, polițele RCA în format electronic sunt valabile și recunoscute. Conform legislației în vigoare, polița poate fi încheiată și trimisă asiguratului în format electronic."
+            },
+            {
+              "question": "Ce se face dacă modelul mașinii mele nu este găsit în timpul calculului costului?",
+              "answer": "Calcularea și emiterea poliței pe baza certificatului de înmatriculare sau a numărului de înmatriculare sunt posibile doar pentru vehiculele înregistrate în Republica Moldova. Dacă mașina dumneavoastră nu poate fi identificată sau prețul nu este stabilit, vă rugăm să contactați suportul nostru la info@asig.md sau la telefonul +373 61 000 179."
+            },
+            {
+              "question": "Dacă asiguratul este o persoană juridică, cum pot obține factura fiscală?",
+              "answer": "Factura fiscală va fi trimisă prin efactura.sfs.md. Dacă compania dumneavoastră nu este înregistrată pentru emiterea electronică a facturilor fiscale, aceasta va fi trimisă prin e-mail cu semnătură electronică."
+            },
+            {
+              "question": "Ce acoperă asigurarea RCA?",
+              "answer": "Asigurarea RCA (asigurare obligatorie de răspundere civilă auto) este valabilă pe teritoriul Republicii Moldova. Ea acoperă daunele rezultate din accidente rutiere pe teritoriul țării. Riscurile asigurate includ daunele suferite de terți, cum ar fi vătămările corporale sau decesul, deteriorarea sau distrugerea bunurilor."
+            },
+            {
+              "question": "Care sunt limitele maxime de despăgubire?",
+              "answer": "Limitele maxime de despăgubire sunt: Până la 100.000 de euro pentru deteriorarea sau distrugerea bunurilor. Până la 100.000 de euro pentru fiecare persoană vătămată în caz de vătămări corporale sau deces, dar nu mai mult de 500.000 de euro indiferent de numărul de persoane afectate. Până la 15.000 MDL pentru daunele solicitate prin procedura de soluționare amiabilă a accidentului. Până la 5.000 de euro pentru prejudiciul moral (doar în caz de invaliditate sau deces) pentru fiecare persoană afectată, dar nu mai mult de 10.000 de euro indiferent de numărul de persoane afectate."
+            },
+            {
+              "question": "Ce se face în caz de daună?",
+              "answer": "În caz de daune minore (evaluare până la 15.000 MDL) se poate opta pentru soluționarea amiabilă a daunelor fără implicarea poliției, denumită 'constare amiabilă'. Această opțiune este posibilă dacă în accident sunt implicate două vehicule, ambele având documente valabile (asigurare RCA, inspecție tehnică). În cazul în care soluționarea amiabilă nu este posibilă, trebuie întocmit un proces-verbal de constatare a poliției și transmis companiei de asigurări."
+            },
+            {
+              "question": "Ce nu acoperă asigurarea?",
+              "answer": "Asigurarea nu acoperă: Deteriorări aduse bunurilor asiguraților, daune ce depășesc sumele maxime prevăzute de lege, pierderi cauzate la locul de muncă cu ajutorul echipamentelor, accidente care au loc în timpul încărcării și descărcării mărfurilor etc."
+            }
+          ]
+        }
       },
       "greencard": {
         "picture": "/green.jpg",
@@ -33,7 +83,7 @@
     }
   },
   "osago": {
-    "Title": "Înregistrarea asigurărilor OSAGO",
+    "Title": "Înregistrarea asigurărilor RCA",
     "RCAForm": {
       "Title": "Calculul RCA (RCA)",
       "IDNPPlaceholder": "Introduceți IDNP/IDNO",
@@ -48,7 +98,8 @@
       "ErrorForm": "A apărut o eroare la trimiterea formularului.",
       "PersonTypeLabel": "Persoană juridică sau fizică",
       "PhysicalPerson": "Fizic",
-      "LegalPerson": "Juridic"
+      "LegalPerson": "Juridic",
+      "Loading": "Se încarcă..."
     },
     "OperatingModes": {
       "OperatingModesLabel": "Tipul de vehicul",
@@ -60,9 +111,7 @@
       "OperatingMode4": "Taxi",
       "OperatingMode5": "Închiriere mașini"
     },
-
-    "SelectedParameters":
-    {
+    "SelectedParameters": {
       "SelectedParameters": "Parametrii selectați:",
       "Car": "Mașină",
       "BonusMalusClass": "Clasa bonus-malus",
@@ -103,6 +152,16 @@
     }
   },
   "SaveRCA": {
-    "doc": "/doc3.png"
+    "PreviewDocument": "Previzualizare",
+    "DocumentDone": "Documentele sunt gata pentru descărcare",
+    "Download": "Descărcare",
+    "Open": "Deschide",
+    "DownloadDescription": "Documentele sunt gata pentru descărcare. Apăsați pe butonul de descărcare pentru a le salva pe dispozitivul dumneavoastră sau pe butonul de deschidere pentru a le vizualiza."
+  },
+  "Footer": {
+    "Help": "Suport",
+    "Products": "Produse",
+    "Terms": "Termeni și condiții",
+    "Privacy": "Politica de confidențialitate"
   }
 }

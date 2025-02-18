@@ -301,7 +301,7 @@ const AdditionalDataGreenCardForm: React.FC<AdditionalGreenCardDataFormProps> = 
                             disabled={isSubmitting}
                             className={`w-full ${isSubmitting ? "bg-gray-500" : "bg-blue-600 hover:bg-blue-700"} text-white font-semibold py-2 px-4 rounded-lg shadow-md`}
                         >
-                            {isSubmitting ? "Загрузка..." : "Подтвердить"}
+                            {isSubmitting ? dictionary.osago.RCAForm.Loading : "Подтвердить"}
                         </button>
 
                     </div>

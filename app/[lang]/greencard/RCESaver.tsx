@@ -1,13 +1,13 @@
-import React, {use, useEffect, useRef, useState} from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
+import React, {useEffect, useRef, useState} from "react";
+import {useSelector} from "react-redux";
+import {RootState} from "@/store/store";
 import axiosInstance from "@/lib/axiosInstance";
 import SpinnerBlue from "@/app/[lang]/components/SpinnerBlue";
 import {getStaticUrl} from "@/app/[lang]/components/Footer.tsx";
 import {useLocalization} from "@/lib/LocalizationProvider.tsx";
 
 const RCASaver: React.FC = () => {
-    const { dictionary } = useLocalization();
+    const {dictionary} = useLocalization();
     const userData = useSelector((state: RootState) => state.greenCardForm.userData);
     const additionalData = useSelector((state: RootState) => state.greenCardForm.additionalData);
     const selectedInsurer = useSelector((state: RootState) => state.greenCardForm.selectedInsurer);
@@ -32,7 +32,7 @@ const RCASaver: React.FC = () => {
             try {
                 setIsLoading(true);
                 const requestData = {
-                    Company: { IDNO: selectedInsurer?.IDNO || "" },
+                    Company: {IDNO: selectedInsurer?.IDNO || ""},
                     InsuredPhysicalPerson: {
                         IdentificationCode: userData?.IDNX || "",
                         BirthDate: additionalData?.BirthDate || "",
@@ -112,14 +112,14 @@ const RCASaver: React.FC = () => {
                 {documentUrl && (
                     <div
                         className="flex flex-col items-center mt-6 p-6 bg-gray-50 border border-gray-200 rounded-lg shadow-md">
-                        <h3 className="text-lg font-semibold text-gray-800">Документ готов!</h3>
+                        <h3 className="text-lg font-semibold text-gray-800">{dictionary.SaveRCA.DocumentDone}</h3>
                         <p className="text-gray-600 text-sm text-center mt-1">
-                            Вы можете открыть документ для просмотра или скачать его в формате PDF.
+                            {dictionary.SaveRCA.DownloadDescription}
                         </p>
 
                         <img
-                            src={dictionary.SaveRCA.doc}
-                            alt="Превью документа"
+                            src={getStaticUrl("public/document.png")}
+                            alt={dictionary.SaveRCA.PreviewDocument}
                             className="mt-4 w-40 h-auto"
                         />
 
@@ -130,14 +130,14 @@ const RCASaver: React.FC = () => {
                                 rel="noopener noreferrer"
                                 className="px-4 py-2 bg-blue-500 text-white font-medium rounded-lg shadow hover:bg-blue-600 transition"
                             >
-                                Открыть документ
+                                📄 {dictionary.SaveRCA.Open}
                             </a>
                             <a
                                 href={documentUrl}
                                 download="rca_document.pdf"
                                 className="px-4 py-2 bg-green-500 text-white font-medium rounded-lg shadow hover:bg-green-600 transition"
                             >
-                                ⬇️ Скачать PDF
+                                ⬇️ {dictionary.SaveRCA.Download}
                             </a>
                         </div>
                     </div>

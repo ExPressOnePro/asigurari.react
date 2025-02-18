@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
+import {useLocalization} from "@/lib/LocalizationProvider.tsx";
 
 interface FAQItem {
     question: string;
@@ -7,95 +8,62 @@ interface FAQItem {
 
 const FAQAccordion: React.FC = () => {
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
+    const {dictionary} = useLocalization();
 
     const toggleAnswer = (index: number) => {
-        setActiveIndex(activeIndex === index ? null : index); // Toggle answer visibility
+        setActiveIndex(activeIndex === index ? null : index);
     };
 
-    const faqData: FAQItem[] = [
-        {
-            question: "Что такое ОСАГО?",
-            answer: "ОСАГО — это обязательное страхование автогражданской ответственности, которое покрывает расходы в случае аварий, причиненных вами.",
-        },
-        {
-            question: "Как работает ОСАГО?",
-            answer: "ОСАГО защищает водителей от финансовых потерь в случае аварий, которые вы вызвали. В случае ДТП страховая компания возмещает ущерб пострадавшей стороне.",
-        },
-        {
-            question: "Как оформить ОСАГО?",
-            answer: "Оформление ОСАГО можно сделать онлайн через сайт страховой компании или в офисе, предоставив необходимые документы.",
-        },
-        {
-            question: "Как проверить подлинность полиса?",
-            answer:
-                "Подлинность полиса можно проверить на веб-странице BNM (https://rca.bnm.md/).",
-        },
-        {
-            question: "Действителен ли страховой полис в электронном виде?",
-            answer:
-                "Да, в Молдове действуют и признаются страховые полисы ОСАГО в электронном формате. Согласно действующему законодательству, полис может быть оформлен и отправлен страхователю в электронном виде.",
-        },
-        {
-            question: "Что делать, если при расчете стоимости не удалось найти мою модель авто?",
-            answer:
-                "Расчет и оформление полиса на основании регистрационного удостоверения или регистрационного номера возможны только для автомобилей, зарегистрированных в Республике Молдова. Если ваш автомобиль не может быть идентифицирован или цена не установлена, пожалуйста, свяжитесь с нашей поддержкой по адресу info@asig.md или телефону +373 61 000 179.",
-        },
-        {
-            question: "Если застрахованным лицом является юридическое лицо, как мне получить налоговую накладную?",
-            answer:
-                "Налоговая накладная будет отправлена через efactura.sfs.md. Если ваша компания не зарегистрирована для электронного выставления налоговых накладных, она будет отправлена по электронной почте с электронной подписью.",
-        },
-        {
-            question: "Каково покрытие ОСАГО?",
-            answer:
-                "Страхование ОСАГО (обязательное страхование автогражданской ответственности) действительно на территории Республики Молдова. Оно покрывает убытки, возникшие в результате дорожно-транспортных происшествий на территории страны. Страховыми рисками являются убытки третьих лиц, такие как телесные повреждения или смерть, повреждение или уничтожение имущества.",
-        },
-        {
-            question: "Какие максимальные пределы возмещения ущерба?",
-            answer:
-                "Максимальные пределы возмещения ущерба составляют: До 100 000 евро за повреждение или уничтожение имущества. До 100 000 евро на каждого пострадавшего в случае телесных повреждений или смерти, но не более 500 000 евро независимо от количества пострадавших. До 15 000 лей за убытки, требуемые на основе процедуры дружественного урегулирования аварии. До 5 000 евро за моральный ущерб (только в случае инвалидности или смерти) для пострадавшего, но не более 10 000 евро независимо от количества пострадавших.",
-        },
-        {
-            question: "Что делать в случае страхового случая?",
-            answer:
-                "В случае незначительного ущерба (оценка до 15 000 MDL) можно выбрать урегулирование ущерба между собой без участия полиции, так называемое 'constare amiabila'. Этот вариант возможен, если в аварии участвуют два транспортных средства, оба из которых имеют действующие документы (страхование ОСАГО, технический осмотр). В случае невозможности урегулирования ущерба между собой, необходимо составить протокол полиции и предоставить его в страховую компанию.",
-        },
-        {
-            question: "Что не покрывает страхование?",
-            answer:
-                "Страхование не покрывает: Повреждения, причиненные имуществу застрахованных лиц, ущерб, превышающий максимальные предусмотренные законом страховые выплаты, убытки, вызванные на рабочем месте с помощью оборудования, аварии, происходящие во время погрузки и выгрузки товаров и т. д.",
-        },
-    ];
+    // Use the translated FAQ items from your dictionary.
+    // Optionally, add a fallback if the localization data isn't ready yet.
+    const faqData: FAQItem[] = dictionary.page.cards.rca.faq?.items || [];
 
     return (
         <div className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-12">
             <div className="w-full max-w-6xl">
-                <div className=" rounded-lg p-8">
-                <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Часто задаваемые вопросы</h2>
-                <div className="space-y-4">
-                    {faqData.map((item, index) => (
-                        <div key={index} className="border-b last:border-none shadow rounded-3">
-                            <div
-                                className="cursor-pointer flex justify-between items-center py-4 text-lg font-semibold text-gray-800 hover:bg-gray-100 px-2 rounded-lg"
-                                onClick={() => toggleAnswer(index)}
-                            >
-                                <span>{item.question}</span>
-                                <span className={`transform transition-transform duration-300 ${activeIndex === index ? "rotate-180" : ""}`}>
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                    <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                  </svg>
-                </span>
-                            </div>
-                            {activeIndex === index && (
-                                <div className="py-4 px-6 text-gray-600 shadow rounded-3">
-                                    <p>{item.answer}</p>
+                <div className="rounded-lg p-8">
+                    {/* Use a translated heading */}
+                    <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
+                        {dictionary.page.cards.rca.questionTitle}
+                    </h2>
+                    <div className="space-y-4">
+                        {faqData.map((item, index) => (
+                            <div key={index} className="border-b last:border-none shadow rounded-3">
+                                <div
+                                    className="cursor-pointer flex justify-between items-center py-4 text-lg font-semibold text-gray-800 hover:bg-gray-100 px-2 rounded-lg"
+                                    onClick={() => toggleAnswer(index)}
+                                >
+                                    <span>{item.question}</span>
+                                    <span
+                                        className={`transform transition-transform duration-300 ${
+                                            activeIndex === index ? "rotate-180" : ""
+                                        }`}
+                                    >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                        aria-hidden="true"
+                    >
+                      <path
+                          fillRule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clipRule="evenodd"
+                      />
+                    </svg>
+                  </span>
                                 </div>
-                            )}
-                        </div>
-                    ))}
+                                {activeIndex === index && (
+                                    <div className="py-4 px-6 text-gray-600 shadow rounded-3">
+                                        <p>{item.answer}</p>
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
     );
 };
