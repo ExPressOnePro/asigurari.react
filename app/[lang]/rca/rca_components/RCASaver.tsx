@@ -129,7 +129,7 @@ const RCASaver: React.FC = () => {
 
                         <div className="flex flex-col sm:flex-row gap-4 mt-4">
                             <a
-                                href={getStaticUrl(documentUrl)}
+                                href={documentUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="px-4 py-2 bg-blue-500 text-white font-medium rounded-lg shadow hover:bg-blue-600 transition"
@@ -137,7 +137,7 @@ const RCASaver: React.FC = () => {
                                 📄 {dictionary.SaveRCA.Open}
                             </a>
                             <a
-                                href={getStaticUrl(documentUrl)}
+                                href={documentUrl}
                                 download="rca_document.pdf"
                                 className="px-4 py-2 bg-green-500 text-white font-medium rounded-lg shadow hover:bg-green-600 transition"
                             >
