@@ -19,7 +19,7 @@ const InsuranceRequestForm = React.memo(({ onStepChange }: any) => {
 
     const [IDNX, setIDNX] = useState<string>('2005021106830');
     const [VehicleRegistrationCertificateNumber, setVehicleRegistrationCertificateNumber] = useState<string>('218000136');
-    const [OperatingModes, setOperatingModes] = useState<string>('1');
+    const [OperatingModes, setOperatingModes] = useState<string>('');
     const [PersonIsJuridical, setPersonIsJuridical] = useState<boolean>(false);
 
     const [isConsentGiven, setIsConsentGiven] = useState<boolean>(true);
@@ -44,20 +44,33 @@ const InsuranceRequestForm = React.memo(({ onStepChange }: any) => {
     }, []);
 
     const validateForm = () => {
-        if (!isConsentGiven) {
-            setLocalError(dictionary?.osago?.RCAForm?.Privacy);
-            return false;
+        if (OperatingModes === null) {
+            return dictionary?.RCA?.IRF?.ErrorSelectOperatingMode;
         }
-        return true;
+        if (IDNX.length !== 13) {
+            return dictionary?.RCA?.IRF?.ErrorIDNX13;
+        }
+        if (VehicleRegistrationCertificateNumber.length !== 9) {
+            return dictionary?.RCA?.IRF?.ErrorTehPass;
+        }
+        return null;
     };
 
+    useEffect(() => {
+        if (IDNX.length > 0) {
+            const firstDigit = IDNX[0];
+            setPersonIsJuridical(firstDigit !== '0' && firstDigit !== '2');
+        }
+    }, [IDNX]);
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (!validateForm() || !OperatingModes) {
-            setLocalError(dictionary?.osago?.OperatingModes?.SelectOperatingModeError || "Please select a vehicle type.");
+        const error = validateForm();
+        if (error) {
+            setLocalError(error);
             return;
         }
+
         setIsLoading(true);
         setLocalError(null);
 
@@ -106,7 +119,7 @@ const InsuranceRequestForm = React.memo(({ onStepChange }: any) => {
         }
     };
 
-    const [isSkeletonLoading, setIsSkeletonLoading] = useState(true); // Для скелетона
+    const [isSkeletonLoading, setIsSkeletonLoading] = useState(true);
     if (isSkeletonLoading) {
         return <SkeletonLoaderForm />;
     }
@@ -118,57 +131,58 @@ const InsuranceRequestForm = React.memo(({ onStepChange }: any) => {
                     {isLoading && <div className="absolute inset-0 bg-gray-200 opacity-50 z-10"></div>}
 
                     <h1 className="text-3xl sm:text-4xl font-extrabold text-center text-gray-400 mb-4">
-                        {dictionary?.osago?.RCAForm?.Title}
+                        {dictionary?.RCA?.IRF?.RCAForm}
                     </h1>
 
                     <form onSubmit={handleSubmit} className={`space-y-6 ${isLoading ? "pointer-events-none" : ""}`}>
 
-                        <PersonTypeToggle
-                            PersonIsJuridical={PersonIsJuridical}
-                            setPersonIsJuridical={setPersonIsJuridical}
-                            dictionary={dictionary}
-                        />
+                        {/*<PersonTypeToggle*/}
+                        {/*    PersonIsJuridical={PersonIsJuridical}*/}
+                        {/*    setPersonIsJuridical={setPersonIsJuridical}*/}
+                        {/*/>*/}
 
                         <TextInputWithTooltip
                             id="idnx"
-                            label="IDNP/IDNO"
+                            label={dictionary?.RCA?.IRF?.IDNP}
                             value={IDNX}
                             onChange={(e) => setIDNX(e.target.value)}
-                            placeholder={dictionary?.osago?.RCAForm?.IDNPPlaceholder}
+                            placeholder={dictionary?.RCA?.IRF?.IDNPPlaceholder}
                             tooltipImage={getStaticUrl("public/exemplu-certificat-inmatriculare.webp")}
                         />
 
                         <TextInputWithTooltip
                             id="VehicleRegistrationCertificateNumber"
-                            label={dictionary?.osago?.RCAForm?.InputTehTitle}
+                            label={dictionary?.RCA?.IRF?.InputTehTitle}
                             value={VehicleRegistrationCertificateNumber}
                             onChange={(e) => setVehicleRegistrationCertificateNumber(e.target.value)}
-                            placeholder={dictionary?.osago?.RCAForm?.InputTehPlaceholder}
+                            placeholder={dictionary?.RCA?.IRF?.InputTehPlaceholder}
                             tooltipImage={getStaticUrl("public/idnp.webp")}
                         />
 
                         <OperatingModeSelect
                             value={OperatingModes}
                             onChange={setOperatingModes}
-                            dictionary={dictionary}
                         />
 
                         <ConsentToggle
                             isConsentGiven={isConsentGiven}
                             setIsConsentGiven={setIsConsentGiven}
-                            dictionary={dictionary}
                         />
 
                         <SubmitButton
                             isConsentGiven={isConsentGiven}
                             isLoading={isLoading}
-                            dictionary={dictionary}
                         />
                     </form>
 
-                    {localError && <StatusMessage message={localError} isError={true} />}
-                    {formSubmitted && success && <StatusMessage message={dictionary?.osago?.RCAForm?.SuccessMessage} isError={false} />}
-                    {formSubmitted && !success && <StatusMessage message={dictionary?.osago?.RCAForm?.ErrorMessage} isError={true} />}
+                    {localError &&
+                        <StatusMessage
+                            message={localError}
+                            isError={true}
+                        />
+                    }
+                    {/*{formSubmitted && success && <StatusMessage message={dictionary?.RCA?.IRF?.RCAForm?.SuccessMessage} isError={false} />}*/}
+                    {/*{formSubmitted && !success && <StatusMessage message={dictionary?.RCA?.IRF?.RCAForm?.ErrorMessage} isError={true} />}*/}
                 </div>
             </div>
         </div>

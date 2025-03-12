@@ -43,7 +43,7 @@ const QRCodeImage: React.FC<QRCodeRequestProps> = React.memo(({ onStepChange }) 
                             url: response.data.url,
                             status: response.data.status,
                         }));
-                        onStepChange(6);
+                        onStepChange(7);
                         return;
                     }
                 }

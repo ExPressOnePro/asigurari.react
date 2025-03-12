@@ -9,7 +9,7 @@ const SelectedParameters = React.memo(({ calculatedData, selectedAdditional, ste
 
     useEffect(() => {
         if (selectedAdditional) {
-            setInitialized(true);  // Устанавливаем флаг, когда данные доступны
+            setInitialized(true);
         }
     }, [selectedAdditional]);
 

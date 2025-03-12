@@ -26,40 +26,48 @@ const SelectedParameters = React.memo(({ calculatedData, selectedAdditional, ste
     const apiData = useSelector((state: RootState) => state.insuranceForm.apiData);
     const selectedInsurer = useSelector((state: RootState) => state.insuranceForm.selectedInsurer);
     const additionalData = useSelector((state: RootState) => state.insuranceForm.additionalData);
+    const contact = useSelector((state: RootState) => state.insuranceForm.contact);
 
     return (
         <div className="py-8 px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto bg-white border shadow-sm rounded-lg p-6">
                 <h2 className="text-xl font-semibold text-gray-800 mb-4">
-                    {dictionary?.osago?.SelectedParameters?.SelectedParameters}
+                    {dictionary?.RCA?.SP?.SelectedParameters}
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {renderParameter(dictionary?.osago?.SelectedParameters?.Car,
+                    {renderParameter(dictionary?.RCA?.SP?.Car,
                         `${apiData?.VehicleMark} ${apiData?.VehicleModel} (${apiData?.VehicleRegistrationNumber})`)}
 
-                    {renderParameter(dictionary?.osago?.SelectedParameters?.BonusMalusClass,
+                    {renderParameter(dictionary?.RCA?.SP?.BonusMalusClass,
                         `${apiData?.BonusMalusClass}`)}
 
-                    {renderParameter(dictionary?.osago?.SelectedParameters?.Client,
+                    {renderParameter(dictionary?.RCA?.SP?.Client,
                         `${apiData?.PersonFirstName} ${apiData?.PersonLastName}`)}
 
                     {step > 2 && (
                         <>
-                            {renderParameter(dictionary?.osago?.SelectedParameters?.Insurer,
+                            {renderParameter(dictionary?.RCA?.SP?.Insurer,
                                 `${selectedInsurer?.Name}`)}
-                            {renderParameter(dictionary?.osago?.SelectedParameters?.PolicyCost,
+                            {renderParameter(dictionary?.RCA?.SP?.PolicyCost,
                                 `${selectedInsurer?.PrimeSumMDL} MDL`)}
                         </>
                     )}
 
                     {step > 3 && (
                         <>
-                            {renderParameter(dictionary?.osago?.SelectedParameters?.OwnershipType,
+                            {renderParameter(dictionary?.RCA?.SP?.OwnershipType,
                                 `${additionalData?.PossessionBase?.label}`)}
-                            {renderParameter(dictionary?.osago?.SelectedParameters?.InsuranceStartDate,
+                            {renderParameter(dictionary?.RCA?.SP?.InsuranceStartDate,
                                 `${additionalData?.StartDate}`)}
                         </>
                     )}
+                    {step > 4 && (
+                        <>
+                            {renderParameter(dictionary?.RCA?.SP?.Email,
+                                `${contact?.email}`)}
+                        </>
+                    )}
+
                 </div>
             </div>
         </div>

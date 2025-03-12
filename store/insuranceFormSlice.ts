@@ -54,6 +54,10 @@ interface AdditionalData {
     DocumentPossessionBaseDate: string;
 }
 
+interface Contact {
+    email: any,
+}
+
 interface AdditionalCarInfo{
     ProductionYear: number;
     CilinderVolume: number;
@@ -71,6 +75,7 @@ interface QrCodeData {
 
 
 
+
 interface InsuranceFormState {
     step: number,
     userData: UserData;
@@ -80,6 +85,7 @@ interface InsuranceFormState {
     error: string | null;
     selectedInsurer: Insurer | null;
     additionalData: AdditionalData;
+    contact: Contact;
     additionalCarInfo: AdditionalCarInfo;
     qrCodeData: QrCodeData | null;
     isApiRequested: boolean; // новое поле
@@ -125,6 +131,10 @@ const initialState: InsuranceFormState = {
         BirthDate: "",
         PossessionBase: null,
         DocumentPossessionBaseDate: "",
+    },
+
+    contact: {
+        email: "",
     },
 
     additionalCarInfo: {
@@ -185,6 +195,9 @@ const insuranceFormSlice = createSlice({
         setAdditionalCarInfo: (state, action: PayloadAction<AdditionalCarInfo>) => {
             state.additionalCarInfo = action.payload;
         },
+        setContact: (state, action: PayloadAction<Contact>) => {
+            state.contact = action.payload;
+        },
         setQrCodeData: (state, action: PayloadAction<QrCodeData>) => {
             state.qrCodeData = action.payload;
         },
@@ -232,6 +245,10 @@ const insuranceFormSlice = createSlice({
                 DocumentPossessionBaseDate: "",
             };
 
+            state.contact = {
+                email: "",
+            };
+
             state.additionalCarInfo = {
                 ProductionYear: 0,
                 CilinderVolume: 0,
@@ -263,6 +280,7 @@ export const {
     setError,
     setSelectedInsurer,
     setAdditionalData,
+    setContact,
     setAdditionalCarInfo,
     setQrCodeData,
     setApiRequested,

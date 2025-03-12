@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "@/store/store";
+import { RootState } from "@/store/store";
 import axiosInstance from "@/lib/axiosInstance";
 import SpinnerBlue from "@/app/[lang]/components/SpinnerBlue";
 import {getStaticUrl} from "@/app/[lang]/components/Footer.tsx";
@@ -8,13 +8,14 @@ import {useLocalization} from "@/lib/LocalizationProvider.tsx";
 import {clearData} from "@/store/insuranceFormSlice.ts";
 
 const RCASaver: React.FC = () => {
-    const {dictionary} = useLocalization();
+    const { dictionary } = useLocalization();
     const dispatch = useDispatch();
     const userData = useSelector((state: RootState) => state.insuranceForm.userData);
     const additionalData = useSelector((state: RootState) => state.insuranceForm.additionalData);
     const selectedInsurer = useSelector((state: RootState) => state.insuranceForm.selectedInsurer);
     const qrCodeData = useSelector((state: RootState) => state.insuranceForm.qrCodeData);
     const additionalCarInfo = useSelector((state: RootState) => state.insuranceForm.additionalCarInfo);
+    const contact = useSelector((state: RootState) => state.insuranceForm.contact);
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [documentId, setDocumentId] = useState<number | null>(null);
@@ -32,7 +33,7 @@ const RCASaver: React.FC = () => {
             try {
                 setIsLoading(true);
                 const requestData = {
-                    Company: {IDNO: selectedInsurer?.IDNO || ""},
+                    Company: { IDNO: selectedInsurer?.IDNO || "" },
                     InsuredPhysicalPerson: {
                         IdentificationCode: userData?.IDNX || "",
                         BirthDate: additionalData?.BirthDate || "",
@@ -62,8 +63,13 @@ const RCASaver: React.FC = () => {
                 const result = response.data;
 
                 if (result?.DocumentId) {
+                    const requestSendFile = {
+                        ContractType: "RCAI",
+                        email: contact.email
+                    }
                     setDocumentId(result.DocumentId);
                     setDocumentUrl(result.url);
+                    await axiosInstance.post(`/rca/${result.DocumentId}/send-file/`, requestSendFile);
                 }
                 console.log("Ответ от API:", response.data);
             } catch (error: any) {
@@ -111,37 +117,44 @@ const RCASaver: React.FC = () => {
     return (
         <div className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
             <div className="w-full max-w-3xl">
-                {isLoading && <SpinnerBlue/>}
+                {isLoading &&
+                    <>
+                        <h1 className="text-3xl sm:text-4xl font-extrabold text-center text-gray-400 mb-10">
+                            {dictionary?.RCA?.RCASaver?.Ready}
+                        </h1>
+                        <SpinnerBlue/>
+                    </>
+                }
 
                 {documentUrl && (
                     <div
                         className="flex flex-col items-center mt-6 p-6 bg-gray-50 border border-gray-200 rounded-lg shadow-md">
-                        <h3 className="text-lg font-semibold text-gray-800">{dictionary.SaveRCA.DocumentDone}</h3>
+                        <h3 className="text-lg font-semibold text-gray-800">{dictionary?.RCA?.RCASaver?.Ready}</h3>
                         <p className="text-gray-600 text-sm text-center mt-1">
-                            {dictionary.SaveRCA.DownloadDescription}
+                            {dictionary?.RCA?.RCASaver?.open_or_download}
                         </p>
 
                         <img
-                            src={getStaticUrl("public/document.png")}
-                            alt={dictionary.SaveRCA.PreviewDocument}
+                            src={dictionary.RCA?.RCASaver?.doc}
+                            alt="Превью документа"
                             className="mt-4 w-40 h-auto"
                         />
 
                         <div className="flex flex-col sm:flex-row gap-4 mt-4">
                             <a
-                                href={documentUrl}
+                                href={getStaticUrl(documentUrl)}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="px-4 py-2 bg-blue-500 text-white font-medium rounded-lg shadow hover:bg-blue-600 transition"
                             >
-                                📄 {dictionary.SaveRCA.Open}
+                                Открыть документ
                             </a>
                             <a
-                                href={documentUrl}
+                                href={getStaticUrl(documentUrl)}
                                 download="rca_document.pdf"
                                 className="px-4 py-2 bg-green-500 text-white font-medium rounded-lg shadow hover:bg-green-600 transition"
                             >
-                                ⬇️ {dictionary.SaveRCA.Download}
+                                ⬇️ Скачать PDF
                             </a>
                         </div>
                     </div>

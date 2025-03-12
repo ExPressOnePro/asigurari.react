@@ -1,13 +1,17 @@
 import React from "react";
 import Link from "next/link";
+import {useLocalization} from "@/lib/LocalizationProvider.tsx";
 
 interface ConsentToggleProps {
     isConsentGiven: boolean;
     setIsConsentGiven: (value: boolean) => void;
-    dictionary: any;
 }
 
-const ConsentToggle: React.FC<ConsentToggleProps> = ({ isConsentGiven, setIsConsentGiven, dictionary }) => (
+const ConsentToggle: React.FC<ConsentToggleProps> = ({ isConsentGiven, setIsConsentGiven }) =>{
+const { dictionary } = useLocalization();
+
+return(
+
     <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-3">
         <div
             className={`${isConsentGiven ? "bg-green-500" : "bg-gray-400"} relative inline-block w-16 h-8 rounded-full cursor-pointer`}
@@ -19,10 +23,10 @@ const ConsentToggle: React.FC<ConsentToggleProps> = ({ isConsentGiven, setIsCons
         </div>
         <div className="flex flex-col sm:flex-row items-center space-x-2">
             <label htmlFor="consent" className="text-sm text-gray-700 flex-grow">
-                {dictionary?.osago?.RCAForm?.Acceptance}
+                {dictionary?.RCA?.IRF?.Acceptance}
             </label>
             <Link href={`/Privacy`} className="text-blue-700">
-                {dictionary?.osago?.RCAForm?.PolicePrivacy}
+                {dictionary?.RCA?.IRF?.PolicePrivacy}
             </Link>
             <input
                 type="checkbox"
@@ -33,6 +37,7 @@ const ConsentToggle: React.FC<ConsentToggleProps> = ({ isConsentGiven, setIsCons
             />
         </div>
     </div>
-);
+)
+};
 
 export default ConsentToggle;

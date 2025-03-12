@@ -1,17 +1,18 @@
 // PersonTypeToggle.tsx
 import React from "react";
+import {useLocalization} from "@/lib/LocalizationProvider.tsx";
 
 interface PersonTypeToggleProps {
     PersonIsJuridical: boolean;
     setPersonIsJuridical: (value: boolean) => void;
-    dictionary: any;
 }
 
 const PersonTypeToggle: React.FC<PersonTypeToggleProps> = ({
                                                                PersonIsJuridical,
                                                                setPersonIsJuridical,
-                                                               dictionary,
                                                            }) => {
+    const { dictionary } = useLocalization();
+
     return (
         <div className="flex flex-col sm:flex-row items-center justify-between mb-4">
             <label className="text-sm font-bold text-gray-700 mb-2 sm:mb-0">
