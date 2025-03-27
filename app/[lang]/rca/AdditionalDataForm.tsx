@@ -266,7 +266,7 @@ const AdditionalDataForm: React.FC<AdditionalDataFormProps> = React.memo(({onSte
                         {/* Start Date */}
                         <div className="flex-1">
                             <label htmlFor="insuranceStartDate" className="block text-sm font-medium text-gray-700">
-                                {dictionary.osago.AdditionalData.InsuranceStartDate}
+                                {dictionary.RCA?.ADF?.InsuranceStartDate}
                             </label>
                             <input
                                 type="date"
@@ -282,7 +282,7 @@ const AdditionalDataForm: React.FC<AdditionalDataFormProps> = React.memo(({onSte
                         {/* End Date */}
                         <div className="flex-1">
                             <label htmlFor="insuranceEndDate" className="block text-sm font-medium text-gray-700">
-                                {dictionary.osago.AdditionalData.InsuranceEndDate}
+                                {dictionary.RCA?.ADF?.InsuranceEndDate}
                             </label>
                             <input
                                 type="date"
@@ -301,7 +301,7 @@ const AdditionalDataForm: React.FC<AdditionalDataFormProps> = React.memo(({onSte
                             disabled={isSubmitting}
                             className={`w-full ${isSubmitting ? "bg-gray-500" : "bg-blue-600 hover:bg-blue-700"} text-white font-semibold py-2 px-4 rounded-lg shadow-md`}
                         >
-                            {isSubmitting ? "Загрузка..." : dictionary.osago.AdditionalData.ProceedToPayment}
+                            {isSubmitting ? "Загрузка..." : dictionary.RCA?.ADF?.ProceedToPayment}
                         </button>
 
                     </div>

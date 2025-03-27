@@ -11,6 +11,7 @@ import AdditionalGreenCardDataForm from "@/app/[lang]/greencard/AdditionalGreenC
 import QRCodeGreenCardRequest from "@/app/[lang]/greencard/QRCodeGreenCardRequest.tsx";
 import QRCodeGreenCardImage from "@/app/[lang]/greencard/QRCodeGreenCardImage.tsx";
 import RCESaver from "@/app/[lang]/greencard/RCESaver.tsx";
+import ContactForm from "@/app/[lang]/rca/rca_components/ContactForm/ContactForm.tsx";
 
 export default function GreenCardController() {
     const dispatch = useDispatch();
@@ -25,9 +26,10 @@ export default function GreenCardController() {
             {step === 1 && <GreenCardRequestForm onStepChange={handleStepChange} />}
             {step === 2 && <InsurerListGreenCard onStepChange={handleStepChange}/>}
             {step === 3 && <AdditionalGreenCardDataForm onStepChange={handleStepChange}/>}
-            {step === 4 && <QRCodeGreenCardRequest onStepChange={handleStepChange} step={step}/>}
-            {step === 5 && <QRCodeGreenCardImage onStepChange={handleStepChange}/>}
-            {step === 6 && <RCESaver />}
+            {step === 4 && <ContactForm onStepChange={handleStepChange}/>}
+            {step === 5 && <QRCodeGreenCardRequest onStepChange={handleStepChange} step={step}/>}
+            {step === 6 && <QRCodeGreenCardImage onStepChange={handleStepChange}/>}
+            {step === 7 && <RCESaver />}
         </div>
     );
 }

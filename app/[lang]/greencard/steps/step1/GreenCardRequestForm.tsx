@@ -21,6 +21,7 @@ import {
     TermInsuranceOptions
 } from "@/app/[lang]/greencard/Enums.tsx";
 import {GreenCardCalculationResponse} from "@/app/[lang]/greencard/types.ts";
+import CardTitle from "@/app/[lang]/greencard/steps/step1/components/CardTitle.tsx";
 
 
 const GreenCardRequestForm = ({ onStepChange }: any) => {
@@ -149,16 +150,14 @@ const GreenCardRequestForm = ({ onStepChange }: any) => {
         <div className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
             <div className="w-full max-w-3xl">
                 <div className="bg-white shadow-lg rounded-lg p-8">
-                    <h1 className="text-3xl sm:text-4xl font-extrabold text-center text-gray-400 mb-4">
-                        Рассчитайте стоимость Зеленой карты
-                    </h1>
+                    <CardTitle title={dictionary.RCE.GCRF.Title} />
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div className="flex items-center space-x-4">
                             {/* Green Card Zone Selection */}
                             <div className="flex-1">
                                 <SelectInputWithTooltip
                                     id="greenCardZone"
-                                    label="Зона Зеленой Карты"
+                                    label="Зона Зеленой Карты" //перевод
                                     value={GreenCardZone}
                                     onChange={(e) => setGreenCardZone(e.target.value as GreenCardZones)}
                                     options={GreenCardZoneOptions(dictionary)}
@@ -171,7 +170,7 @@ const GreenCardRequestForm = ({ onStepChange }: any) => {
                             <div className="flex-1">
                                 <SelectInputWithTooltip
                                     id="termInsurance"
-                                    label="Срок страхования"
+                                    label="Срок страхования" //перевод
                                     value={termInsurance}
                                     onChange={(e) => setTermInsurance(e.target.value as TermInsurance)}
                                     options={TermInsuranceOptions(dictionary)}
@@ -210,13 +209,11 @@ const GreenCardRequestForm = ({ onStepChange }: any) => {
                         <ConsentToggle
                             isConsentGiven={isConsentGiven}
                             setIsConsentGiven={setIsConsentGiven}
-                            dictionary={dictionary}
                         />
 
                         <SubmitButton
                             isConsentGiven={isConsentGiven}
                             isLoading={isLoading}
-                            dictionary={dictionary}
                         />
                     </form>
 

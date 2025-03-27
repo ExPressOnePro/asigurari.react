@@ -1,30 +1,28 @@
-import React, {useState} from "react";
-import {useLocalization} from "@/lib/LocalizationProvider.tsx";
+import React, { useState } from "react";
 
 interface FAQItem {
     question: string;
     answer: string;
 }
 
-const FAQAccordion: React.FC = () => {
+interface FAQAccordionProps {
+    faqData: FAQItem[];
+    title: string;
+}
+
+const FAQAccordion: React.FC<FAQAccordionProps> = ({ faqData, title }) => {
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
-    const {dictionary} = useLocalization();
 
     const toggleAnswer = (index: number) => {
         setActiveIndex(activeIndex === index ? null : index);
     };
 
-    // Use the translated FAQ items from your dictionary.
-    // Optionally, add a fallback if the localization data isn't ready yet.
-    const faqData: FAQItem[] = dictionary.page.cards.rca.faq?.items || [];
-
     return (
         <div className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-12">
             <div className="w-full max-w-6xl">
                 <div className="rounded-lg p-8">
-                    {/* Use a translated heading */}
                     <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
-                        {dictionary.page.cards.rca.questionTitle}
+                        {title}
                     </h2>
                     <div className="space-y-4">
                         {faqData.map((item, index) => (

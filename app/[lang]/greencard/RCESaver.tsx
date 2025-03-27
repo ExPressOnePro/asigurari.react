@@ -112,9 +112,9 @@ const RCASaver: React.FC = () => {
                 {documentUrl && (
                     <div
                         className="flex flex-col items-center mt-6 p-6 bg-gray-50 border border-gray-200 rounded-lg shadow-md">
-                        <h3 className="text-lg font-semibold text-gray-800">{dictionary.SaveRCA.DocumentDone}</h3>
+                        <h3 className="text-lg font-semibold text-gray-800">{dictionary.RCE.RCESaver.Ready}</h3>
                         <p className="text-gray-600 text-sm text-center mt-1">
-                            {dictionary.SaveRCA.DownloadDescription}
+                            {dictionary.RCE.RCESaver.open_or_download}
                         </p>
 
                         <img

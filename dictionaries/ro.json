@@ -7,114 +7,163 @@
   },
   "page": {
     "home": {
-      "title": "Protejează-ți vehiculul cu asigurarea noastră de încredere!",
-      "description": "Compania noastră oferă cele mai bune condiții pentru asigurarea mașinii tale. Prețuri accesibile, procesare rapidă și acoperire maximă.",
-      "button": "Obține asigurare"
+      "title": "Protejați-vă vehiculul cu asigurarea noastră de încredere!",
+      "description": "Compania noastră oferă cele mai bune condiții pentru asigurarea autoturismului dumneavoastră. Prețuri accesibile, procesare rapidă și acoperire maximă.",
+      "button": "Încheie o asigurare"
     },
     "cards": {
       "rca": {
         "picture": "/rca.jpg",
-        "title": "Asigurare RCA",
-        "description": "Obține-ți polița de Asigurare RCA direct pe site-ul nostru. Oferim prețuri accesibile și servicii convenabile.",
-        "button": "Mergi la Asigurarea RCA"
+        "title": "RCA (OSAGO)",
+        "description": "Încheiați polița RCA direct pe site-ul nostru. Oferim prețuri accesibile și un serviciu convenabil.",
+        "longDescription": "RCA, sau Asigurarea Obligatorie de Răspundere Civilă Auto, este o formă de protecție necesară pentru conducerea unui vehicul în Moldova. Această asigurare oferă protecție persoanelor care au suferit daune într-un accident din vina altcuiva. În cazul unui incident, acoperă costurile pentru tratament, reparația vehiculului și alte pierderi. RCA este o cerință obligatorie pentru toți șoferii. Înainte de a conduce un vehicul, asigurați-vă că polița este activă. Nerespectarea acestei cerințe poate duce la amenzi semnificative. Alegerea unei companii de asigurări trebuie să se bazeze nu doar pe prețul poliței. Factori cheie includ reputația companiei, calitatea serviciilor și rapiditatea plăților. Alegerea corectă a companiei de asigurări poate preveni probleme suplimentare în caz de accident și poate garanta sprijinul și compensațiile necesare pentru dumneavoastră și pentru persoanele afectate.",
+        "button": "Mergi la RCA",
+        "questionTitle": "Întrebări frecvente",
+        "faq": {
+          "items": [
+            {
+              "question": "Ce este RCA?",
+              "answer": "RCA este asigurarea obligatorie de răspundere civilă auto care acoperă costurile în cazul accidentelor cauzate de dumneavoastră."
+            },
+            {
+              "question": "Cum funcționează RCA?",
+              "answer": "RCA protejează șoferii împotriva pierderilor financiare în cazul accidentelor pe care le-au provocat. În cazul unui accident, compania de asigurări compensează daunele părții vătămate."
+            },
+            {
+              "question": "Cum se încheie RCA?",
+              "answer": "Polița RCA poate fi încheiată online prin site-ul companiei de asigurări sau la sediu, prin furnizarea documentelor necesare."
+            },
+            {
+              "question": "Cum pot verifica autenticitatea poliței?",
+              "answer": "Autenticitatea poliței poate fi verificată pe pagina web BNM (https://rca.bnm.md/)."
+            },
+            {
+              "question": "Este valabilă polița RCA în format electronic?",
+              "answer": "Da, în Moldova, polițele RCA în format electronic sunt valabile și recunoscute. Conform legislației în vigoare, polița poate fi emisă și trimisă electronic."
+            },
+            {
+              "question": "Ce trebuie să fac dacă modelul mașinii mele nu apare în calcul?",
+              "answer": "Calculul și încheierea poliței pe baza certificatului de înmatriculare sau a numărului de înmatriculare sunt posibile doar pentru vehiculele înregistrate în Republica Moldova. Dacă vehiculul dumneavoastră nu poate fi identificat sau prețul nu este stabilit, vă rugăm să contactați suportul nostru la info@asig.md sau la telefonul +373 61 000 179."
+            },
+            {
+              "question": "Dacă persoana asigurată este o companie, cum pot obține factura fiscală?",
+              "answer": "Factura fiscală va fi emisă prin efactura.sfs.md. Dacă firma dumneavoastră nu este înregistrată pentru facturare electronică, factura va fi trimisă prin e-mail cu semnătură electronică."
+            },
+            {
+              "question": "Ce acoperă RCA?",
+              "answer": "Asigurarea RCA este valabilă pe teritoriul Republicii Moldova. Acoperă daunele cauzate în urma accidentelor rutiere pe teritoriul țării. Riscurile asigurate includ prejudiciile aduse terților, cum ar fi vătămările corporale sau decesul, deteriorarea sau distrugerea bunurilor."
+            },
+            {
+              "question": "Care sunt limitele maxime de despăgubire?",
+              "answer": "Limitele maxime de despăgubire sunt: până la 100.000 euro pentru deteriorarea sau distrugerea bunurilor; până la 100.000 euro per persoană pentru vătămări corporale sau deces, dar nu mai mult de 500.000 euro indiferent de numărul victimelor; până la 15.000 MDL pentru daune acoperite prin procedura de constatare amiabilă; până la 5.000 euro pentru daune morale (doar în caz de invaliditate sau deces), dar nu mai mult de 10.000 euro indiferent de numărul victimelor."
+            },
+            {
+              "question": "Ce trebuie să fac în caz de accident?",
+              "answer": "În cazul unui accident minor (evaluat la maximum 15.000 MDL), se poate alege soluționarea amiabilă fără implicarea poliției, așa-numita 'constatare amiabilă'. Această opțiune este posibilă dacă sunt implicate două vehicule, ambele având documentele valabile (asigurare RCA, inspecția tehnică). Dacă nu este posibilă soluționarea amiabilă, trebuie întocmit un proces-verbal de către poliție și prezentat companiei de asigurări."
+            },
+            {
+              "question": "Ce nu acoperă RCA?",
+              "answer": "RCA nu acoperă: daunele cauzate bunurilor asiguraților, prejudiciile ce depășesc limitele maxime stabilite de lege, pierderile suferite la locul de muncă cu ajutorul echipamentelor, accidentele care au loc în timpul încărcării și descărcării mărfurilor etc."
+            }
+          ]
+        }
       },
       "greencard": {
         "picture": "/green.jpg",
-        "title": "Card Verde",
-        "description": "Obține Cardul Verde pentru călătoriile în străinătate. Oferim procesare simplă și rapidă.",
-        "button": "Mergi la Cardul Verde"
+        "title": "Carte Verde",
+        "description": "Încheiați o Carte Verde pentru călătoriile în străinătate. Oferim procesare simplă și rapidă.",
+        "button": "Mergi la Carte Verde"
       },
       "medical": {
         "picture": "/medical.jpg",
-        "title": "Asigurare Medicală",
+        "title": "Asigurare medicală",
         "description": "Investește în sănătatea ta cu o acoperire completă.",
-        "button": "Mergi la Asigurarea Medicală"
+        "button": "Mergi la Asigurarea medicală"
       }
     }
   },
-  "osago": {
-    "Title": "Înregistrarea asigurărilor OSAGO",
-    "RCAForm": {
-      "Title": "Calculul RCA (RCA)",
-      "IDNPPlaceholder": "Introduceți IDNP/IDNO",
-      "InputTehTitle": "Numărul certificatului de înmatriculare",
-      "InputTehPlaceholder": "Numărul certificatului de înmatriculare al vehiculului",
-      "Acceptance": "Acceptul pentru prelucrarea datelor",
-      "PolicePrivacy": "Politica de confidențialitate",
-      "ButtonCalculate": "Calculează",
-      "ErrorIDNP": "Câmpul IDNP/IDNO trebuie să conțină 13 cifre.",
-      "ErrorTeh": "Numărul certificatului de înmatriculare trebuie să conțină 9 cifre.",
-      "ErrorPrivacy": "Este necesar acceptul pentru prelucrarea datelor.",
-      "ErrorForm": "A apărut o eroare la trimiterea formularului.",
-      "PersonTypeLabel": "Persoană juridică sau fizică",
-      "PhysicalPerson": "Fizic",
-      "LegalPerson": "Juridic"
-    },
-    "OperatingModes": {
-      "OperatingModesLabel": "Tipul de vehicul",
-      "SelectOperatingMode": "Selectați tipul de vehicul",
-      "SelectOperatingModeError": "Vă rugăm să selectați un tip de mașină",
-      "OperatingMode1": "Obișnuit",
-      "OperatingMode2": "Minibus",
-      "OperatingMode3": "Autobuz interurban",
-      "OperatingMode4": "Taxi",
-      "OperatingMode5": "Închiriere mașini"
-    },
-    "AdditionalData": {
-      "Title": "Date suplimentare",
-      "Birthday": "Introduceți data nașterii",
-      "PossessionBase": "Tipul de proprietate",
-      "PossessionBaseTitle": "Selectați tipul de proprietate",
-      "PossessionBase1": "Proprietate",
-      "PossessionBase2": "Închiriere",
-      "PossessionBase3": "Leasing",
-      "PossessionBase4": "Împuternicire",
-
-      "InsuranceStartDate": "Data de început a asigurării",
-      "InsuranceEndDate": "Data de sfârșit a asigurării",
-      "ProceedToPayment": "Continuați la plată"
-    },
-
-    "SelectedParameters":
-    {
-      "SelectedParameters": "Parametrii selectați:",
+  "RCA": {
+    "SP": {
+      "SelectedParameters": "Parametri selectați",
       "Car": "Mașină",
       "BonusMalusClass": "Clasa bonus-malus",
       "Client": "Client",
-      "Insurer": "Asigurător:",
-      "PolicyCost": "Costul poliței:",
-      "OwnershipType": "Tipul de proprietate:",
-      "InsuranceStartDate": "Data începutului asigurării:"
+      "Insurer": "Asigurator",
+      "PolicyCost": "Costul poliței",
+      "OwnershipType": "Tipul de proprietate",
+      "InsuranceStartDate": "Data începerii asigurării",
+      "Email": "Adresă de email",
+      "GreenCardZone": "Zona cardului verde",
+      "TermInsurance": "Durata asigurării"
     },
-    "InsurerCard": {
-      "ButtonChoise": "Alege"
+
+    "IRF": {
+      "Osago": "Emitere asigurare OSAGO",
+      "RCAForm": "Calcul asigurare RCA",
+      "IDNP": "IDNP/IDNO",
+      "IDNPPlaceholder": "Introduceți IDNP/IDNO",
+      "InputTehTitle": "Numărul certificatului de înmatriculare",
+      "InputTehPlaceholder": "Numărul certificatului de înmatriculare al vehiculului",
+      "ErrorSelectOperatingMode": "Vă rugăm să selectați tipul vehiculului",
+      "ErrorIDNX13": "Numărul IDNP/IDNO trebuie să aibă cel puțin 13 caractere",
+      "ErrorTehPass": "Numărul certificatului de înmatriculare trebuie să aibă cel puțin 9 caractere",
+      "OperatingModesLabel": "Tipul vehiculului",
+      "SelectOperatingMode": "Selectați tipul vehiculului",
+      "OperatingMode1": "Obișnuit",
+      "OperatingMode2": "Microbuz",
+      "OperatingMode3": "Autobuz de interurban",
+      "OperatingMode4": "Taxi",
+      "OperatingMode5": "Închiriere auto",
+      "Acceptance": "Acceptul pentru prelucrarea datelor",
+      "PolicePrivacy": "Politica de confidențialitate",
+      "ButtonCalculate": "Calculează"
     },
-    "InsurerList": {
-      "Features": {
-        "CoverageArea": "Zona de acoperire",
-        "PropertyLimit": "Limită de proprietate",
-        "HealthLimitEvent": "Limită de sănătate (eveniment)",
-        "InstantContractEmail": "Primirea instantanee a contractului pe email",
-        "OnlineRegistration": "Înregistrare online a poliței în RCAData"
-      },
-      "Cost": "Preţ:",
-      "InsurerStatus": {
-        "Available": "Alegeți",
-        "Unavailable": "Indisponibil"
+    "IL": {
+      "SelectInsurer": "Selectați compania de asigurări",
+      "CoverageArea": "Zona de acoperire",
+      "PropertyLimit": "Limita pentru proprietăți",
+      "HealthLimitEvent": "Limita pentru sănătate (eveniment)",
+      "InstantContractEmail": "Obțineți instantaneu contractul pe email",
+      "OnlineRegistration": "Înregistrare online a poliței în RCAData",
+      "Cost": "Cost:",
+      "Available": "Selectați",
+      "Unavailable": "Indisponibil"
+    },
+    "ADF": {
+      "Title": "Date suplimentare",
+      "Birthday": "Introduceți data nașterii",
+      "InsuranceStartDate": "Data începerii asigurării",
+      "InsuranceEndDate": "Data sfârșitului asigurării",
+      "ProceedToPayment": "Continuați la plată",
+      "PossessionBase": {
+        "Title": "Tipul de proprietate",
+        "Select": "Selectați tipul de proprietate",
+        "Property": "Proprietate",
+        "Lease": "Chirie",
+        "Leasing": "Leasing",
+        "PowerOfAttorney": "Împuternicire"
       }
     },
-    "OwnershipCard": {
-      "AddInfo": "Informații suplimentare",
-      "type": {
-        "Property": "Proprietate",
-        "Rent": "Închiriere",
-        "Leasing": "Leasing",
-        "Attorney": "Împuternicire"
-      },
-      "Period": "Perioada de valabilitate",
-      "Phone": "Număr de telefon",
-      "Email": "Adresă de e-mail"
+    "CF": {
+      "Title": "Informații de contact",
+      "add": "Vă rugăm să introduceți adresa de email pentru a vă trimite documentul.",
+      "BonusMalusClass": "Clasa bonus-malus",
+      "Client": "Client",
+      "Insurer": "Asigurator",
+      "PolicyCost": "Costul poliței",
+      "OwnershipType": "Tipul de proprietate",
+      "InsuranceStartDate": "Data începerii asigurării",
+      "GreenCardZone": "Zona cardului verde",
+      "TermInsurance": "Durata asigurării"
+    },
+    "RCASaver": {
+      "Ready": "Documentul este gata!",
+      "open_or_download": "Puteți deschide documentul pentru vizualizare sau să-l descărcați în format PDF.",
+      "doc": "/document.png"
     }
+  },
+  "Footer":{
+    "Help": "Ajuta"
   },
   "SaveRCA": {
     "doc": "/doc3.png"

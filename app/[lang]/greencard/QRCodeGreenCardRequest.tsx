@@ -59,7 +59,7 @@ const QRCodeRequest: React.FC<QRCodeRequestProps> = React.memo(({ onStepChange, 
                             url: response.data.url,
                             status: response.data.status,
                         }));
-                        onStepChange(5);
+                        onStepChange(6);
                     } else {
                         throw new Error("Некорректный ответ API");
                     }

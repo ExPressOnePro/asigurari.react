@@ -34,11 +34,9 @@ const InsurerList: React.FC<InsurerListProps> = ({ onStepChange }) => {
     }, [insurers]);
 
     const features = [
-        { label: dictionary?.osago?.InsurerList.Features?.CoverageArea, value: "Moldova" },
-        { label: dictionary?.osago?.InsurerList.Features?.PropertyLimit, value: "100 000 €" },
-        { label: dictionary?.osago?.InsurerList.Features?.HealthLimitEvent, value: "500 000 €" },
-        { label: dictionary?.osago?.InsurerList.Features?.InstantContractEmail, value: null },
-        { label: dictionary?.osago?.InsurerList.Features?.OnlineRegistration, value: null }
+        { label: dictionary?.RCE?.ILGC?.CoverageArea},
+        { label: dictionary?.RCE?.ILGC?.email},
+        { label: dictionary?.RCE?.ILGC?.online},
     ];
 
     const handleSelectInsurer = useCallback(
@@ -66,6 +64,9 @@ const InsurerList: React.FC<InsurerListProps> = ({ onStepChange }) => {
 
     return (
         <div className="py-12 px-4 sm:px-6 lg:px-8">
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-center text-gray-400 mb-10">
+                {dictionary?.RCE?.ILGC?.SelectInsurer}
+            </h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
                 {sortedInsurers.map((insurer, index) => (
                     <div
@@ -89,7 +90,7 @@ const InsurerList: React.FC<InsurerListProps> = ({ onStepChange }) => {
                         <div className="p-6">
                             {insurer.is_active && (
                                 <div className="flex items-end justify-between mb-4">
-                                    <p className="text-sm text-gray-500 font-bold">{dictionary?.osago?.InsurerList.Cost}</p>
+                                    <p className="text-sm text-gray-500 font-bold">{dictionary?.RCE?.ILGC?.Cost}</p>
                                     <div className="flex items-end">
                                         <div className="text-2xl font-bold text-orange-500">
                                             {typeof insurer.PrimeSumMDL !== "number"
@@ -120,7 +121,6 @@ const InsurerList: React.FC<InsurerListProps> = ({ onStepChange }) => {
                       <strong className="text-green-500 mr-2">✅</strong>
                         {feature.label}
                     </span>
-                                        {feature.value && <span className="font-bold">{feature.value}</span>}
                                     </li>
                                 ))}
                             </ul>
@@ -137,8 +137,8 @@ const InsurerList: React.FC<InsurerListProps> = ({ onStepChange }) => {
                                 onClick={() => handleSelectInsurer(insurer)}
                             >
                                 {insurer.is_active
-                                    ? dictionary?.osago?.InsurerList.InsurerStatus.Available
-                                    : dictionary?.osago?.InsurerList.InsurerStatus.Unavailable}
+                                    ? dictionary?.RCE?.ILGC?.Available
+                                    : dictionary?.RCE?.ILGC?.Unavailable}
                             </button>
                         </div>
                     </div>

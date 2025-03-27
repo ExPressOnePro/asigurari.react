@@ -123,80 +123,12 @@ const AdditionalDataGreenCardForm: React.FC<AdditionalGreenCardDataFormProps> = 
         <form onSubmit={handleSubmit} className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
             <div className="w-full max-w-3xl">
                 <div className="bg-white shadow-lg rounded-lg p-8">
-                    <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">Дополнительные данные</h2>
-
-                    {!isFromTransnistria && !personIsExternal && (
-                        <div className="text-sm text-gray-500 mb-6">
-                            Выберите если вы не являетесь резидентом Республики Молдова
-                        </div>
-                    )}
-
-                    {/* Toggle Switches for exclusive selection */}
-                    <div className="flex flex-col sm:flex-row justify-between mb-6 space-y-4 sm:space-y-0 sm:space-x-4">
-                        <div className="flex items-center space-x-4">
-                            <label htmlFor="IsFromTransnistria" className="text-sm font-medium text-gray-700">
-                                Из Приднестровья
-                            </label>
-                            <div
-                                className="relative inline-flex items-center cursor-pointer"
-                                onClick={handleIsFromTransnistriaChange}
-                            >
-                                <input
-                                    type="checkbox"
-                                    id="IsFromTransnistria"
-                                    checked={isFromTransnistria}
-                                    onChange={handleIsFromTransnistriaChange}
-                                    className="sr-only"
-                                />
-                                <div
-                                    className={`w-12 h-6 rounded-full transition-all duration-300 ease-in-out ${
-                                        isFromTransnistria ? "bg-orange-500" : "bg-gray-200"
-                                    }`}
-                                >
-                                    <div
-                                        className={`w-6 h-6 bg-white rounded-full shadow-md transition-transform duration-300 ease-in-out ${
-                                            isFromTransnistria ? "translate-x-6" : "translate-x-0"
-                                        }`}
-                                    ></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="flex items-center space-x-4">
-                            <label htmlFor="PersonIsExternal" className="text-sm font-medium text-gray-700">
-                                Иностранное лицо
-                            </label>
-                            <div
-                                className="relative inline-flex items-center cursor-pointer"
-                                onClick={handlePersonIsExternalChange}
-                            >
-                                <input
-                                    type="checkbox"
-                                    id="PersonIsExternal"
-                                    checked={personIsExternal}
-                                    onChange={handlePersonIsExternalChange}
-                                    className="sr-only"
-                                />
-                                <div
-                                    className={`w-12 h-6 rounded-full transition-all duration-300 ease-in-out ${
-                                        personIsExternal ? "bg-orange-500" : "bg-gray-200"
-                                    }`}
-                                >
-                                    <div
-                                        className={`w-6 h-6 bg-white rounded-full shadow-md transition-transform duration-300 ease-in-out ${
-                                            personIsExternal ? "translate-x-6" : "translate-x-0"
-                                        }`}
-                                    ></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                    <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">{dictionary.RCE.ADF.Title}</h2>
 
                     {/* Date of birth field */}
                     <div className="mb-6">
                         <label htmlFor="birthDate" className="block text-sm font-medium text-gray-700">
-                            Введите вашу дату рождения
+                            {dictionary.RCE.ADF.Birthday}
                         </label>
                         <input
                             type="date"
@@ -208,36 +140,36 @@ const AdditionalDataGreenCardForm: React.FC<AdditionalGreenCardDataFormProps> = 
                         />
                     </div>
 
-                    {shouldShowDetails && (
-                        <div className="p-4 border border-gray-300 rounded-lg mb-6 bg-white shadow-md">
-                            <h3 className="text-lg font-semibold text-gray-700 mb-4">Дополнительные данные</h3>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                {[
-                                    { label: "Год выпуска", name: "ProductionYear", type: "number" },
-                                    { label: "Объем двигателя (см³)", name: "CilinderVolume", type: "number" },
-                                    { label: "Масса (кг)", name: "TotalWeight", type: "number" },
-                                    { label: "Мощность двигателя (л.с.)", name: "EnginePower", type: "number" },
-                                    { label: "Кол-во мест", name: "Seats", type: "number" },
-                                ].map((field) => (
-                                    <div key={field.name} className="flex flex-col">
-                                        <label className="text-sm text-gray-600">{field.label}</label>
-                                        <input
-                                            type={field.type}
-                                            name={field.name}
-                                            value={additionalCarInfoForm[field.name as keyof typeof additionalCarInfoForm]}
-                                            onChange={handleChange}
-                                            className="p-2 border rounded-md focus:ring focus:ring-orange-300"
-                                        />
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    )}
+                    {/*{shouldShowDetails && (*/}
+                    {/*    <div className="p-4 border border-gray-300 rounded-lg mb-6 bg-white shadow-md">*/}
+                    {/*        <h3 className="text-lg font-semibold text-gray-700 mb-4">Дополнительные данные</h3>*/}
+                    {/*        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">*/}
+                    {/*            {[*/}
+                    {/*                { label: "Год выпуска", name: "ProductionYear", type: "number" },*/}
+                    {/*                { label: "Объем двигателя (см³)", name: "CilinderVolume", type: "number" },*/}
+                    {/*                { label: "Масса (кг)", name: "TotalWeight", type: "number" },*/}
+                    {/*                { label: "Мощность двигателя (л.с.)", name: "EnginePower", type: "number" },*/}
+                    {/*                { label: "Кол-во мест", name: "Seats", type: "number" },*/}
+                    {/*            ].map((field) => (*/}
+                    {/*                <div key={field.name} className="flex flex-col">*/}
+                    {/*                    <label className="text-sm text-gray-600">{field.label}</label>*/}
+                    {/*                    <input*/}
+                    {/*                        type={field.type}*/}
+                    {/*                        name={field.name}*/}
+                    {/*                        value={additionalCarInfoForm[field.name as keyof typeof additionalCarInfoForm]}*/}
+                    {/*                        onChange={handleChange}*/}
+                    {/*                        className="p-2 border rounded-md focus:ring focus:ring-orange-300"*/}
+                    {/*                    />*/}
+                    {/*                </div>*/}
+                    {/*            ))}*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
+                    {/*)}*/}
 
                     {/* Possession Base Dropdown */}
                     <div className="mb-6">
                         <label htmlFor="possessionBase" className="block text-sm font-medium text-gray-700">
-                            Тип владения
+                            {dictionary.RCE.ADF.PossessionBase.Title}
                         </label>
                         <select
                             id="possessionBase"
@@ -251,11 +183,11 @@ const AdditionalDataGreenCardForm: React.FC<AdditionalGreenCardDataFormProps> = 
                             }}
                             className="mt-2 block w-full px-4 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                         >
-                            <option value="">Выберите тип владения</option>
-                            <option value="Property">Собственность</option>
-                            <option value="Lease">Аренда</option>
-                            <option value="Leasing">Лизинг</option>
-                            <option value="PowerOfAttorney">Доверенность</option>
+                            <option value="">{dictionary.RCE.ADF.PossessionBase.Select}</option>
+                            <option value="Property">{dictionary.RCE.ADF.PossessionBase.Property}</option>
+                            <option value="Lease">{dictionary.RCE.ADF.PossessionBase.Lease}</option>
+                            <option value="Leasing">{dictionary.RCE.ADF.PossessionBase.Leasing}</option>
+                            <option value="PowerOfAttorney">{dictionary.RCE.ADF.PossessionBase.PowerOfAttorney}</option>
                         </select>
 
                     </div>
@@ -266,7 +198,7 @@ const AdditionalDataGreenCardForm: React.FC<AdditionalGreenCardDataFormProps> = 
                         {/* Start Date */}
                         <div className="flex-1">
                             <label htmlFor="insuranceStartDate" className="block text-sm font-medium text-gray-700">
-                                Дата начала страховки
+                                {dictionary.RCE.ADF.InsuranceStartDate}
                             </label>
                             <input
                                 type="date"
@@ -282,7 +214,7 @@ const AdditionalDataGreenCardForm: React.FC<AdditionalGreenCardDataFormProps> = 
                         {/* End Date */}
                         <div className="flex-1">
                             <label htmlFor="insuranceEndDate" className="block text-sm font-medium text-gray-700">
-                                Дата конца страховки
+                                {dictionary.RCE.ADF.InsuranceEndDate}
                             </label>
                             <input
                                 type="date"

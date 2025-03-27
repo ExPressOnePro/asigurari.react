@@ -14,14 +14,64 @@
     "cards": {
       "rca": {
         "picture": "/rca.jpg",
-        "title": "RCA Insurance",
-        "description": "Get your RCA Insurance policy directly on our website. We offer affordable prices and convenient service.",
-        "button": "Go to RCA Insurance"
+        "title": "OSAGO (RCA)",
+        "description": "Get an RCA OSAGO policy directly on our website. We offer affordable prices and a convenient service.",
+        "longDescription": "OSAGO, or Compulsory Civil Liability Insurance, is a reliable form of protection when driving a car in Moldova. This insurance protects individuals affected in an accident caused by another party. In case of an incident, it helps cover medical expenses, car repairs, and other damages. OSAGO is a mandatory requirement for all drivers. Before operating a vehicle, make sure your policy is active. Failure to comply with this requirement may result in significant fines. When choosing an insurance company, it is important to evaluate not only the price of the policy. Key factors include the company's reputation, quality of service, and speed of payments. Choosing the right insurance company can prevent additional problems in the event of an accident and ensure that you and those affected receive the necessary support and compensation.",
+        "button": "Go to RCA OSAGO",
+        "questionTitle": "Frequently Asked Questions",
+        "faq": {
+          "items": [
+            {
+              "question": "What is OSAGO?",
+              "answer": "OSAGO is compulsory motor third-party liability insurance that covers expenses in case of accidents caused by you."
+            },
+            {
+              "question": "How does OSAGO work?",
+              "answer": "OSAGO protects drivers from financial losses in case of accidents they cause. In the event of an accident, the insurance company compensates the affected party."
+            },
+            {
+              "question": "How to get OSAGO?",
+              "answer": "OSAGO can be obtained online through the insurance company's website or at an office by providing the necessary documents."
+            },
+            {
+              "question": "How to check the authenticity of a policy?",
+              "answer": "You can check the authenticity of a policy on the BNM website (https://rca.bnm.md/)."
+            },
+            {
+              "question": "Is an electronic insurance policy valid?",
+              "answer": "Yes, in Moldova, electronic OSAGO insurance policies are valid and recognized. According to current legislation, a policy can be issued and sent to the policyholder electronically."
+            },
+            {
+              "question": "What to do if my car model is not found when calculating the cost?",
+              "answer": "Calculation and issuance of the policy based on the registration certificate or registration number are only possible for vehicles registered in the Republic of Moldova. If your vehicle cannot be identified or the price is not set, please contact our support at info@asig.md or call +373 61 000 179."
+            },
+            {
+              "question": "If the insured party is a legal entity, how can I get a tax invoice?",
+              "answer": "The tax invoice will be sent through efactura.sfs.md. If your company is not registered for electronic tax invoicing, it will be sent via email with an electronic signature."
+            },
+            {
+              "question": "What does OSAGO cover?",
+              "answer": "OSAGO (compulsory motor third-party liability insurance) is valid within the Republic of Moldova. It covers damages resulting from road traffic accidents within the country. The insured risks include third-party damages, such as bodily injury or death, damage, or destruction of property."
+            },
+            {
+              "question": "What are the maximum compensation limits?",
+              "answer": "The maximum compensation limits are: Up to €100,000 for property damage or destruction. Up to €100,000 per injured party in case of bodily injury or death, but no more than €500,000 regardless of the number of injured parties. Up to 15,000 MDL for damages claimed based on the amicable accident settlement procedure. Up to €5,000 for moral damages (only in case of disability or death) per affected person, but no more than €10,000 regardless of the number of affected individuals."
+            },
+            {
+              "question": "What to do in case of an insurance event?",
+              "answer": "In case of minor damages (estimated at up to 15,000 MDL), you can choose to settle the damage mutually without police involvement, known as 'constare amiabila.' This option is available if two vehicles are involved in the accident, both having valid documents (OSAGO insurance, technical inspection). If mutual settlement is not possible, a police report must be prepared and submitted to the insurance company."
+            },
+            {
+              "question": "What is not covered by the insurance?",
+              "answer": "The insurance does not cover: Damage to the insured party’s own property, losses exceeding the legally defined maximum insurance payments, damages caused at the workplace using equipment, accidents occurring during the loading and unloading of goods, etc."
+            }
+          ]
+        }
       },
       "greencard": {
         "picture": "/green.jpg",
         "title": "Green Card",
-        "description": "Get your Green Card for travel abroad. We offer simple and fast processing.",
+        "description": "Get a Green Card for traveling abroad. We offer a simple and fast application process.",
         "button": "Go to Green Card"
       },
       "medical": {
@@ -32,45 +82,9 @@
       }
     }
   },
-  "osago": {
-    "Title": "Registration of OSAGO insurance",
-    "RCAForm": {
-      "Title": "RCA Calculation (RCA)",
-      "IDNPPlaceholder": "Enter IDNP/IDNO",
-      "InputTehTitle": "Registration Certificate Number",
-      "InputTehPlaceholder": "Vehicle registration certificate number",
-      "Acceptance": "Consent for data processing",
-      "PolicePrivacy": "Privacy policy",
-      "ButtonCalculate": "Calculate",
-      "ErrorIDNP": "The IDNP/IDNO field must contain 13 digits.",
-      "ErrorTeh": "The registration certificate number must contain 9 digits.",
-      "ErrorPrivacy": "Consent for data processing is required.",
-      "ErrorForm": "An error occurred while submitting the form.",
-      "PersonTypeLabel": "Legal or Physical Person",
-      "PhysicalPerson": "Physical",
-      "LegalPerson": "Legal"
-    },
-    "OperatingModes": {
-      "OperatingModesLabel": "Vehicle Type",
-      "SelectOperatingMode": "Select Vehicle Type",
-      "SelectOperatingModeError": "Please select type auto",
-      "OperatingMode1": "Usual",
-      "OperatingMode2": "Minibus",
-      "OperatingMode3": "IntercityBus",
-      "OperatingMode4": "Taxi",
-      "OperatingMode5": "RentACar"
-    },
-    "AdditionalData": {
-      "Title": "Additional Data",
-      "Birthday": "Enter your date of birth",
-      "PossessionBase": "Type of ownership",
-      "InsuranceStartDate": "Insurance start date",
-      "InsuranceEndDate": "Insurance end date",
-      "ProceedToPayment": "Proceed to payment"
-    },
 
-    "SelectedParameters":
-    {
+  "RCA": {
+    "SP": {
       "SelectedParameters": "Selected parameters",
       "Car": "Car",
       "BonusMalusClass": "Bonus-malus class",
@@ -78,37 +92,79 @@
       "Insurer": "Insurer",
       "PolicyCost": "Policy cost",
       "OwnershipType": "Ownership type",
-      "InsuranceStartDate": "Insurance start date"
+      "InsuranceStartDate": "Insurance start date",
+      "Email": "Email address",
+      "GreenCardZone": "Green card zone",
+      "TermInsurance": "Insurance term"
     },
-    "InsurerCard": {
-      "ButtonChoise": "Choose"
+
+    "IRF": {
+      "Osago": "OSAGO insurance issuance",
+      "RCAForm": "RCA insurance calculation",
+      "IDNP": "IDNP/IDNO",
+      "IDNPPlaceholder": "Enter IDNP/IDNO",
+      "InputTehTitle": "Vehicle registration number",
+      "InputTehPlaceholder": "Vehicle registration number",
+      "ErrorSelectOperatingMode": "Please select the vehicle type",
+      "ErrorIDNX13": "IDNP/IDNO number must be at least 13 digits",
+      "ErrorTehPass": "Vehicle registration number must be at least 9 digits",
+      "OperatingModesLabel": "Vehicle type",
+      "SelectOperatingMode": "Select vehicle type",
+      "OperatingMode1": "Regular",
+      "OperatingMode2": "Minibus",
+      "OperatingMode3": "Intercity bus",
+      "OperatingMode4": "Taxi",
+      "OperatingMode5": "Car rental",
+      "Acceptance": "Consent to data processing",
+      "PolicePrivacy": "Privacy policy",
+      "ButtonCalculate": "Calculate"
     },
-    "InsurerList": {
-      "Features": {
-        "CoverageArea": "Coverage area",
-        "PropertyLimit": "Property limit",
-        "HealthLimitEvent": "Health limit (event)",
-        "InstantContractEmail": "Instant contract receipt on email",
-        "OnlineRegistration": "Online policy registration in RCAData"
-      },
-      "Cost": "Price:",
-      "InsurerStatus": {
-        "Available": "Select",
-        "Unavailable": "Unavailable"
+    "IL": {
+      "SelectInsurer": "Select insurance company",
+      "CoverageArea": "Coverage area",
+      "PropertyLimit": "Property limit",
+      "HealthLimitEvent": "Health limit (event)",
+      "InstantContractEmail": "Instant contract receipt by email",
+      "OnlineRegistration": "Online policy registration in RCAData",
+      "Cost": "Cost:",
+      "Available": "Select",
+      "Unavailable": "Unavailable"
+    },
+    "ADF": {
+      "Title": "Additional data",
+      "Birthday": "Enter your date of birth",
+      "InsuranceStartDate": "Insurance start date",
+      "InsuranceEndDate": "Insurance end date",
+      "ProceedToPayment": "Proceed to payment",
+      "PossessionBase": {
+        "Title": "Ownership type",
+        "Select": "Select ownership type",
+        "Property": "Property",
+        "Lease": "Lease",
+        "Leasing": "Leasing",
+        "PowerOfAttorney": "Power of attorney"
       }
     },
-    "OwnershipCard": {
-      "AddInfo": "Additional Information",
-      "type": {
-        "Property": "Ownership",
-        "Rent": "Rent",
-        "Leasing": "Leasing",
-        "Attorney": "Power of Attorney"
-      },
-      "Period": "Validity period",
-      "Phone": "Phone number",
-      "Email": "Email address"
+    "CF": {
+      "Title": "Contact information",
+      "add": "Please enter your email address so we can send you the document.",
+      "BonusMalusClass": "Bonus-malus class",
+      "Client": "Client",
+      "Insurer": "Insurer",
+      "PolicyCost": "Policy cost",
+      "OwnershipType": "Ownership type",
+      "InsuranceStartDate": "Insurance start date",
+      "GreenCardZone": "Green card zone",
+      "TermInsurance": "Insurance term"
+    },
+    "RCASaver": {
+      "Ready": "Document is ready!",
+      "open_or_download": "The documents are ready for download. You can download them in PDF format by clicking the button below or open them in a new tab.",
+      "doc": "/document.png"
     }
+  },
+  "Footer":{
+    "Help": "Помощь"
   },
   "SaveRCA": {
     "doc": "/doc3.png"
