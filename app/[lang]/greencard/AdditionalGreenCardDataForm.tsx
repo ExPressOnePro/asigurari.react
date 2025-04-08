@@ -213,16 +213,16 @@ const AdditionalDataGreenCardForm: React.FC<AdditionalGreenCardDataFormProps> = 
 
                         {/* End Date */}
                         <div className="flex-1">
-                            <label htmlFor="insuranceEndDate" className="block text-sm font-medium text-gray-700">
-                                {dictionary.RCE.ADF.InsuranceEndDate}
-                            </label>
-                            <input
-                                type="date"
-                                id="insuranceEndDate"
-                                value={insuranceEndDate}
-                                disabled
-                                className="mt-2 block w-full px-4 py-2 text-sm border border-gray-300 rounded-md shadow-sm bg-gray-100"
-                            />
+                            {/*<label htmlFor="insuranceEndDate" className="block text-sm font-medium text-gray-700">*/}
+                            {/*    {dictionary.RCE.ADF.InsuranceEndDate}*/}
+                            {/*</label>*/}
+                            {/*<input*/}
+                            {/*    type="date"*/}
+                            {/*    id="insuranceEndDate"*/}
+                            {/*    value={insuranceEndDate}*/}
+                            {/*    disabled*/}
+                            {/*    className="mt-2 block w-full px-4 py-2 text-sm border border-gray-300 rounded-md shadow-sm bg-gray-100"*/}
+                            {/*/>*/}
                         </div>
                     </div>
 

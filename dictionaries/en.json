@@ -85,82 +85,183 @@
 
   "RCA": {
     "SP": {
-      "SelectedParameters": "Selected parameters",
+      "SelectedParameters": "Selected Parameters",
       "Car": "Car",
-      "BonusMalusClass": "Bonus-malus class",
+      "BonusMalusClass": "Bonus-Malus Class",
       "Client": "Client",
       "Insurer": "Insurer",
-      "PolicyCost": "Policy cost",
-      "OwnershipType": "Ownership type",
-      "InsuranceStartDate": "Insurance start date",
-      "Email": "Email address",
-      "GreenCardZone": "Green card zone",
-      "TermInsurance": "Insurance term"
+      "PolicyCost": "Policy Cost",
+      "OwnershipType": "Ownership Type",
+      "InsuranceStartDate": "Insurance Start Date",
+      "Email": "Email",
+      "GreenCardZone": "Green Card Zone",
+      "TermInsurance": "Insurance Term"
     },
-
     "IRF": {
-      "Osago": "OSAGO insurance issuance",
-      "RCAForm": "RCA insurance calculation",
+      "Title": "OSAGO Insurance Processing",
+      "RCAForm": "OSAGO Calculation (RCA)",
       "IDNP": "IDNP/IDNO",
       "IDNPPlaceholder": "Enter IDNP/IDNO",
-      "InputTehTitle": "Vehicle registration number",
-      "InputTehPlaceholder": "Vehicle registration number",
-      "ErrorSelectOperatingMode": "Please select the vehicle type",
-      "ErrorIDNX13": "IDNP/IDNO number must be at least 13 digits",
-      "ErrorTehPass": "Vehicle registration number must be at least 9 digits",
-      "OperatingModesLabel": "Vehicle type",
+      "InputTehTitle": "Vehicle Registration Number",
+      "InputTehPlaceholder": "Enter vehicle registration number",
+      "ErrorSelectOperatingMode": "Please select vehicle type",
+      "ErrorIDNX13": "IDNP/IDNO must be at least 13 digits long",
+      "ErrorTehPass": "Registration number must be at least 9 digits long",
+      "OperatingModesLabel": "Vehicle Type",
       "SelectOperatingMode": "Select vehicle type",
-      "OperatingMode1": "Regular",
+      "OperatingMode1": "Standard",
       "OperatingMode2": "Minibus",
-      "OperatingMode3": "Intercity bus",
+      "OperatingMode3": "Intercity Bus",
       "OperatingMode4": "Taxi",
-      "OperatingMode5": "Car rental",
+      "OperatingMode5": "Car Rental",
       "Acceptance": "Consent to data processing",
-      "PolicePrivacy": "Privacy policy",
+      "PolicePrivacy": "Privacy Policy",
       "ButtonCalculate": "Calculate"
     },
     "IL": {
-      "SelectInsurer": "Select insurance company",
-      "CoverageArea": "Coverage area",
-      "PropertyLimit": "Property limit",
-      "HealthLimitEvent": "Health limit (event)",
-      "InstantContractEmail": "Instant contract receipt by email",
+      "SelectInsurer": "Select an insurance company",
+      "CoverageArea": "Coverage Area",
+      "PropertyLimit": "Property Limit",
+      "HealthLimitEvent": "Health Limit (event)",
+      "InstantContractEmail": "Instant policy delivery via email",
       "OnlineRegistration": "Online policy registration in RCAData",
       "Cost": "Cost:",
       "Available": "Select",
       "Unavailable": "Unavailable"
     },
     "ADF": {
-      "Title": "Additional data",
+      "Title": "Additional Data",
       "Birthday": "Enter your date of birth",
-      "InsuranceStartDate": "Insurance start date",
-      "InsuranceEndDate": "Insurance end date",
-      "ProceedToPayment": "Proceed to payment",
+      "InsuranceStartDate": "Insurance Start Date",
+      "InsuranceEndDate": "Insurance End Date",
+      "ProceedToPayment": "Proceed to Payment",
       "PossessionBase": {
-        "Title": "Ownership type",
+        "Title": "Ownership Type",
         "Select": "Select ownership type",
         "Property": "Property",
         "Lease": "Lease",
         "Leasing": "Leasing",
-        "PowerOfAttorney": "Power of attorney"
+        "PowerOfAttorney": "Power of Attorney"
       }
     },
     "CF": {
-      "Title": "Contact information",
-      "add": "Please enter your email address so we can send you the document.",
-      "BonusMalusClass": "Bonus-malus class",
+      "Title": "Contact Information",
+      "add": "Please provide your email so we can send you the document.",
+      "FieldTitle": "Email",
+      "Field": "Enter your email",
+      "BonusMalusClass": "Bonus-Malus Class",
       "Client": "Client",
       "Insurer": "Insurer",
-      "PolicyCost": "Policy cost",
-      "OwnershipType": "Ownership type",
-      "InsuranceStartDate": "Insurance start date",
-      "GreenCardZone": "Green card zone",
-      "TermInsurance": "Insurance term"
+      "PolicyCost": "Policy Cost",
+      "OwnershipType": "Ownership Type",
+      "InsuranceStartDate": "Insurance Start Date",
+      "GreenCardZone": "Green Card Zone",
+      "TermInsurance": "Insurance Term"
+    },
+    "QR": {
+      "Scan": "Scan and Pay",
+      "EndScan": "Scan this QR code using your phone camera or financial app to complete the payment"
     },
     "RCASaver": {
       "Ready": "Document is ready!",
-      "open_or_download": "The documents are ready for download. You can download them in PDF format by clicking the button below or open them in a new tab.",
-      "doc": "/document.png"
+      "open_or_download": "The document is ready for download. You can download it as a PDF by clicking the button below or open it in a new tab.",
+      "doc": "/document.png",
+      "open_doc": "Open Document",
+      "send_email": "Send to Email",
+      "enter_email": "Enter email",
+      "send": "Send",
+      "sending": "Sending..."
+    }
+  },
+  "RCE": {
+    "SP": {
+      "SelectedParameters": "Selected Parameters",
+      "Car": "Car",
+      "BonusMalusClass": "Bonus-Malus Class",
+      "Client": "Client",
+      "Insurer": "Insurer",
+      "PolicyCost": "Policy Cost",
+      "OwnershipType": "Ownership Type",
+      "InsuranceStartDate": "Insurance Start Date",
+      "Email": "Email",
+      "GreenCardZone": "Green Card Zone",
+      "TermInsurance": "Term of Insurance"
+    },
+    "GCRF": {
+      "Title": "Get a Green Card",
+      "InputTehTitle": "Vehicle Registration Number",
+      "IDNPPlaceholder": "Enter IDNP/IDNO",
+      "InputTehPlaceholder": "Vehicle Registration Number",
+      "ErrorSelectOperatingMode": "Please select the vehicle type",
+      "ErrorIDNX13": "IDNP/IDNO must be at least 13 digits",
+      "ErrorTehPass": "The registration number must be at least 9 digits",
+      "OperatingModesLabel": "Vehicle Type",
+      "SelectOperatingMode": "Select vehicle type",
+      "OperatingMode1": "Standard",
+      "OperatingMode2": "Minibus",
+      "OperatingMode3": "Intercity Bus",
+      "OperatingMode4": "Taxi",
+      "OperatingMode5": "Car Rental",
+      "Acceptance": "Consent to Data Processing",
+      "PolicePrivacy": "Privacy Policy",
+      "ButtonCalculate": "Calculate",
+      "GreenCardZone": "Green card zone",
+      "TermInsurance": "Term insurance"
+    },
+    "ILGC": {
+      "SelectInsurer": "Select Insurance Company",
+      "Cost": "Cost:",
+      "Available": "Select",
+      "Unavailable": "Unavailable",
+      "CoverageArea": "Country-Specific Coverage Limits",
+      "email": "Insurance Policy via Email",
+      "online": "Online Policy Registration in RCAData"
+    },
+    "ADF": {
+      "Title": "Additional Data",
+      "Birthday": "Enter your date of birth",
+      "InsuranceStartDate": "Insurance Start Date",
+      "InsuranceEndDate": "Insurance End Date",
+      "ProceedToPayment": "Proceed to Payment",
+      "PossessionBase": {
+        "Title": "Ownership Type",
+        "Select": "Select Ownership Type",
+        "Property": "Ownership",
+        "Lease": "Lease",
+        "Leasing": "Leasing",
+        "PowerOfAttorney": "Power of Attorney"
+      }
+    },
+    "RCESaver": {
+      "Ready": "Document is Ready!",
+      "open_or_download": "The document is ready for download. You can download it in PDF format by clicking the button below or open it in a new tab.",
+      "doc": "/document.png",
+      "open_doc": "Open Document",
+      "send_email": "Send to Email",
+      "enter_email": "Enter email",
+      "send": "Send",
+      "sending": "Sending..."
+    }
+  },
+  "GreenCard": {
+    "zones": {
+      "z1": "Ucraine",
+      "z3": "Europa"
+    },
+    "TermInsurance": {
+      "D15": "15 days",
+      "M1": "1 month",
+      "M2": "2 months",
+      "M3": "3 months",
+      "M4": "4 months",
+      "M5": "5 months",
+      "M6": "6 months",
+      "M7": "7 months",
+      "M8": "8 months",
+      "M9": "9 months",
+      "M10": "10 months",
+      "M11": "11 months",
+      "M12": "12 months"
     }
   },
   "Footer":{

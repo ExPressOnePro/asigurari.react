@@ -85,81 +85,161 @@
   "RCA": {
     "SP": {
       "SelectedParameters": "Parametri selectați",
-      "Car": "Mașină",
-      "BonusMalusClass": "Clasa bonus-malus",
+      "Car": "Automobil",
+      "BonusMalusClass": "Clasa Bonus-Malus",
       "Client": "Client",
-      "Insurer": "Asigurator",
+      "Insurer": "Asigurător",
       "PolicyCost": "Costul poliței",
-      "OwnershipType": "Tipul de proprietate",
+      "OwnershipType": "Tip de proprietate",
       "InsuranceStartDate": "Data începerii asigurării",
-      "Email": "Adresă de email",
-      "GreenCardZone": "Zona cardului verde",
+      "Email": "Email",
+      "GreenCardZone": "Zona Cartea Verde",
       "TermInsurance": "Durata asigurării"
     },
-
     "IRF": {
-      "Osago": "Emitere asigurare OSAGO",
-      "RCAForm": "Calcul asigurare RCA",
+      "Title": "Procesarea asigurării RCA",
+      "RCAForm": "Calcul RCA",
       "IDNP": "IDNP/IDNO",
       "IDNPPlaceholder": "Introduceți IDNP/IDNO",
       "InputTehTitle": "Numărul certificatului de înmatriculare",
-      "InputTehPlaceholder": "Numărul certificatului de înmatriculare al vehiculului",
+      "InputTehPlaceholder": "Introduceți numărul certificatului auto",
       "ErrorSelectOperatingMode": "Vă rugăm să selectați tipul vehiculului",
-      "ErrorIDNX13": "Numărul IDNP/IDNO trebuie să aibă cel puțin 13 caractere",
-      "ErrorTehPass": "Numărul certificatului de înmatriculare trebuie să aibă cel puțin 9 caractere",
+      "ErrorIDNX13": "IDNP/IDNO trebuie să conțină cel puțin 13 cifre",
+      "ErrorTehPass": "Numărul certificatului trebuie să conțină cel puțin 9 cifre",
       "OperatingModesLabel": "Tipul vehiculului",
       "SelectOperatingMode": "Selectați tipul vehiculului",
-      "OperatingMode1": "Obișnuit",
+      "OperatingMode1": "Standard",
       "OperatingMode2": "Microbuz",
-      "OperatingMode3": "Autobuz de interurban",
+      "OperatingMode3": "Autobuz interurban",
       "OperatingMode4": "Taxi",
       "OperatingMode5": "Închiriere auto",
-      "Acceptance": "Acceptul pentru prelucrarea datelor",
+      "Acceptance": "Consimțământ pentru prelucrarea datelor",
       "PolicePrivacy": "Politica de confidențialitate",
       "ButtonCalculate": "Calculează"
     },
     "IL": {
       "SelectInsurer": "Selectați compania de asigurări",
       "CoverageArea": "Zona de acoperire",
-      "PropertyLimit": "Limita pentru proprietăți",
-      "HealthLimitEvent": "Limita pentru sănătate (eveniment)",
-      "InstantContractEmail": "Obțineți instantaneu contractul pe email",
+      "PropertyLimit": "Limită pentru bunuri",
+      "HealthLimitEvent": "Limită pentru sănătate (eveniment)",
+      "InstantContractEmail": "Livrare instantanee a poliței prin email",
       "OnlineRegistration": "Înregistrare online a poliței în RCAData",
       "Cost": "Cost:",
-      "Available": "Selectați",
+      "Available": "Selectează",
       "Unavailable": "Indisponibil"
     },
     "ADF": {
       "Title": "Date suplimentare",
       "Birthday": "Introduceți data nașterii",
       "InsuranceStartDate": "Data începerii asigurării",
-      "InsuranceEndDate": "Data sfârșitului asigurării",
+      "InsuranceEndDate": "Data expirării asigurării",
       "ProceedToPayment": "Continuați la plată",
       "PossessionBase": {
-        "Title": "Tipul de proprietate",
+        "Title": "Tip de proprietate",
         "Select": "Selectați tipul de proprietate",
         "Property": "Proprietate",
-        "Lease": "Chirie",
-        "Leasing": "Leasing",
+        "Lease": "Leasing",
+        "Leasing": "Închiriere",
         "PowerOfAttorney": "Împuternicire"
       }
     },
     "CF": {
       "Title": "Informații de contact",
       "add": "Vă rugăm să introduceți adresa de email pentru a vă trimite documentul.",
+      "FieldTitle": "Email",
+      "Field": "Introduceți adresa de email",
+      "BonusMalusClass": "Clasa Bonus-Malus",
+      "Client": "Client",
+      "Insurer": "Asigurător",
+      "PolicyCost": "Costul poliței",
+      "OwnershipType": "Tip de proprietate",
+      "InsuranceStartDate": "Data începerii asigurării",
+      "GreenCardZone": "Zona Cartea Verde",
+      "TermInsurance": "Durata asigurării"
+    },
+    "QR": {
+      "Scan": "Scanează și plătește",
+      "EndScan": "Scanați acest cod QR cu camera telefonului sau cu o aplicație financiară pentru a finaliza plata"
+    },
+    "RCASaver": {
+      "Ready": "Documentul este gata!",
+      "open_or_download": "Documentul este pregătit pentru descărcare. Îl puteți descărca în format PDF făcând clic pe butonul de mai jos sau îl puteți deschide într-o filă nouă.",
+      "doc": "/document.png",
+      "open_doc": "Deschide documentul",
+      "send_email": "Trimite prin e-mail",
+      "enter_email": "Introduceți adresa de email",
+      "send": "Trimite",
+      "sending": "Se trimite..."
+    }
+  },
+  "RCE": {
+    "SP": {
+      "SelectedParameters": "Parametri selectați",
+      "Car": "Automobil",
       "BonusMalusClass": "Clasa bonus-malus",
       "Client": "Client",
       "Insurer": "Asigurator",
       "PolicyCost": "Costul poliței",
-      "OwnershipType": "Tipul de proprietate",
+      "OwnershipType": "Tip de proprietate",
       "InsuranceStartDate": "Data începerii asigurării",
-      "GreenCardZone": "Zona cardului verde",
+      "Email": "Email",
+      "GreenCardZone": "Zonă card verde",
       "TermInsurance": "Durata asigurării"
     },
-    "RCASaver": {
+    "GCRF": {
+      "Title": "Emiteți un card verde",
+      "InputTehTitle": "Numărul certificatului de înmatriculare",
+      "IDNPPlaceholder": "Introduceți IDNP/IDNO",
+      "InputTehPlaceholder": "Numărul certificatului auto",
+      "ErrorSelectOperatingMode": "Vă rugăm să selectați tipul vehiculului",
+      "ErrorIDNX13": "Numărul IDNP/IDNO trebuie să conțină cel puțin 13 cifre",
+      "ErrorTehPass": "Numărul certificatului trebuie să conțină cel puțin 9 cifre",
+      "OperatingModesLabel": "Tip vehicul",
+      "SelectOperatingMode": "Selectați tipul vehiculului",
+      "OperatingMode1": "Obișnuit",
+      "OperatingMode2": "Microbuz",
+      "OperatingMode3": "Autobuz interurban",
+      "OperatingMode4": "Taxi",
+      "OperatingMode5": "Închiriere auto",
+      "Acceptance": "Consimțământ pentru prelucrarea datelor",
+      "PolicePrivacy": "Politica de confidențialitate",
+      "ButtonCalculate": "Calculează",
+      "GreenCardZone": "Zonă card verde",
+      "TermInsurance": "Durata asigurării"
+    },
+    "ILGC": {
+      "SelectInsurer": "Selectați compania de asigurări",
+      "Cost": "Cost:",
+      "Available": "Selectează",
+      "Unavailable": "Indisponibil",
+      "CoverageArea": "Limite conform normelor țării",
+      "email": "Polița va fi trimisă prin email",
+      "online": "Înregistrare online a poliței în RCAData"
+    },
+    "ADF": {
+      "Title": "Date suplimentare",
+      "Birthday": "Introduceți data nașterii",
+      "InsuranceStartDate": "Data începerii asigurării",
+      "InsuranceEndDate": "Data încheierii asigurării",
+      "ProceedToPayment": "Continuă către plată",
+      "PossessionBase": {
+        "Title": "Tip de proprietate",
+        "Select": "Selectați tipul de proprietate",
+        "Property": "Proprietate",
+        "Lease": "Închiriere",
+        "Leasing": "Leasing",
+        "PowerOfAttorney": "Împuternicire"
+      }
+    },
+    "RCESaver": {
       "Ready": "Documentul este gata!",
-      "open_or_download": "Puteți deschide documentul pentru vizualizare sau să-l descărcați în format PDF.",
-      "doc": "/document.png"
+      "open_or_download": "Documentul este gata pentru descărcare. Îl puteți descărca în format PDF apăsând butonul de mai jos sau îl puteți deschide într-o filă nouă.",
+      "doc": "/document.png",
+      "open_doc": "Deschide documentul",
+      "send_email": "Trimite prin email",
+      "enter_email": "Introduceți adresa de email",
+      "send": "Trimite",
+      "sending": "Se trimite..."
     }
   },
   "Footer":{
@@ -167,5 +247,29 @@
   },
   "SaveRCA": {
     "doc": "/doc3.png"
+  },
+  "GreenCard": {
+    "zones": {
+      "z1": "Ucraina",
+      "z3": "Toate țările din sistemul Carte Verde"
+    },
+    "TermInsurance": {
+      "D15": "15 zile",
+      "M1": "1 lună",
+      "M2": "2 luni",
+      "M3": "3 luni",
+      "M4": "4 luni",
+      "M5": "5 luni",
+      "M6": "6 luni",
+      "M7": "7 luni",
+      "M8": "8 luni",
+      "M9": "9 luni",
+      "M10": "10 luni",
+      "M11": "11 luni",
+      "M12": "12 luni"
+    }
+  },
+  "Footer":{
+    "Help": "Ajutor"
   }
 }

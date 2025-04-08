@@ -26,10 +26,9 @@ export default function GreenCardController() {
             {step === 1 && <GreenCardRequestForm onStepChange={handleStepChange} />}
             {step === 2 && <InsurerListGreenCard onStepChange={handleStepChange}/>}
             {step === 3 && <AdditionalGreenCardDataForm onStepChange={handleStepChange}/>}
-            {step === 4 && <ContactForm onStepChange={handleStepChange}/>}
-            {step === 5 && <QRCodeGreenCardRequest onStepChange={handleStepChange} step={step}/>}
-            {step === 6 && <QRCodeGreenCardImage onStepChange={handleStepChange}/>}
-            {step === 7 && <RCESaver />}
+            {step === 4 && <QRCodeGreenCardRequest onStepChange={handleStepChange} step={step}/>}
+            {step === 5 && <QRCodeGreenCardImage onStepChange={handleStepChange}/>}
+            {step === 6 && <RCESaver />}
         </div>
     );
 }

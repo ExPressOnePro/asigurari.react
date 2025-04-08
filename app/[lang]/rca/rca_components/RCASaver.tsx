@@ -69,7 +69,7 @@ const RCASaver: React.FC = () => {
                     }
                     setDocumentId(result.DocumentId);
                     setDocumentUrl(result.url);
-                    await axiosInstance.post(`/rca/${result.DocumentId}/send-file/`, requestSendFile);
+                    // await axiosInstance.post(`/rca/${result.DocumentId}/send-file/`, requestSendFile);
                 }
                 console.log("Ответ от API:", response.data);
             } catch (error: any) {
@@ -81,7 +81,7 @@ const RCASaver: React.FC = () => {
         };
 
         saveRCAData();
-        dispatch(clearData());
+        // dispatch(clearData());
         return () => {
             console.log("Компонент размонтирован");
             isMounted.current = true;
@@ -107,7 +107,7 @@ const RCASaver: React.FC = () => {
             const file = response.data;
             const fileURL = URL.createObjectURL(file);
             setFileUrl(fileURL);
-            dispatch(clearData());
+            // dispatch(clearData());
         } catch (error: any) {
             setError(error?.response?.data?.message || "Ошибка при загрузке файла.");
             console.error("Ошибка при загрузке файла:", error);

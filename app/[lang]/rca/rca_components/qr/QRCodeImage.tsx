@@ -4,12 +4,14 @@ import { RootState } from "@/store/store.ts";
 import axiosInstance from "@/lib/axiosInstance.ts";
 import { setQrCodeData } from "@/store/insuranceFormSlice.ts";
 import SpinnerBlue from "@/app/[lang]/components/SpinnerBlue.tsx";
+import {useLocalization} from "@/lib/LocalizationProvider.tsx";
 
 interface QRCodeRequestProps {
     onStepChange: (step: number) => void;
 }
 
 const QRCodeImage: React.FC<QRCodeRequestProps> = React.memo(({ onStepChange }) => {
+    const { dictionary } = useLocalization();
     const dispatch = useDispatch();
     const qrCodeDate = useSelector((state: RootState) => state.insuranceForm.qrCodeData);
 
@@ -43,7 +45,7 @@ const QRCodeImage: React.FC<QRCodeRequestProps> = React.memo(({ onStepChange }) 
                             url: response.data.url,
                             status: response.data.status,
                         }));
-                        onStepChange(7);
+                        onStepChange(6);
                         return;
                     }
                 }
@@ -66,31 +68,34 @@ const QRCodeImage: React.FC<QRCodeRequestProps> = React.memo(({ onStepChange }) 
     }, [qrCodeDate.uuid, currentStatus, dispatch]);
 
     return (
-        <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-            <div className="w-full max-w-3xl p-6">
-                <div className="mt-4 text-center">
-                    <a href={qrCodeDate?.url || '#'} target="_blank" rel="noopener noreferrer">
-                        <img
-                            src={qrCodeDate?.qr_as_image}
-                            alt="QR Код"
-                            className="w-2/3 h-2/3 border border-gray-300 rounded-3xl cursor-pointer mx-auto"
-                        />
-                    </a>
-                    <h1 className="text-3xl sm:text-2xl font-extrabold text-ce text-gray-600 mt-6">Отсканируй и Оплати</h1>
-                    <p className="mt-4 text-center font-bold">
-                        отсканируй этот QR-код с помощью камеры телефона или финансового приложения и заверши платеж
+
+    <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-3xl p-6 border border-gray-300 rounded-3xl shadow-lg bg-white">
+            <div className="mt-4 text-center">
+                <a href={qrCodeDate?.url || '#'} target="_blank" rel="noopener noreferrer">
+                    <img
+                        src={qrCodeDate?.qr_as_image}
+                        alt="QR Код"
+                        className="w-2/3 h-2/3 border border-gray-300 rounded-3xl cursor-pointer mx-auto"
+                    />
+                </a>
+                <h1 className="text-3xl sm:text-2xl font-extrabold text-gray-600 mt-6">
+                    {dictionary.RCA.QR.Scan}
+                </h1>
+                <p className="mt-4 text-center font-bold">
+                    {dictionary.RCA.QR.EndScan}
+                </p>
+            </div>
+            <div className="mt-4 text-center">
+                {currentStatus?.status !== "Paid" && <SpinnerBlue/>}
+                {currentStatus?.status && (
+                    <p className={`text-sm ${currentStatus.status === "Paid" ? "text-green-500" : "text-gray-500"}`}>
+                        {currentStatus.status === "Paid" ? "Оплачено" : `Статус: ${currentStatus.status}`}
                     </p>
-                </div>
-                <div className="mt-4 text-center">
-                    {currentStatus?.status !== "Paid" && <SpinnerBlue />}
-                    {currentStatus?.status && (
-                        <p className={`text-sm ${currentStatus.status === "Paid" ? "text-green-500" : "text-gray-500"}`}>
-                            {currentStatus.status === "Paid" ? "Оплачено" : `Статус: ${currentStatus.status}`}
-                        </p>
-                    )}
-                </div>
+                )}
             </div>
         </div>
+    </div>
     );
 });
 

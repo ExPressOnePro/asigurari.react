@@ -157,7 +157,7 @@ const GreenCardRequestForm = ({ onStepChange }: any) => {
                             <div className="flex-1">
                                 <SelectInputWithTooltip
                                     id="greenCardZone"
-                                    label="Зона Зеленой Карты" //перевод
+                                    label={dictionary.RCE.GCRF.GreenCardZone}
                                     value={GreenCardZone}
                                     onChange={(e) => setGreenCardZone(e.target.value as GreenCardZones)}
                                     options={GreenCardZoneOptions(dictionary)}
@@ -170,7 +170,7 @@ const GreenCardRequestForm = ({ onStepChange }: any) => {
                             <div className="flex-1">
                                 <SelectInputWithTooltip
                                     id="termInsurance"
-                                    label="Срок страхования" //перевод
+                                    label={dictionary.RCE.GCRF.TermInsurance}
                                     value={termInsurance}
                                     onChange={(e) => setTermInsurance(e.target.value as TermInsurance)}
                                     options={TermInsuranceOptions(dictionary)}
@@ -186,7 +186,7 @@ const GreenCardRequestForm = ({ onStepChange }: any) => {
                             label="IDNP"
                             value={IDNX}
                             onChange={(e) => setIDNX(e.target.value)}
-                            placeholder="Введите IDNP"
+                            placeholder={dictionary?.RCA?.IRF?.IDNPPlaceholder}
                             tooltipImage={getStaticUrl("public/idnp.webp")}
                             maxLength={13}
                             minLength={13}
@@ -196,10 +196,10 @@ const GreenCardRequestForm = ({ onStepChange }: any) => {
                         {/* Vehicle Registration Certificate Number Input */}
                         <TextInputWithTooltip
                             id="vehicleRegCertificateNumber"
-                            label="Номер техпаспорта"
+                            label={dictionary?.RCA?.IRF?.InputTehTitle}
                             value={VehicleRegistrationCertificateNumber}
                             onChange={(e) => setVehicleRegistrationCertificateNumber(e.target.value)}
-                            placeholder="Введите номер техпаспорта"
+                            placeholder={dictionary?.RCA?.IRF?.InputTehPlaceholder}
                             tooltipImage={getStaticUrl("public/exemplu-certificat-inmatriculare.webp")}
                             maxLength={9}
                             minLength={9}

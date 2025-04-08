@@ -14,6 +14,7 @@ import RCASaver from "@/app/[lang]/rca/rca_components/RCASaver.tsx";
 import {useEffect, useRef} from "react";
 import {useLocalization} from "@/lib/LocalizationProvider.tsx";
 import ContactForm from "@/app/[lang]/rca/rca_components/ContactForm/ContactForm.tsx";
+import RcaFinal from "@/app/[lang]/rca/RcaFinal.tsx";
 
 export default function RCAController() {
     const dispatch = useDispatch();
@@ -33,15 +34,17 @@ export default function RCAController() {
 
     return (
         <div>
+            {/*{step === 1 && <RcaFinal/>}*/}
             {step > 1 && step < 7 && <SelectedParameters step={step}/>}
             <div ref={stepRef}>
                 {step === 1 && <InsuranceRequestForm onStepChange={handleStepChange}/>}
                 {step === 2 && <InsurerList onStepChange={handleStepChange}/>}
                 {step === 3 && <AdditionalDataForm onStepChange={handleStepChange}/>}
-                {step === 4 && <ContactForm onStepChange={handleStepChange}/>}
-                {step === 5 && <QRCodeRequest onStepChange={handleStepChange} step={step}/>}
-                {step === 6 && <QRCodeImage onStepChange={handleStepChange}/>}
-                {step === 7 && <RCASaver/>}
+                {/*{step === 4 && <ContactForm onStepChange={handleStepChange}/>}*/}
+                {step === 4 && <QRCodeRequest onStepChange={handleStepChange} step={step}/>}
+                {step === 5 && <QRCodeImage onStepChange={handleStepChange}/>}
+                {step === 6 && <RcaFinal/>}
+                {/*{step === 6 && <RCASaver/>}*/}
             </div>
         </div>
     );
