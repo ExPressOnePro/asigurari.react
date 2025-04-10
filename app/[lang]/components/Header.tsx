@@ -19,9 +19,9 @@ export default function Header({lang}: { lang: string }) {
                         className="text-xl font-bold text-blue-700"
                     >
                         <img
-                            src={getStaticUrl('public/Logo.png')}
+                            src={getStaticUrl('public/logo.svg')}
                             alt="Logo"
-                            className="inline-block h-auto w-auto max-h-12 max-w-full mr-2"
+                            className="inline-block h-auto w-auto max-h-20 max-w-full mr-2"
                         />
                     </Link>
                     {/* Передаем управление мобильным меню в клиентский компонент */}

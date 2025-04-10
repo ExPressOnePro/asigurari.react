@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import { setSelectedInsurer } from "@/store/greenCardFormSlice.ts";
 import {useLocalization} from "@/lib/LocalizationProvider.tsx";
 import {RootState} from "@/store/store.ts";
+import {getStaticUrl} from "@/app/[lang]/components/Footer.tsx";
 
 // Интерфейс для страховщика
 interface Insurer {
@@ -80,7 +81,7 @@ const InsurerList: React.FC<InsurerListProps> = ({ onStepChange }) => {
                         <div className="p-6 flex items-center justify-between">
                             <p className="text-sm text-gray-600 font-bold">{insurer.Name}</p>
                             <img
-                                src={insurer.logo || "/default-logo.png"}
+                                src={insurer.logo || getStaticUrl('public/default-logo.png')}
                                 alt={insurer.Name}
                                 loading="lazy"
                                 className={`h-10 object-contain ${!insurer.is_active && "grayscale"}`}

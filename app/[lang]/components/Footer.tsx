@@ -6,14 +6,19 @@ export default function Footer({dictionary}: { dictionary: Record<string, any> }
     return (
         <footer className="bg-gradient-to-r from-gray-200 to-orange-300 py-12">
             <div className="container mx-auto px-6 md:px-12">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
-                    {/* Logo and Company Info */}
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-left">
+
+                    {/* Logo */}
                     <div>
                         <img
-                            className="filter grayscale w-32 mx-auto md:mx-0 mb-4"
-                            src={getStaticUrl('public/Logo.png')}
+                            className="mx-auto md:mx-0 mb-4 h-auto w-auto max-h-20"
+                            src={getStaticUrl('public/logo.svg')}
                             alt="Logo"
                         />
+                    </div>
+
+                    {/* Company Info */}
+                    <div>
                         <p className="text-sm leading-6">
                             BROKER DE ASIGURARE-REASIGURARE TOPASIG S.R.L.<br/>
                             mun. Chişinău, sec. Buiucani,<br/>

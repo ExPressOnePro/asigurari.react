@@ -242,9 +242,6 @@
       "sending": "Se trimite..."
     }
   },
-  "Footer":{
-    "Help": "Ajuta"
-  },
   "SaveRCA": {
     "doc": "/doc3.png"
   },
@@ -269,7 +266,8 @@
       "M12": "12 luni"
     }
   },
-  "Footer":{
-    "Help": "Ajutor"
+  "Footer": {
+    "Help": "Ajutor",
+    "Products": "Produse"
   }
 }

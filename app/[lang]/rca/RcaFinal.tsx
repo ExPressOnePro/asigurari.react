@@ -4,6 +4,7 @@ import { RootState } from "@/store/store";
 import axiosInstance from "@/lib/axiosInstance";
 import SpinnerBlue from "@/app/[lang]/components/SpinnerBlue";
 import { useLocalization } from "@/lib/LocalizationProvider.tsx";
+import {getStaticUrl} from "@/app/[lang]/components/Footer.tsx";
 
 const RCASaver: React.FC = () => {
     const { dictionary } = useLocalization();
@@ -128,7 +129,7 @@ const RCASaver: React.FC = () => {
                             {dictionary?.RCA?.RCASaver?.open_or_download}
                         </p>
 
-                        <img src={dictionary.RCA?.RCASaver?.doc} alt="Превью документа" className="mt-4 w-40 h-auto" />
+                        <img src={getStaticUrl("public/document.png")} alt="Превью документа" className="mt-4 w-40 h-auto" />
 
                         <div className="flex flex-col sm:flex-row gap-4 mt-4">
                             <a

@@ -39,21 +39,21 @@ export default function Home() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                         {/* Используем компонент Card для каждой карточки */}
                         <Card
-                            image={dictionary.page.cards.rca.picture}
+                            image={getStaticUrl("public/rca_card.png")}
                             title={dictionary.page.cards.rca.title}
                             description={dictionary.page.cards.rca.description}
                             buttonText={dictionary.page.cards.rca.button}
                             link="/rca"
                         />
                         <Card
-                            image={dictionary.page.cards.greencard.picture}
+                            image={getStaticUrl("public/green_card_card.png")}
                             title={dictionary.page.cards.greencard.title}
                             description={dictionary.page.cards.greencard.description}
                             buttonText={dictionary.page.cards.greencard.button}
                             link="/greencard"
                         />
                         <Card
-                            image={dictionary.page.cards.medical.picture}
+                            image={getStaticUrl("public/medical_card.png")}
                             title={dictionary.page.cards.medical.title}
                             description={dictionary.page.cards.medical.description}
                             buttonText={dictionary.page.cards.medical.button}
