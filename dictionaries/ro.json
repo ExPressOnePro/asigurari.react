@@ -18,55 +18,7 @@
         "description": "Încheiați polița RCA direct pe site-ul nostru. Oferim prețuri accesibile și un serviciu convenabil.",
         "longDescription": "RCA, sau Asigurarea Obligatorie de Răspundere Civilă Auto, este o formă de protecție necesară pentru conducerea unui vehicul în Moldova. Această asigurare oferă protecție persoanelor care au suferit daune într-un accident din vina altcuiva. În cazul unui incident, acoperă costurile pentru tratament, reparația vehiculului și alte pierderi. RCA este o cerință obligatorie pentru toți șoferii. Înainte de a conduce un vehicul, asigurați-vă că polița este activă. Nerespectarea acestei cerințe poate duce la amenzi semnificative. Alegerea unei companii de asigurări trebuie să se bazeze nu doar pe prețul poliței. Factori cheie includ reputația companiei, calitatea serviciilor și rapiditatea plăților. Alegerea corectă a companiei de asigurări poate preveni probleme suplimentare în caz de accident și poate garanta sprijinul și compensațiile necesare pentru dumneavoastră și pentru persoanele afectate.",
         "button": "Mergi la RCA",
-        "questionTitle": "Întrebări frecvente",
-        "faq": {
-          "items": [
-            {
-              "question": "Ce este RCA?",
-              "answer": "RCA este asigurarea obligatorie de răspundere civilă auto care acoperă costurile în cazul accidentelor cauzate de dumneavoastră."
-            },
-            {
-              "question": "Cum funcționează RCA?",
-              "answer": "RCA protejează șoferii împotriva pierderilor financiare în cazul accidentelor pe care le-au provocat. În cazul unui accident, compania de asigurări compensează daunele părții vătămate."
-            },
-            {
-              "question": "Cum se încheie RCA?",
-              "answer": "Polița RCA poate fi încheiată online prin site-ul companiei de asigurări sau la sediu, prin furnizarea documentelor necesare."
-            },
-            {
-              "question": "Cum pot verifica autenticitatea poliței?",
-              "answer": "Autenticitatea poliței poate fi verificată pe pagina web BNM (https://rca.bnm.md/)."
-            },
-            {
-              "question": "Este valabilă polița RCA în format electronic?",
-              "answer": "Da, în Moldova, polițele RCA în format electronic sunt valabile și recunoscute. Conform legislației în vigoare, polița poate fi emisă și trimisă electronic."
-            },
-            {
-              "question": "Ce trebuie să fac dacă modelul mașinii mele nu apare în calcul?",
-              "answer": "Calculul și încheierea poliței pe baza certificatului de înmatriculare sau a numărului de înmatriculare sunt posibile doar pentru vehiculele înregistrate în Republica Moldova. Dacă vehiculul dumneavoastră nu poate fi identificat sau prețul nu este stabilit, vă rugăm să contactați suportul nostru la info@asig.md sau la telefonul +373 61 000 179."
-            },
-            {
-              "question": "Dacă persoana asigurată este o companie, cum pot obține factura fiscală?",
-              "answer": "Factura fiscală va fi emisă prin efactura.sfs.md. Dacă firma dumneavoastră nu este înregistrată pentru facturare electronică, factura va fi trimisă prin e-mail cu semnătură electronică."
-            },
-            {
-              "question": "Ce acoperă RCA?",
-              "answer": "Asigurarea RCA este valabilă pe teritoriul Republicii Moldova. Acoperă daunele cauzate în urma accidentelor rutiere pe teritoriul țării. Riscurile asigurate includ prejudiciile aduse terților, cum ar fi vătămările corporale sau decesul, deteriorarea sau distrugerea bunurilor."
-            },
-            {
-              "question": "Care sunt limitele maxime de despăgubire?",
-              "answer": "Limitele maxime de despăgubire sunt: până la 100.000 euro pentru deteriorarea sau distrugerea bunurilor; până la 100.000 euro per persoană pentru vătămări corporale sau deces, dar nu mai mult de 500.000 euro indiferent de numărul victimelor; până la 15.000 MDL pentru daune acoperite prin procedura de constatare amiabilă; până la 5.000 euro pentru daune morale (doar în caz de invaliditate sau deces), dar nu mai mult de 10.000 euro indiferent de numărul victimelor."
-            },
-            {
-              "question": "Ce trebuie să fac în caz de accident?",
-              "answer": "În cazul unui accident minor (evaluat la maximum 15.000 MDL), se poate alege soluționarea amiabilă fără implicarea poliției, așa-numita 'constatare amiabilă'. Această opțiune este posibilă dacă sunt implicate două vehicule, ambele având documentele valabile (asigurare RCA, inspecția tehnică). Dacă nu este posibilă soluționarea amiabilă, trebuie întocmit un proces-verbal de către poliție și prezentat companiei de asigurări."
-            },
-            {
-              "question": "Ce nu acoperă RCA?",
-              "answer": "RCA nu acoperă: daunele cauzate bunurilor asiguraților, prejudiciile ce depășesc limitele maxime stabilite de lege, pierderile suferite la locul de muncă cu ajutorul echipamentelor, accidentele care au loc în timpul încărcării și descărcării mărfurilor etc."
-            }
-          ]
-        }
+        "questionTitle": "Întrebări frecvente"
       },
       "greencard": {
         "picture": "/green.jpg",
@@ -138,8 +90,8 @@
         "Title": "Tip de proprietate",
         "Select": "Selectați tipul de proprietate",
         "Property": "Proprietate",
-        "Lease": "Leasing",
-        "Leasing": "Închiriere",
+        "Lease": "Închiriere",
+        "Leasing": "Leasing",
         "PowerOfAttorney": "Împuternicire"
       }
     },
@@ -178,12 +130,12 @@
       "Car": "Automobil",
       "BonusMalusClass": "Clasa bonus-malus",
       "Client": "Client",
-      "Insurer": "Asigurator",
+      "Insurer": "Asigurător",
       "PolicyCost": "Costul poliței",
       "OwnershipType": "Tip de proprietate",
       "InsuranceStartDate": "Data începerii asigurării",
       "Email": "Email",
-      "GreenCardZone": "Zonă card verde",
+      "GreenCardZone": "Zona Cartea Verde",
       "TermInsurance": "Durata asigurării"
     },
     "GCRF": {
