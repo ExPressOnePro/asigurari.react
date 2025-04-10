@@ -1,12 +1,11 @@
 "use client";
 
-import {Provider } from "react-redux";
-import {store} from "@/store/store.ts";
-import RCAController from "@/app/[lang]/rca/RCAController.tsx";
-import PageTitle from "@/app/[lang]/components/PageTitle.tsx";
-import InfoBlock from "@/app/[lang]/components/InfoBlock.tsx";
-import FAQAccordion from "@/app/[lang]/components/FAQAccordion.tsx";
-import {useLocalization} from "@/lib/LocalizationProvider.tsx";
+import { Provider } from "react-redux";
+import { store } from "@/store/store";
+import RCAController from "./RCAController";
+import PageTitle from "@/app/[lang]/components/PageTitle";
+import InfoBlock from "@/app/[lang]/components/InfoBlock";
+import { useLocalization } from "@/lib/LocalizationProvider";
 
 export default function Page() {
     const { dictionary } = useLocalization();
@@ -22,10 +21,6 @@ export default function Page() {
                 <InfoBlock
                     title={dictionary.page.cards.rca.title}
                     longDescription={dictionary.page.cards.rca.longDescription}
-                />
-                <FAQAccordion
-                    faqData={dictionary.page.cards.rca.faq?.items || []}
-                    title={dictionary.page.cards.rca.questionTitle}
                 />
             </div>
         </Provider>

@@ -1,36 +1,26 @@
 // src/app/[lang]/rca/RCAController.tsx
 "use client";
 
-import { useDispatch, useSelector } from "react-redux";
-import { setStep } from "@/store/insuranceFormSlice.ts";
-import { RootState } from "@/store/store.ts";
+import {useDispatch, useSelector} from "react-redux";
+import {setStep} from "@/store/insuranceFormSlice.ts";
+import {RootState} from "@/store/store.ts";
 import InsuranceRequestForm from "@/app/[lang]/rca/InsuranceRequestForm.tsx";
 import SelectedParameters from "@/app/[lang]/rca/SelectedParameters.tsx";
 import InsurerList from "@/app/[lang]/rca/InsurerList.tsx";
 import AdditionalDataForm from "@/app/[lang]/rca/AdditionalDataForm.tsx";
 import QRCodeRequest from "@/app/[lang]/rca/rca_components/qr/QRCodeRequest.tsx";
 import QRCodeImage from "@/app/[lang]/rca/rca_components/qr/QRCodeImage.tsx";
-import RCASaver from "@/app/[lang]/rca/rca_components/RCASaver.tsx";
-import {useEffect, useRef} from "react";
-import {useLocalization} from "@/lib/LocalizationProvider.tsx";
-import ContactForm from "@/app/[lang]/rca/rca_components/ContactForm/ContactForm.tsx";
+import {useRef} from "react";
 import RcaFinal from "@/app/[lang]/rca/RcaFinal.tsx";
 
 export default function RCAController() {
     const dispatch = useDispatch();
-    const { dictionary } = useLocalization();
 
     const step = useSelector((state: RootState) => state.insuranceForm.step);
     const stepRef = useRef<HTMLDivElement>(null);
     const handleStepChange = (newStep: number) => {
         dispatch(setStep(newStep));
     };
-
-    useEffect(() => {
-        if (stepRef.current) {
-            stepRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-    }, [step]);
 
     return (
         <div>
