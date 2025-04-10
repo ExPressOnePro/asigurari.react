@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import axiosInstance from "../lib/axiosInstance";
 
 export interface Person {
     idnp: string;
@@ -92,6 +93,19 @@ const initialState: MedicalInsuranceState = {
     error: null
 };
 
+// Create async thunk for fetching medical insurance constants
+export const fetchMedicalInsuranceConstants = createAsyncThunk(
+    'medicalInsurance/fetchConstants',
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await axiosInstance.get('/medical-insurance/medical-insurance-constants/');
+            return response.data;
+        } catch (error: any) {
+            return rejectWithValue(error.response?.data || 'Failed to fetch constants');
+        }
+    }
+);
+
 const medicalInsuranceSlice = createSlice({
     name: "medicalInsurance",
     initialState,
@@ -131,6 +145,21 @@ const medicalInsuranceSlice = createSlice({
             state.qrCodeData = initialState.qrCodeData;
             state.error = null;
         }
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetchMedicalInsuranceConstants.pending, (state) => {
+                state.isLoading = true;
+                state.error = null;
+            })
+            .addCase(fetchMedicalInsuranceConstants.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.constants = action.payload;
+            })
+            .addCase(fetchMedicalInsuranceConstants.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload as string;
+            });
     }
 });
 
