@@ -34,6 +34,37 @@
       }
     }
   },
+  "medical": {
+    "title": "Медицинская страховка",
+    "constants": {
+      "product": "Продукт",
+      "selectProduct": "Выберите продукт",
+      "region": "Регион",
+      "selectRegion": "Выберите регион",
+      "travelPurpose": "Цель поездки",
+      "selectTravelPurpose": "Выберите цель поездки",
+      "country": "Страна",
+      "selectCountry": "Выберите страну",
+      "sportType": "Вид спорта",
+      "selectSportType": "Выберите вид спорта"
+    },
+    "form": {
+      "idnp": "IDNP",
+      "fullName": "ФИО",
+      "birthday": "Дата рождения",
+      "addPerson": "Добавить человека"
+    },
+    "saver": {
+      "Ready": "Документ готов!",
+      "open_or_download": "Документ готов к загрузке. Вы можете загрузить их в формате PDF, нажав на кнопку ниже, или открыть их в новой вкладке.",
+      "doc": "/document.png",
+      "open_doc": "Открыть документ",
+      "send_email": "Отправить на почту",
+      "enter_email": "Введите email",
+      "send": "Отправить",
+      "sending": "Отправка..."
+    }
+  },
   "RCA": {
     "SP": {
       "SelectedParameters": "Выбранные параметры",
@@ -194,18 +225,6 @@
       "sending": "Отправка..."
     }
   },
-  "Buttons": {
-    "Calculate": "Рассчитать"
-  },
-  "Errors": {
-    "ErrorIDNP": "Поле IDNP/IDNO должно содержать 13 цифр.",
-    "ErrorTeh": "Номер техпаспорта должен содержать 9 цифр.",
-    "ErrorPrivacy": "Необходимо согласие на обработку данных.",
-    "ErrorForm": "Произошла ошибка при отправке формы."
-  },
-  "SaveRCA": {
-    "doc": "/document.png"
-  },
   "GreenCard": {
     "zones": {
       "z1": "Украина",
@@ -230,5 +249,8 @@
   "Footer": {
     "Help": "Помощь",
     "Products": "Продукты"
+  },
+  "SaveRCA": {
+    "doc": "/doc3.png"
   }
 }

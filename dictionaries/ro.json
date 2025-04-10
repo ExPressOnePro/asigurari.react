@@ -34,6 +34,37 @@
       }
     }
   },
+  "medical": {
+    "title": "Asigurare medicală",
+    "constants": {
+      "product": "Produs",
+      "selectProduct": "Selectați un produs",
+      "region": "Regiune",
+      "selectRegion": "Selectați o regiune",
+      "travelPurpose": "Scopul călătoriei",
+      "selectTravelPurpose": "Selectați scopul călătoriei",
+      "country": "Țară",
+      "selectCountry": "Selectați o țară",
+      "sportType": "Tip de sport",
+      "selectSportType": "Selectați un tip de sport"
+    },
+    "form": {
+      "idnp": "IDNP",
+      "fullName": "Nume complet",
+      "birthday": "Data nașterii",
+      "addPerson": "Adaugă persoană"
+    },
+    "saver": {
+      "Ready": "Documentul este gata!",
+      "open_or_download": "Documentul este pregătit pentru descărcare. Îl puteți descărca în format PDF făcând clic pe butonul de mai jos sau îl puteți deschide într-o filă nouă.",
+      "doc": "/document.png",
+      "open_doc": "Deschide documentul",
+      "send_email": "Trimite prin email",
+      "enter_email": "Introduceți adresa de email",
+      "send": "Trimite",
+      "sending": "Se trimite..."
+    }
+  },
   "RCA": {
     "SP": {
       "SelectedParameters": "Parametri selectați",
@@ -77,7 +108,7 @@
       "InstantContractEmail": "Livrare instantanee a poliței prin email",
       "OnlineRegistration": "Înregistrare online a poliței în RCAData",
       "Cost": "Cost:",
-      "Available": "Selectează",
+      "Available": "Selectați",
       "Unavailable": "Indisponibil"
     },
     "ADF": {
@@ -115,10 +146,10 @@
     },
     "RCASaver": {
       "Ready": "Documentul este gata!",
-      "open_or_download": "Documentul este pregătit pentru descărcare. Îl puteți descărca în format PDF făcând clic pe butonul de mai jos sau îl puteți deschide într-o filă nouă.",
+      "open_or_download": "Documentul este pregătit pentru descărcare. Îl puteți descărca în format PDF apăsând butonul de mai jos sau îl puteți deschide într-o filă nouă.",
       "doc": "/document.png",
       "open_doc": "Deschide documentul",
-      "send_email": "Trimite prin e-mail",
+      "send_email": "Trimite prin email",
       "enter_email": "Introduceți adresa de email",
       "send": "Trimite",
       "sending": "Se trimite..."
@@ -162,7 +193,7 @@
     "ILGC": {
       "SelectInsurer": "Selectați compania de asigurări",
       "Cost": "Cost:",
-      "Available": "Selectează",
+      "Available": "Selectați",
       "Unavailable": "Indisponibil",
       "CoverageArea": "Limite conform normelor țării",
       "email": "Polița va fi trimisă prin email",
@@ -173,7 +204,7 @@
       "Birthday": "Introduceți data nașterii",
       "InsuranceStartDate": "Data începerii asigurării",
       "InsuranceEndDate": "Data încheierii asigurării",
-      "ProceedToPayment": "Continuă către plată",
+      "ProceedToPayment": "Continuați către plată",
       "PossessionBase": {
         "Title": "Tip de proprietate",
         "Select": "Selectați tipul de proprietate",
@@ -193,9 +224,6 @@
       "send": "Trimite",
       "sending": "Se trimite..."
     }
-  },
-  "SaveRCA": {
-    "doc": "/doc3.png"
   },
   "GreenCard": {
     "zones": {
@@ -221,5 +249,8 @@
   "Footer": {
     "Help": "Ajutor",
     "Products": "Produse"
+  },
+  "SaveRCA": {
+    "doc": "/doc3.png"
   }
 }

@@ -19,8 +19,8 @@ export default function Page() {
                 <GreenCardController />
 
                 <InfoBlock
-                    title={dictionary.page.cards.rca.title}
-                    longDescription={dictionary.page.cards.rca.longDescription}
+                    title={dictionary.page.cards.greencard.title}
+                    longDescription={dictionary.page.cards.greencard.longDescription}
                 />
             </div>
         </Provider>

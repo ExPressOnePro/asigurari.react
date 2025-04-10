@@ -24,12 +24,14 @@
         "picture": "/green.jpg",
         "title": "Green Card",
         "description": "Get a Green Card for traveling abroad. We offer a simple and fast application process.",
+        "longDescription": "The \"Green Card\" is your safety net when you're traveling abroad. This policy is like your guardian angel, ensuring that if you have an accident outside Moldova, you'll be covered for any third-party damages. Just make sure your policy is active throughout your trip so you can avoid any fines or complications.",
         "button": "Go to Green Card"
       },
       "medical": {
         "picture": "/medical.jpg",
         "title": "Medical Insurance",
         "description": "Invest in your health with comprehensive coverage.",
+        "longDescription": "Are you planning a trip abroad? We're here to help you find the travel insurance that's right for you. This policy can cover everything from medical expenses and injuries to lost luggage and documents. With the right insurance, you can leave your worries behind and focus on enjoying your trip. When choosing an insurance plan, it's important to pay attention to the coverage limits and the availability of important options, such as dental care, lost luggage, or trip cancellation. No matter what kind of trip you're planning, it's important to choose a plan that works for you. When picking an insurance company, it's okay to look beyond just the price. Take a look at the risks they cover, how they handle payments, and their reputation.",
         "button": "Go to Medical Insurance"
       }
     }
@@ -221,5 +223,42 @@
   },
   "SaveRCA": {
     "doc": "/doc3.png"
+  },
+  "medical": {
+    "title": "Medical Insurance",
+    "longDescription": "Are you planning a trip abroad? We're here to help you find the travel insurance that's right for you. This policy can cover everything from medical expenses and injuries to lost luggage and documents. With the right insurance, you can leave your worries behind and focus on enjoying your trip. When choosing an insurance plan, it's important to pay attention to the coverage limits and the availability of important options, such as dental care, lost luggage, or trip cancellation. No matter what kind of trip you're planning, it's important to choose a plan that works for you. When picking an insurance company, it's okay to look beyond just the price. Take a look at the risks they cover, how they handle payments, and their reputation.",
+    "MF": {
+      "Title": "Get Medical Insurance",
+      "MedicalInsuranceForm": "Calculate Medical Insurance",
+      "ButtonCalculate": "Calculate"
+    },
+    "constants": {
+      "product": "Product",
+      "selectProduct": "Select a product",
+      "region": "Region",
+      "selectRegion": "Select a region",
+      "travelPurpose": "Travel Purpose",
+      "selectTravelPurpose": "Select travel purpose",
+      "country": "Country",
+      "selectCountry": "Select a country",
+      "sportType": "Sport Type",
+      "selectSportType": "Select a sport type"
+    },
+    "form": {
+      "idnp": "IDNP",
+      "fullName": "Full Name",
+      "birthday": "Birthday",
+      "addPerson": "Add Person"
+    },
+    "saver": {
+      "Ready": "Document is ready!",
+      "open_or_download": "The document is ready for download. You can download it as a PDF by clicking the button below or open it in a new tab.",
+      "doc": "/document.png",
+      "open_doc": "Open Document",
+      "send_email": "Send to Email",
+      "enter_email": "Enter email",
+      "send": "Send",
+      "sending": "Sending..."
+    }
   }
 }
