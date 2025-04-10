@@ -11,7 +11,7 @@ export default function Header({lang}: { lang: string }) {
     const {dictionary} = useLocalization();
 
     return (
-        <header className="py-6 bg-gray-50 shadow-md">
+        <header className="py-1 bg-gray-50 shadow-md">
             <nav className="container mx-auto px-4 flex items-center justify-between">
                 <div className="flex items-center justify-between w-full md:w-auto">
                     <Link
@@ -21,10 +21,9 @@ export default function Header({lang}: { lang: string }) {
                         <img
                             src={getStaticUrl('public/logo.svg')}
                             alt="Logo"
-                            className="inline-block h-auto w-auto max-h-20 max-w-full mr-2"
+                            className="inline-block h-auto w-auto max-h-20 max-w-full mr-0"
                         />
                     </Link>
-                    {/* Передаем управление мобильным меню в клиентский компонент */}
                     <MobileMenuToggle lang={lang}/>
                 </div>
                 <div className="hidden md:flex items-center space-x-8">
