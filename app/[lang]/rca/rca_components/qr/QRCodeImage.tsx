@@ -76,7 +76,7 @@ const QRCodeImage: React.FC<QRCodeRequestProps> = React.memo(({ onStepChange }) 
                     <img
                         src={qrCodeDate?.qr_as_image}
                         alt="QR Код"
-                        className="w-2/3 h-2/3 border border-gray-300 rounded-3xl cursor-pointer mx-auto"
+                        className="w-2/4 h-2/4 border border-gray-300 rounded-3xl cursor-pointer mx-auto"
                     />
                 </a>
                 <h1 className="text-3xl sm:text-2xl font-extrabold text-gray-600 mt-6">
