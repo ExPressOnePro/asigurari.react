@@ -42,7 +42,7 @@ export interface MedicalInsuranceState {
     formData: MedicalInsuranceData;
     constants: {
         medicina_producti: any[];
-        medicina_tseli_poezdki: any[];
+        ScopulCalatorieiMedPH: any[];
         medicina_regioni: any[];
         spravociniki_strani: any[];
         medicina_sport: any[];
@@ -76,7 +76,7 @@ const initialState: MedicalInsuranceState = {
     },
     constants: {
         medicina_producti: [],
-        medicina_tseli_poezdki: [],
+        ScopulCalatorieiMedPH: [],
         medicina_regioni: [],
         spravociniki_strani: [],
         medicina_sport: [],

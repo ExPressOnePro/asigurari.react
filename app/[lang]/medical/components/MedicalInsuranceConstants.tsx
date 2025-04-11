@@ -140,7 +140,7 @@ export default function MedicalInsuranceConstants({onSelect}: MedicalInsuranceCo
 
             <SelectField
                 label={dictionary?.medical?.constants?.travelPurpose}
-                options={constants.medicina_tseli_poezdki}
+                options={constants.ScopulCalatorieiMedPH}
                 onChange={(value) => onSelect('ScopulCalatorieiUIN', value)}
                 placeholder={dictionary?.medical?.constants?.selectTravelPurpose}
                 name="travelPurpose"
