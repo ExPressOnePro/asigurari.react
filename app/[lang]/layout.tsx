@@ -7,6 +7,7 @@ import BubbleBackground from "@/app/[lang]/components/BubbleBackground";
 import Header from "@/app/[lang]/components/Header";
 import {LocalizationProvider} from "@/lib/LocalizationProvider";
 import {getDictionary} from '@/lib/dictionary';
+import PageBackgroundWrapper from "@/app/[lang]/components/PageBackgroundWrapper.tsx";
 
 const inter = Inter({subsets: ['latin']});
 

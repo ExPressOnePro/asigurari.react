@@ -141,7 +141,7 @@ const GreenCardRequestForm = ({ onStepChange }: any) => {
         }
     };
 
-    const [isSkeletonLoading, setIsSkeletonLoading] = useState(true); // Для скелетона
+    const [isSkeletonLoading, setIsSkeletonLoading] = useState(true);
     if (isSkeletonLoading) {
         return <SkeletonLoaderForm />;
     }
