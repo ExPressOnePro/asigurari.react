@@ -72,6 +72,7 @@ interface QrCodeData {
 }
 
 interface GreenCardState {
+    step: number,
     userData : GreenCardUserData;
     apiData: ApiData;
     formSubmitted: boolean;
@@ -84,7 +85,7 @@ interface GreenCardState {
 }
 
 const initialState: GreenCardState = {
-
+    step: 1,
     userData: {
         IDNX: "",
         VehicleRegistrationCertificateNumber: "",
@@ -151,6 +152,15 @@ const greenCardFormSlice = createSlice({
     name: "greenCardForm",
     initialState,
     reducers: {
+        setStep: (state, action: PayloadAction<number>) => {
+            state.step = action.payload;
+        },
+        incrementStep: (state) => {
+            state.step += 1;
+        },
+        decrementStep: (state) => {
+            state.step -= 1;
+        },
         setUserData: (state, action: PayloadAction<GreenCardUserData>) => {
             state.userData = action.payload;
         },
@@ -182,6 +192,7 @@ const greenCardFormSlice = createSlice({
 });
 
 export const {
+    setStep,
     setUserData,
     setApiData,
     setFormSubmitted,

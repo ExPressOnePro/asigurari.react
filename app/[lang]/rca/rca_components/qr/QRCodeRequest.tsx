@@ -16,8 +16,7 @@ const QRCodeRequest: React.FC<QRCodeRequestProps> = React.memo(({ onStepChange, 
     const additionalData = useSelector((state: RootState) => state.insuranceForm.additionalData);
     const additionalCarInfo = useSelector((state: RootState) => state.insuranceForm.additionalCarInfo);
     const QrCodeDate = useSelector((state: RootState) => state.insuranceForm.qrCodeData);
-
-    // Флаг, который показывает, что компонент уже был смонтирован
+    
     const isMounted = React.useRef(false);
 
     useEffect(() => {

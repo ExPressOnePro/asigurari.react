@@ -15,7 +15,7 @@ const SelectedMedicalProductInfo: React.FC = () => {
     }
 
     return (
-        <div className="max-w-4xl mx-auto bg-white shadow-md rounded-xl p-6 my-8 border border-gray-200">
+        <div className="my-8 border border-gray-200 bg-gray-50 shadow-xl p-8 rounded-2xl max-w-6xl mx-auto mt-10 space-y-6">
             <h2 className="text-2xl font-bold text-gray-800 mb-4">Выбранный страховой продукт</h2>
 
             <div className="flex justify-between items-center mb-4">
@@ -55,27 +55,7 @@ const SelectedMedicalProductInfo: React.FC = () => {
                     </ul>
                 )}
             </div>
-            {/* 💳 Варианты оплаты */}
-            <div className="mt-8 border-t pt-6">
-                <h3 className="text-xl font-semibold mb-4 text-gray-800">Выберите способ оплаты</h3>
-                <div className="flex flex-col md:flex-row md:items-center md:gap-6 gap-4">
-                    <button
-                        className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition shadow"
-                        onClick={() => alert("Переход к оплате картой")}
-                    >
-                        Оплатить картой
-                    </button>
 
-                    <div className="flex flex-col items-center">
-                        <img
-                            src="/qr-placeholder.png"
-                            alt="QR код для оплаты"
-                            className="w-40 h-40 object-contain border rounded"
-                        />
-                        <p className="text-sm text-gray-500 mt-2">Сканируйте QR-код для оплаты</p>
-                    </div>
-                </div>
-            </div>
         </div>
     );
 };

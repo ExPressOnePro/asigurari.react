@@ -8,13 +8,15 @@ import axiosInstance from "@/lib/axiosInstance.ts";
 import InsuranceProductCardList from "@/app/[lang]/medical/InsuranceProductCardList.tsx";
 import LabeledInput from "@/app/[lang]/medical/LabeledInput.tsx";
 import DateRangePicker from "@/app/[lang]/medical/DateRangePicker.tsx";
-import PaymentMethodSelector from "@/app/[lang]/components/PaymentMethodSelector.tsx";
-import SumaDeAsigSelect from "@/app/[lang]/medical/SumaDeAsigSelect.tsx";
+
 import SportSelectInput from "@/app/[lang]/medical/SportSelectInput.tsx";
 import {useDispatch} from "react-redux";
-import {setMedicalForm} from "@/store/MedicalFormSlice.ts";
 import SelectedMedicalParameters from "@/app/[lang]/medical/SelectedMedicalParameters.tsx";
 import SelectedMedicalProductInfo from "@/app/[lang]/medical/SelectedMedicalProductInfo.tsx";
+import {InsuranceProduct} from "@/types/medicalInsurance.ts";
+import PaymentWrapper from "@/app/[lang]/PaymentMethod/PaymentWrapper.tsx";
+
+
 
 interface Option {
     codUIN: string;
@@ -151,6 +153,7 @@ const InsuranceForm: React.FC<InsuranceFormProps> = ({ constants }) => {
         return newErrors.length === 0;
     };
     const [errors, setErrors] = useState<string[]>([]);
+
     return (
         <div>
             <PageTitle title="Расчёт медицинской страховки для путешествий" />
@@ -282,13 +285,13 @@ const InsuranceForm: React.FC<InsuranceFormProps> = ({ constants }) => {
                 <div className="mt-6">
                     <InsuranceProductCardList products={calculatedProducts} />
 
-                    <SelectedMedicalParameters  />
+                    <SelectedMedicalParameters />
                 </div>
             ) : (
                 <p></p>
             )}
             <SelectedMedicalProductInfo />
-            {/*<PaymentMethodSelector></PaymentMethodSelector>*/}
+            <PaymentWrapper/>
 
         </div>
 

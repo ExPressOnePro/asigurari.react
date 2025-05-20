@@ -5,7 +5,7 @@ import { useLocalization } from "@/lib/LocalizationProvider.tsx";
 
 const SelectedMedicalParameters = React.memo(() => {
     const [initialized, setInitialized] = useState(false);
-    const { dictionary } = useLocalization(); // если используешь локализацию
+    const { dictionary } = useLocalization();
 
     const medicalData = useSelector((state: RootState) => state.medicalForm.DogMEDPH[0]);
 
