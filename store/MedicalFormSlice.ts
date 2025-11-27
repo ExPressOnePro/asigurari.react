@@ -22,6 +22,7 @@ interface DogMEDPH {
 }
 
 interface MedicalFormState {
+    step: number,
     DogMEDPH: DogMEDPH[];
     IDNO: string;
     Name: string;
@@ -44,6 +45,7 @@ interface MedicalFormState {
 }
 
 const initialState: MedicalFormState = {
+    step: 1,
     DogMEDPH: [],
     IDNO: '',
     Name: '',
@@ -63,12 +65,22 @@ const initialState: MedicalFormState = {
     is_active: false,
     logo: '',
     persons: [],
+
 };
 
 const medicalFormSlice = createSlice({
     name: 'medicalForm',
     initialState,
     reducers: {
+        setStep: (state, action: PayloadAction<number>) => {
+            state.step = action.payload;
+        },
+        incrementStep: (state) => {
+            state.step += 1;
+        },
+        decrementStep: (state) => {
+            state.step -= 1;
+        },
         setMedicalForm(state, action: PayloadAction<{ DogMEDPH: DogMEDPH[] }>) {
             state.DogMEDPH = action.payload.DogMEDPH;
         },
@@ -99,5 +111,8 @@ const medicalFormSlice = createSlice({
     },
 });
 
-export const { setMedicalForm, setInsurerInfo, resetMedicalForm } = medicalFormSlice.actions;
+export const { setMedicalForm,
+    setStep,
+    setInsurerInfo
+    , resetMedicalForm } = medicalFormSlice.actions;
 export default medicalFormSlice.reducer;
